@@ -1,0 +1,391 @@
+{
+  "claim_id": "g02-theft-reported-late",
+  "policy": "gadget",
+  "strategy": "decomposed",
+  "description": "Ben Adler. My phone was stolen from my jacket pocket on the tram on 10 June 2025. Police report and receipt attached.",
+  "submitted_at": "2025-06-14T00:00:00Z",
+  "processed_at": "2026-10-28T18:39:00.611704Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Ben Adler. My phone was stolen from my jacket pocket on the tram on 10 June 2025. Police report and receipt attached."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-06-14"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-police-report",
+      "filename": "police-report.md",
+      "kind": "markdown",
+      "doc_type": "police_report",
+      "language": "en",
+      "issuer": "Polizei Berlin",
+      "lines": [
+        "# Police report PB-2025-061044",
+        "Polizei Berlin, Abschnitt 34",
+        "Reporting person: Ben Adler",
+        "Date of incident: 2025-06-10",
+        "Incident: pickpocketing of a mobile phone on tram M10",
+        "Report filed and signed by the duty officer."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d2-receipt",
+      "filename": "receipt.md",
+      "kind": "markdown",
+      "doc_type": "purchase_receipt",
+      "language": "en",
+      "issuer": "TechHaus Berlin",
+      "lines": [
+        "# Receipt",
+        "TechHaus Berlin",
+        "Customer: Ben Adler",
+        "Item: Phone X12 256GB",
+        "Price: EUR 1,200.00",
+        "Date: 2025-01-15",
+        "Gadget Cover period: 2025-01-15 to 2026-01-14"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Ben Adler",
+      "confidence": 0.99,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Ben Adler. My phone was stolen from my jacket pocket on the tram on 10 June 2025. Police report and receipt attached.",
+          "value": "Ben Adler",
+          "confidence": 0.99
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-06-10",
+      "confidence": 0.97,
+      "observations": [
+        {
+          "document_id": "d1-police-report",
+          "line": 4,
+          "quote": "Date of incident: 2025-06-10",
+          "value": "2025-06-10",
+          "confidence": 0.97
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": {
+        "start": "2025-01-15",
+        "end": "2026-01-14"
+      },
+      "confidence": 0.95,
+      "observations": [
+        {
+          "document_id": "d2-receipt",
+          "line": 7,
+          "quote": "Gadget Cover period: 2025-01-15 to 2026-01-14",
+          "value": {
+            "start": "2025-01-15",
+            "end": "2026-01-14"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-06-14",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-06-14",
+          "value": "2025-06-14",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "item_value",
+      "type": "money",
+      "value": 1200.0,
+      "confidence": 0.98,
+      "observations": [
+        {
+          "document_id": "d2-receipt",
+          "line": 5,
+          "quote": "Price: EUR 1,200.00",
+          "value": 1200.0,
+          "confidence": 0.98
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "repair_cost",
+      "type": "money",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [],
+      "note": "no usable observation"
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "pass",
+      "rationale": "incident date 2025-06-10 (police-report.md) is inside policy period 2025-01-15 to 2026-01-14 (receipt.md)",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-police-report",
+        "d2-receipt"
+      ],
+      "quote": null,
+      "confidence": 0.95
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim reported within 48 hours of the incident",
+      "verdict": "fail",
+      "rationale": "claim submitted 2025-06-14 (metadata) is 4 days after incident date 2025-06-10 (police-report.md); limit is 2",
+      "facts_used": [
+        "incident_date",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "d1-police-report",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.97
+    },
+    {
+      "id": "unattended",
+      "kind": "judged",
+      "description": "Was the device left unattended in a public place when the incident happened?",
+      "verdict": "pass",
+      "rationale": "answer: no. The claimant states the device was with them.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": null,
+      "confidence": 0.9
+    }
+  ],
+  "coverages": [
+    {
+      "name": "theft",
+      "title": "Theft",
+      "match": {
+        "id": "device_stolen",
+        "kind": "judged",
+        "description": "Was the insured device stolen?",
+        "verdict": "pass",
+        "rationale": "answer: yes. Pickpocketed on the tram, police confirmed.",
+        "facts_used": [],
+        "document_ids": [
+          "d1-police-report"
+        ],
+        "quote": "Incident: pickpocketing of a mobile phone on tram M10",
+        "confidence": 0.9
+      },
+      "proofs": {
+        "id": "proofs:theft",
+        "kind": "proof",
+        "description": "required proof: police_report and purchase_receipt",
+        "verdict": "pass",
+        "rationale": "police_report: police-report.md; purchase_receipt: receipt.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-police-report",
+          "d2-receipt"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "eligible",
+      "payout": 950.0,
+      "payout_formula": "max(0, min(item_value, 1000) - 50)",
+      "payout_note": null
+    },
+    {
+      "name": "accidental_damage",
+      "title": "Accidental Damage",
+      "match": {
+        "id": "device_damaged",
+        "kind": "judged",
+        "description": "Was the insured device accidentally damaged?",
+        "verdict": "fail",
+        "rationale": "answer: no. No accidental damage is described.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 0.9
+      },
+      "proofs": {
+        "id": "proofs:accidental_damage",
+        "kind": "proof",
+        "description": "required proof: repair_quote and purchase_receipt",
+        "verdict": "fail",
+        "rationale": "repair_quote: missing; purchase_receipt: receipt.md",
+        "facts_used": [],
+        "document_ids": [
+          "d2-receipt"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "max(0, min(repair_cost, item_value) - 50)",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "DENY",
+    "confidence": 0.97,
+    "summary": "Denied. Claim submitted 2025-06-14 (metadata) is 4 days after incident date 2025-06-10 (police-report.md); limit is 2.",
+    "determining": [
+      "late_reporting"
+    ],
+    "coverages_applied": [],
+    "payout": null,
+    "currency": "EUR",
+    "unknowns": [],
+    "explanation": null
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "read_document",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

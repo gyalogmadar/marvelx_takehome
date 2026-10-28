@@ -1,0 +1,401 @@
+{
+  "claim_id": "g03-accidental-damage",
+  "policy": "gadget",
+  "strategy": "decomposed",
+  "description": "Mira Sato. I dropped my tablet on 2 July 2025 and the screen cracked. Repair quote and the purchase receipt are attached.",
+  "submitted_at": "2025-07-03T00:00:00Z",
+  "processed_at": "2026-10-28T18:39:00.619059Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Mira Sato. I dropped my tablet on 2 July 2025 and the screen cracked. Repair quote and the purchase receipt are attached."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-07-03"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-receipt",
+      "filename": "receipt.md",
+      "kind": "markdown",
+      "doc_type": "purchase_receipt",
+      "language": "en",
+      "issuer": "TechHaus Berlin",
+      "lines": [
+        "# Receipt",
+        "TechHaus Berlin",
+        "Customer: Mira Sato",
+        "Item: Tablet Air 11",
+        "Price: EUR 900.00",
+        "Date: 2025-03-01",
+        "Gadget Cover period: 2025-03-01 to 2026-02-28"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d2-repair-quote",
+      "filename": "repair-quote.md",
+      "kind": "markdown",
+      "doc_type": "repair_quote",
+      "language": "en",
+      "issuer": "ScreenFix Hamburg",
+      "lines": [
+        "# Repair quote Q-5520",
+        "ScreenFix Hamburg",
+        "Device: Tablet Air 11, cracked display",
+        "Quoted repair cost: EUR 180.00",
+        "Date: 2025-07-03"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Mira Sato",
+      "confidence": 0.99,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Mira Sato. I dropped my tablet on 2 July 2025 and the screen cracked. Repair quote and the purchase receipt are attached.",
+          "value": "Mira Sato",
+          "confidence": 0.99
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-07-02",
+      "confidence": 0.9,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Mira Sato. I dropped my tablet on 2 July 2025 and the screen cracked. Repair quote and the purchase receipt are attached.",
+          "value": "2025-07-02",
+          "confidence": 0.9
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": {
+        "start": "2025-03-01",
+        "end": "2026-02-28"
+      },
+      "confidence": 0.95,
+      "observations": [
+        {
+          "document_id": "d1-receipt",
+          "line": 7,
+          "quote": "Gadget Cover period: 2025-03-01 to 2026-02-28",
+          "value": {
+            "start": "2025-03-01",
+            "end": "2026-02-28"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-07-03",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-07-03",
+          "value": "2025-07-03",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "item_value",
+      "type": "money",
+      "value": 900.0,
+      "confidence": 0.98,
+      "observations": [
+        {
+          "document_id": "d1-receipt",
+          "line": 5,
+          "quote": "Price: EUR 900.00",
+          "value": 900.0,
+          "confidence": 0.98
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "repair_cost",
+      "type": "money",
+      "value": 180.0,
+      "confidence": 0.98,
+      "observations": [
+        {
+          "document_id": "d2-repair-quote",
+          "line": 4,
+          "quote": "Quoted repair cost: EUR 180.00",
+          "value": 180.0,
+          "confidence": 0.98
+        }
+      ],
+      "note": null
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "pass",
+      "rationale": "incident date 2025-07-02 (description) is inside policy period 2025-03-01 to 2026-02-28 (receipt.md)",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-receipt",
+        "description"
+      ],
+      "quote": null,
+      "confidence": 0.9
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim reported within 48 hours of the incident",
+      "verdict": "pass",
+      "rationale": "claim submitted 2025-07-03 (metadata) is 1 days after incident date 2025-07-02 (description); limit is 2",
+      "facts_used": [
+        "incident_date",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "description",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.9
+    },
+    {
+      "id": "unattended",
+      "kind": "judged",
+      "description": "Was the device left unattended in a public place when the incident happened?",
+      "verdict": "pass",
+      "rationale": "answer: no. The claimant states the device was with them.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": null,
+      "confidence": 0.9
+    }
+  ],
+  "coverages": [
+    {
+      "name": "theft",
+      "title": "Theft",
+      "match": {
+        "id": "device_stolen",
+        "kind": "judged",
+        "description": "Was the insured device stolen?",
+        "verdict": "fail",
+        "rationale": "answer: no. No theft is described.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 0.9
+      },
+      "proofs": {
+        "id": "proofs:theft",
+        "kind": "proof",
+        "description": "required proof: police_report and purchase_receipt",
+        "verdict": "fail",
+        "rationale": "police_report: missing; purchase_receipt: receipt.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-receipt"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "max(0, min(item_value, 1000) - 50)",
+      "payout_note": null
+    },
+    {
+      "name": "accidental_damage",
+      "title": "Accidental Damage",
+      "match": {
+        "id": "device_damaged",
+        "kind": "judged",
+        "description": "Was the insured device accidentally damaged?",
+        "verdict": "pass",
+        "rationale": "answer: yes. Dropped, screen cracked, repair quoted.",
+        "facts_used": [],
+        "document_ids": [
+          "d2-repair-quote"
+        ],
+        "quote": "Device: Tablet Air 11, cracked display",
+        "confidence": 0.9
+      },
+      "proofs": {
+        "id": "proofs:accidental_damage",
+        "kind": "proof",
+        "description": "required proof: repair_quote and purchase_receipt",
+        "verdict": "pass",
+        "rationale": "repair_quote: repair-quote.md; purchase_receipt: receipt.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-receipt",
+          "d2-repair-quote"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "eligible",
+      "payout": 130.0,
+      "payout_formula": "max(0, min(repair_cost, item_value) - 50)",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "APPROVE",
+    "confidence": 0.9,
+    "summary": "Approved under Accidental Damage. Payout 130.00 EUR.",
+    "determining": [
+      "device_damaged",
+      "proofs:accidental_damage"
+    ],
+    "coverages_applied": [
+      "accidental_damage"
+    ],
+    "payout": 130.0,
+    "currency": "EUR",
+    "unknowns": [],
+    "explanation": null
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "read_document",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

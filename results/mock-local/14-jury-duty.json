@@ -1,0 +1,568 @@
+{
+  "claim_id": "14-jury-duty",
+  "policy": "cfsr",
+  "strategy": "decomposed",
+  "description": "Daniel Okafor. I received a jury summons for 24 March 2025 and had to cancel my trip to Edinburgh (departing 23 March, returning 27 March). Summons and booking attached.",
+  "submitted_at": "2025-03-26T00:00:00Z",
+  "processed_at": "2026-10-28T19:12:54.182555Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Daniel Okafor. I received a jury summons for 24 March 2025 and had to cancel my trip to Edinburgh (departing 23 March, returning 27 March). Summons and booking attached."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-03-26"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-booking-confirmation",
+      "filename": "booking-confirmation.md",
+      "kind": "markdown",
+      "doc_type": "booking_confirmation",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Booking confirmation ET-77811",
+        "EuroTrips Travel GmbH",
+        "Lead passenger: Daniel Okafor",
+        "Route: Manchester - Edinburgh",
+        "Departure: 2025-03-23",
+        "Passengers: 1",
+        "Total paid: EUR 560.00",
+        "Booked and paid on 2025-02-01",
+        "CFSR cover period: 2025-02-01 to 2025-04-10"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from Manchester to Edinburgh departing on 2025-03-23, paid in full for EUR 560.00, with CFSR cover from 2025-02-01 to 2025-04-10."
+    },
+    {
+      "id": "d2-jury-summons",
+      "filename": "jury-summons.md",
+      "kind": "markdown",
+      "doc_type": "jury_summons",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# HM Courts & Tribunals Service - Jury Summons",
+        "Mr Daniel Okafor",
+        "You are summoned to attend Manchester Crown Court for jury service starting 24 March 2025.",
+        "Attendance is compulsory. Failure to attend may result in a fine."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A jury summons from the HM Courts & Tribunals Service directing Mr Daniel Okafor to attend Manchester Crown Court for jury service starting 24 March 2025, noting that attendance is compulsory and failure to attend may result in a fine."
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Daniel Okafor",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Daniel Okafor. I received a jury summons for 24 March 2025 and had to cancel my trip to Edinburgh (departing 23 March, returning 27 March). Summons and booking attached.",
+          "value": "Daniel Okafor",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 3,
+          "quote": "Lead passenger: Daniel Okafor",
+          "value": "Daniel Okafor",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-jury-summons",
+          "line": 2,
+          "quote": "Mr Daniel Okafor",
+          "value": "Daniel Okafor",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-03-24",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Daniel Okafor. I received a jury summons for 24 March 2025 and had to cancel my trip to Edinburgh (departing 23 March, returning 27 March). Summons and booking attached.",
+          "value": "2025-03-24",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-jury-summons",
+          "line": 3,
+          "quote": "You are summoned to attend Manchester Crown Court for jury service starting 24 March 2025.",
+          "value": "2025-03-24",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "purchase_date",
+      "type": "date",
+      "value": "2025-02-01",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 8,
+          "quote": "Booked and paid on 2025-02-01",
+          "value": "2025-02-01",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Daniel Okafor. I received a jury summons for 24 March 2025 and had to cancel my trip to Edinburgh (departing 23 March, returning 27 March). Summons and booking attached.",
+          "value": "2025-03-23 to 2025-03-27",
+          "confidence": 0.9
+        },
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 5,
+          "quote": "Departure: 2025-03-23",
+          "value": "2025-03-23 to 2025-03-27",
+          "confidence": 0.8
+        },
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 9,
+          "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+          "value": "2025-02-01 to 2025-04-10",
+          "confidence": 1.0
+        }
+      ],
+      "note": "observations could not be parsed"
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-03-26",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-03-26",
+          "value": "2025-03-26",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "booking_value",
+      "type": "money",
+      "value": 560.0,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 7,
+          "quote": "Total paid: EUR 560.00",
+          "value": "560.00 EUR",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "passengers",
+      "type": "int",
+      "value": 1,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": ">=1",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "affected",
+      "type": "int",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [],
+      "note": "no usable observation"
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "prior_knowledge",
+      "kind": "judged",
+      "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
+      "verdict": "pass",
+      "rationale": "answer: no. The claimant purchased the policy on 2025-02-01, which is prior to the incident date of 2025-03-24. The documents do not indicate that the claimant had prior knowledge of the specific jury summons or the reason for the cancellation before the purchase date; the summons is dated for a future date relative to the purchase.",
+      "facts_used": [
+        "incident_date",
+        "purchase_date"
+      ],
+      "document_ids": [],
+      "quote": "Booked and paid on 2025-02-01",
+      "confidence": 0.95
+    },
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "d2-jury-summons",
+        "description"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim submitted within 30 days of the policy ending",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period end",
+      "facts_used": [
+        "policy_period",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "description",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "suspicious_documents",
+      "kind": "judged",
+      "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+      "verdict": "pass",
+      "rationale": "answer: no. The documents are internally consistent and align with the claim description. The claimant's name (Daniel Okafor) matches across the description, booking, and summons. The dates are consistent: the trip (23-27 March) overlaps with the jury service start date (24 March), providing a valid reason for cancellation. The booking date (01 Feb 2025) precedes the incident, and the claim submission (26 March 2025) falls within the 30-day reporting window relative to the incident. There are no contradictions or signs of fabrication.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": "You are summoned to attend Manchester Crown Court for jury service starting 24 March 2025.",
+      "confidence": 0.95
+    }
+  ],
+  "coverages": [
+    {
+      "name": "cancellation",
+      "title": "Trip Cancellation or Rescheduling",
+      "match": {
+        "id": "cancellation_reason",
+        "kind": "judged",
+        "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
+        "verdict": "pass",
+        "rationale": "answer: yes. The claim description explicitly states the reason for cancellation was a jury summons, which is a listed covered reason in the policy.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I received a jury summons for 24 March 2025 and had to cancel my trip to Edinburgh",
+        "confidence": 1.0
+      },
+      "proofs": {
+        "id": "proofs:cancellation",
+        "kind": "proof",
+        "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "medical_report: missing; police_report: missing; jury_summons: jury-summons.md; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-jury-summons"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [
+        {
+          "id": "cancellation_proof_fits",
+          "kind": "judged",
+          "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
+          "verdict": "pass",
+          "rationale": "answer: yes. The jury summons document explicitly names the claimant and confirms the incident date. Line 2 states 'Mr Daniel Okafor' and Line 3 states 'starting 24 March 2025', which matches the claimant's name and the stated incident date in the claim description.",
+          "facts_used": [
+            "incident_date",
+            "claimant_name"
+          ],
+          "document_ids": [],
+          "quote": "Mr Daniel Okafor\nYou are summoned to attend Manchester Crown Court for jury service starting 24 March 2025.",
+          "confidence": 1.0
+        },
+        {
+          "id": "agrees:incident_date",
+          "kind": "mechanical",
+          "description": "incident date is consistent across documents",
+          "verdict": "pass",
+          "rationale": "incident date = 2025-03-24 from 2 sources, no disagreement",
+          "facts_used": [
+            "incident_date"
+          ],
+          "document_ids": [
+            "d2-jury-summons",
+            "description"
+          ],
+          "quote": null,
+          "confidence": 1.0
+        }
+      ],
+      "status": "eligible",
+      "payout": 560.0,
+      "payout_formula": "booking_value",
+      "payout_note": null
+    },
+    {
+      "name": "personal_effects",
+      "title": "Personal Effects",
+      "match": {
+        "id": "effects_lost",
+        "kind": "judged",
+        "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claim description states the trip was cancelled due to a jury summons, not due to loss or damage of belongings. The policy defines 'Personal Effects' as covering items 'lost or damaged during your trip', but the claimant's trip was cancelled before it could occur, and no such incident is reported.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I received a jury summons for 24 March 2025 and had to cancel my trip to Edinburgh",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:personal_effects",
+        "kind": "proof",
+        "description": "required proof: police_report or airline_acknowledgement",
+        "verdict": "fail",
+        "rationale": "police_report: missing; airline_acknowledgement: missing",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "100 * affected",
+      "payout_note": null
+    },
+    {
+      "name": "missed_connection",
+      "title": "Missed Departure or Missed Connection",
+      "match": {
+        "id": "missed_departure",
+        "kind": "judged",
+        "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claimant states he 'had to cancel my trip' due to a jury summons, which falls under the 'Trip Cancellation or Rescheduling' section of the policy, not the 'Missed Departure or Missed Connection' section. The documents do not indicate that the claimant missed a departure or connection due to an external cause like a traffic accident; rather, the trip was proactively cancelled before the departure date of 23 March 2025 because of the summons on 24 March 2025.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I received a jury summons for 24 March 2025 and had to cancel my trip to Edinburgh (departing 23 March, returning 27 March).",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:missed_connection",
+        "kind": "proof",
+        "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
+        "verdict": "fail",
+        "rationale": "incident_report: missing; police_report: missing; medical_report: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "0.5 * booking_value / passengers * affected",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "UNCERTAIN",
+    "confidence": 0.95,
+    "summary": "Referred for review. The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+    "determining": [
+      "within_period:incident_date",
+      "late_reporting"
+    ],
+    "coverages_applied": [
+      "cancellation"
+    ],
+    "payout": null,
+    "currency": "EUR",
+    "unknowns": [
+      "The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+      "incident date falls inside policy period: cannot evaluate, unknown: policy period",
+      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end"
+    ],
+    "explanation": "Your claim for trip cancellation due to a jury summons is otherwise eligible, and we have verified that the jury summons and booking confirmation align with your description. However, we cannot currently confirm whether the incident date of 24 March 2025 falls within your active policy period, as the specific start and end dates of your coverage are not stated in the provided documents. Additionally, we are unable to verify if your claim was submitted within the required 30-day window following the policy's expiration. Please provide a copy of your policy schedule or certificate of insurance that clearly lists the coverage period so we can finalize this decision."
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 485,
+      "output_tokens": 117,
+      "cache_read_tokens": 346,
+      "latency_ms": 1119,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 429,
+      "output_tokens": 96,
+      "cache_read_tokens": 346,
+      "latency_ms": 7743,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1219,
+      "output_tokens": 1108,
+      "cache_read_tokens": 777,
+      "latency_ms": 6690,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1204,
+      "output_tokens": 138,
+      "cache_read_tokens": 598,
+      "latency_ms": 4433,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1203,
+      "output_tokens": 180,
+      "cache_read_tokens": 598,
+      "latency_ms": 1763,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1212,
+      "output_tokens": 88,
+      "cache_read_tokens": 598,
+      "latency_ms": 1026,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1209,
+      "output_tokens": 123,
+      "cache_read_tokens": 598,
+      "latency_ms": 1194,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1200,
+      "output_tokens": 121,
+      "cache_read_tokens": 598,
+      "latency_ms": 1396,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1209,
+      "output_tokens": 183,
+      "cache_read_tokens": 598,
+      "latency_ms": 1629,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1478,
+      "output_tokens": 136,
+      "cache_read_tokens": 594,
+      "latency_ms": 31874,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

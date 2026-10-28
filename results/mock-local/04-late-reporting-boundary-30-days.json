@@ -1,0 +1,553 @@
+{
+  "claim_id": "04-late-reporting-boundary-30-days",
+  "policy": "cfsr",
+  "strategy": "decomposed",
+  "description": "Claimant: Marie Dubois. I was summoned for jury duty on 3 April 2025 and could not travel to Vienna on 5 April. Summons and booking attached. Sorry for the delay in reporting, I was away.",
+  "submitted_at": "2025-05-10T00:00:00Z",
+  "processed_at": "2026-10-28T19:08:02.092349Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Claimant: Marie Dubois. I was summoned for jury duty on 3 April 2025 and could not travel to Vienna on 5 April. Summons and booking attached. Sorry for the delay in reporting, I was away."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-05-10"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-booking-confirmation",
+      "filename": "booking-confirmation.md",
+      "kind": "markdown",
+      "doc_type": "booking_confirmation",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Booking confirmation ET-77302",
+        "EuroTrips Travel GmbH",
+        "Lead passenger: Marie Dubois",
+        "Route: Paris - Vienna",
+        "Departure: 2025-04-05",
+        "Passengers: 1",
+        "Total paid: EUR 390.00",
+        "Booked and paid on 2025-02-01",
+        "CFSR cover period: 2025-02-01 to 2025-04-10"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from Paris to Vienna departing on 2025-04-05, paid in full for EUR 390.00, with CFSR cover from 2025-02-01 to 2025-04-10."
+    },
+    {
+      "id": "d2-jury-summons",
+      "filename": "jury-summons.md",
+      "kind": "markdown",
+      "doc_type": "jury_summons",
+      "language": "fr",
+      "issuer": null,
+      "lines": [
+        "# Tribunal judiciaire de Paris - Convocation",
+        "Mme Marie Dubois",
+        "Vous êtes convoquée en qualité de jurée le 3 avril 2025 à 9h00.",
+        "La présence est obligatoire."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A formal summons from the Paris Judicial Tribunal (Tribunal judiciaire de Paris) requiring Marie Dubois to appear as a juror on April 3, 2025, at 9:00 AM, noting that attendance is mandatory."
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Marie Dubois",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Claimant: Marie Dubois.",
+          "value": "Marie Dubois",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 3,
+          "quote": "Lead passenger: Marie Dubois",
+          "value": "Marie Dubois",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-jury-summons",
+          "line": 2,
+          "quote": "Mme Marie Dubois",
+          "value": "Marie Dubois",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-04-03",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "I was summoned for jury duty on 3 April 2025",
+          "value": "2025-04-03",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-jury-summons",
+          "line": 3,
+          "quote": "Vous êtes convoquée en qualité de jurée le 3 avril 2025 à 9h00.",
+          "value": "2025-04-03",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "purchase_date",
+      "type": "date",
+      "value": "2025-02-01",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 8,
+          "quote": "Booked and paid on 2025-02-01",
+          "value": "2025-02-01",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 9,
+          "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+          "value": "2025-02-01 to 2025-04-10",
+          "confidence": 1.0
+        }
+      ],
+      "note": "observations could not be parsed"
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-05-10",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-05-10",
+          "value": "2025-05-10",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "booking_value",
+      "type": "money",
+      "value": 390.0,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 7,
+          "quote": "Total paid: EUR 390.00",
+          "value": "390.00 EUR",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "passengers",
+      "type": "int",
+      "value": 1,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": ">=1",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "affected",
+      "type": "int",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [],
+      "note": "no usable observation"
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "prior_knowledge",
+      "kind": "judged",
+      "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
+      "verdict": "pass",
+      "rationale": "answer: no. The policy was purchased on 2025-02-01, and the jury summons (the reason for the claim) is dated for 3 April 2025. Since the incident date is after the purchase date, the claimant could not have known about the specific incident before purchasing the policy.",
+      "facts_used": [
+        "incident_date",
+        "purchase_date"
+      ],
+      "document_ids": [],
+      "quote": "Booked and paid on 2025-02-01",
+      "confidence": 0.95
+    },
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "d2-jury-summons",
+        "description"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim submitted within 30 days of the policy ending",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period end",
+      "facts_used": [
+        "policy_period",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "suspicious_documents",
+      "kind": "judged",
+      "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+      "verdict": "pass",
+      "rationale": "answer: no. The documents are internally consistent. The claimant's name (Marie Dubois) matches across the description, booking, and summons. The dates align: the policy period (2025-02-01 to 2025-04-10) covers the incident date (2025-04-03) and the travel date (2025-04-05). The booking value (EUR 390.00) matches the extracted fact. There are no contradictions or signs of fabrication.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+      "confidence": 0.95
+    }
+  ],
+  "coverages": [
+    {
+      "name": "cancellation",
+      "title": "Trip Cancellation or Rescheduling",
+      "match": {
+        "id": "cancellation_reason",
+        "kind": "judged",
+        "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
+        "verdict": "pass",
+        "rationale": "answer: yes. The claimant explicitly states the reason for the cancellation was jury duty, which is a listed covered reason in the policy. The attached jury summons confirms the obligation to appear on the specified date.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I was summoned for jury duty on 3 April 2025 and could not travel to Vienna on 5 April.",
+        "confidence": 1.0
+      },
+      "proofs": {
+        "id": "proofs:cancellation",
+        "kind": "proof",
+        "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "medical_report: missing; police_report: missing; jury_summons: jury-summons.md; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-jury-summons"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [
+        {
+          "id": "cancellation_proof_fits",
+          "kind": "judged",
+          "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
+          "verdict": "pass",
+          "rationale": "answer: yes. The jury summons document explicitly names the claimant and confirms the specific date of the incident (jury duty) stated in the claim description.",
+          "facts_used": [
+            "incident_date",
+            "claimant_name"
+          ],
+          "document_ids": [],
+          "quote": "Mme Marie Dubois\nVous êtes convoquée en qualité de jurée le 3 avril 2025 à 9h00.",
+          "confidence": 1.0
+        },
+        {
+          "id": "agrees:incident_date",
+          "kind": "mechanical",
+          "description": "incident date is consistent across documents",
+          "verdict": "pass",
+          "rationale": "incident date = 2025-04-03 from 2 sources, no disagreement",
+          "facts_used": [
+            "incident_date"
+          ],
+          "document_ids": [
+            "d2-jury-summons",
+            "description"
+          ],
+          "quote": null,
+          "confidence": 1.0
+        }
+      ],
+      "status": "eligible",
+      "payout": 390.0,
+      "payout_formula": "booking_value",
+      "payout_note": null
+    },
+    {
+      "name": "personal_effects",
+      "title": "Personal Effects",
+      "match": {
+        "id": "effects_lost",
+        "kind": "judged",
+        "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claim description states the claimant 'could not travel to Vienna on 5 April' due to jury duty, which is a trip cancellation, not a loss or damage to personal belongings. No document mentions lost, stolen, or damaged items.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I was summoned for jury duty on 3 April 2025 and could not travel to Vienna on 5 April.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:personal_effects",
+        "kind": "proof",
+        "description": "required proof: police_report or airline_acknowledgement",
+        "verdict": "fail",
+        "rationale": "police_report: missing; airline_acknowledgement: missing",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "100 * affected",
+      "payout_note": null
+    },
+    {
+      "name": "missed_connection",
+      "title": "Missed Departure or Missed Connection",
+      "match": {
+        "id": "missed_departure",
+        "kind": "judged",
+        "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claimant states she was 'summoned for jury duty' and could not travel. Jury duty is a covered reason for trip cancellation, but it is not an 'external covered cause, such as a traffic accident en route' that would trigger the specific 'Missed Departure or Missed Connection' payout formula described in Section 3. The question specifically asks if the miss was due to a cause like a traffic accident en route, which is not supported by the documents.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I was summoned for jury duty on 3 April 2025 and could not travel to Vienna on 5 April.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:missed_connection",
+        "kind": "proof",
+        "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
+        "verdict": "fail",
+        "rationale": "incident_report: missing; police_report: missing; medical_report: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "0.5 * booking_value / passengers * affected",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "UNCERTAIN",
+    "confidence": 0.95,
+    "summary": "Referred for review. The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+    "determining": [
+      "within_period:incident_date",
+      "late_reporting"
+    ],
+    "coverages_applied": [
+      "cancellation"
+    ],
+    "payout": null,
+    "currency": "EUR",
+    "unknowns": [
+      "The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+      "incident date falls inside policy period: cannot evaluate, unknown: policy period",
+      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end"
+    ],
+    "explanation": "Your claim for trip cancellation due to jury duty is otherwise eligible, as the jury summons and booking confirmation adequately support the covered reason and the amount paid. However, we cannot currently verify if the incident date falls within your policy period or if the claim was submitted within the required 30-day window after the policy ended. Because the specific policy period dates are unknown, we must refer this case for further review to confirm these exclusions do not apply. Please note that the jury summons and booking confirmation were the key documents reviewed in this initial assessment."
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 484,
+      "output_tokens": 117,
+      "cache_read_tokens": 346,
+      "latency_ms": 1115,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 421,
+      "output_tokens": 96,
+      "cache_read_tokens": 346,
+      "latency_ms": 856,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1214,
+      "output_tokens": 814,
+      "cache_read_tokens": 777,
+      "latency_ms": 5020,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1198,
+      "output_tokens": 124,
+      "cache_read_tokens": 598,
+      "latency_ms": 1350,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1197,
+      "output_tokens": 182,
+      "cache_read_tokens": 685,
+      "latency_ms": 1536,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1206,
+      "output_tokens": 104,
+      "cache_read_tokens": 694,
+      "latency_ms": 1195,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1203,
+      "output_tokens": 98,
+      "cache_read_tokens": 691,
+      "latency_ms": 1083,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1194,
+      "output_tokens": 111,
+      "cache_read_tokens": 682,
+      "latency_ms": 1095,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1203,
+      "output_tokens": 164,
+      "cache_read_tokens": 598,
+      "latency_ms": 1600,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1416,
+      "output_tokens": 119,
+      "cache_read_tokens": 594,
+      "latency_ms": 1409,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

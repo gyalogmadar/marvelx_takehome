@@ -1,0 +1,122 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "my-statement.md": {
+      "doc_type": "other",
+      "issuer": null,
+      "summary": "claimant's own written statement, not an official report"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 310.00",
+        "value": 310.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "I'm Luca Ferri. My bag with my passport was stolen on the metro on 2 March 2025, so I could not board my flight to Dublin on 4 March and had to cancel. I did not report it to the police because I had no time. I wrote down what happened, see attached. Booking attached.",
+        "value": "Luca Ferri",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "my-statement.md",
+        "line": 2,
+        "quote": "On 2 March 2025 on the M1 metro my backpack was taken while I was standing.",
+        "value": "2025-03-02",
+        "confidence": 0.9
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "I'm Luca Ferri. My bag with my passport was stolen on the metro on 2 March 2025, so I could not board my flight to Dublin on 4 March and had to cancel. I did not report it to the police because I had no time. I wrote down what happened, see attached. Booking attached.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "Theft of a passport preventing departure is a theft/criminal incident.",
+      "confidence": 0.9,
+      "document": "my-statement.md",
+      "line": 2,
+      "quote": "On 2 March 2025 on the M1 metro my backpack was taken while I was standing."
+    },
+    "cancellation_proof_fits": {
+      "answer": "no",
+      "rationale": "The only supporting document is the claimant's own statement; there is no police report.",
+      "confidence": 0.9,
+      "document": "my-statement.md",
+      "line": 4,
+      "quote": "Written by me, Luca Ferri."
+    },
+    "effects_lost": {
+      "answer": "yes",
+      "rationale": "The bag and its contents were stolen during the trip.",
+      "confidence": 0.9,
+      "document": "my-statement.md",
+      "line": 3,
+      "quote": "It contained my passport, wallet and headphones."
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

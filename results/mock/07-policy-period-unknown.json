@@ -1,0 +1,529 @@
+{
+  "claim_id": "07-policy-period-unknown",
+  "policy": "cfsr",
+  "strategy": "decomposed",
+  "description": "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March. Please see the attached documents.",
+  "submitted_at": "2025-03-20T00:00:00Z",
+  "processed_at": "2026-10-28T18:39:00.516957Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March. Please see the attached documents."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-03-20"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-booking-confirmation",
+      "filename": "booking-confirmation.md",
+      "kind": "markdown",
+      "doc_type": "booking_confirmation",
+      "language": "en",
+      "issuer": "EuroTrips Travel GmbH",
+      "lines": [
+        "# Booking confirmation ET-77510",
+        "EuroTrips Travel GmbH",
+        "Lead passenger: Peter Hall",
+        "Route: London - Oslo",
+        "Departure: 2025-03-16",
+        "Passengers: 1",
+        "Total paid: EUR 275.00"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d2-discharge-summary",
+      "filename": "discharge-summary.md",
+      "kind": "markdown",
+      "doc_type": "medical_report",
+      "language": "en",
+      "issuer": "Royal Free Hospital",
+      "lines": [
+        "# Medical certificate",
+        "Royal Free Hospital",
+        "Patient: Peter Hall",
+        "Admitted on 2025-03-15",
+        "Diagnosis: renal colic",
+        "Discharged on 2025-03-17",
+        "The patient is not fit to travel.",
+        "Dr. H. Lindqvist, registration 55012"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Peter Hall",
+      "confidence": 0.99,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March. Please see the attached documents.",
+          "value": "Peter Hall",
+          "confidence": 0.99
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-03-15",
+      "confidence": 0.97,
+      "observations": [
+        {
+          "document_id": "d2-discharge-summary",
+          "line": 4,
+          "quote": "Admitted on 2025-03-15",
+          "value": "2025-03-15",
+          "confidence": 0.97
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "purchase_date",
+      "type": "date",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [],
+      "note": "no usable observation"
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [],
+      "note": "no usable observation"
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-03-20",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-03-20",
+          "value": "2025-03-20",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "booking_value",
+      "type": "money",
+      "value": 275.0,
+      "confidence": 0.98,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 7,
+          "quote": "Total paid: EUR 275.00",
+          "value": 275.0,
+          "confidence": 0.98
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "passengers",
+      "type": "int",
+      "value": 1,
+      "confidence": 0.97,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": 1,
+          "confidence": 0.97
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "affected",
+      "type": "int",
+      "value": 1,
+      "confidence": 0.8,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March. Please see the attached documents.",
+          "value": 1,
+          "confidence": 0.8
+        }
+      ],
+      "note": null
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "prior_knowledge",
+      "kind": "judged",
+      "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
+      "verdict": "unknown",
+      "rationale": "answer: unknown. The purchase date is not stated anywhere, so the order of events cannot be established.",
+      "facts_used": [
+        "incident_date",
+        "purchase_date"
+      ],
+      "document_ids": [],
+      "quote": null,
+      "confidence": 0.5
+    },
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d2-discharge-summary"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim submitted within 30 days of the policy ending",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period end",
+      "facts_used": [
+        "policy_period",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "suspicious_documents",
+      "kind": "judged",
+      "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+      "verdict": "pass",
+      "rationale": "answer: no. The documents are consistent with each other and show no alteration signs.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": null,
+      "confidence": 0.9
+    }
+  ],
+  "coverages": [
+    {
+      "name": "cancellation",
+      "title": "Trip Cancellation or Rescheduling",
+      "match": {
+        "id": "cancellation_reason",
+        "kind": "judged",
+        "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
+        "verdict": "pass",
+        "rationale": "answer: yes. Hospital admission the day before departure.",
+        "facts_used": [],
+        "document_ids": [
+          "d2-discharge-summary"
+        ],
+        "quote": "Diagnosis: renal colic",
+        "confidence": 0.9
+      },
+      "proofs": {
+        "id": "proofs:cancellation",
+        "kind": "proof",
+        "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "medical_report: discharge-summary.md; police_report: missing; jury_summons: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-discharge-summary"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [
+        {
+          "id": "cancellation_proof_fits",
+          "kind": "judged",
+          "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
+          "verdict": "pass",
+          "rationale": "answer: yes. Names the claimant, covers the date.",
+          "facts_used": [
+            "incident_date",
+            "claimant_name"
+          ],
+          "document_ids": [
+            "d2-discharge-summary"
+          ],
+          "quote": "Patient: Peter Hall",
+          "confidence": 0.9
+        },
+        {
+          "id": "agrees:incident_date",
+          "kind": "mechanical",
+          "description": "incident date is consistent across documents",
+          "verdict": "pass",
+          "rationale": "incident date = 2025-03-15 from 1 source, no disagreement",
+          "facts_used": [
+            "incident_date"
+          ],
+          "document_ids": [
+            "d2-discharge-summary"
+          ],
+          "quote": null,
+          "confidence": 0.97
+        }
+      ],
+      "status": "eligible",
+      "payout": 275.0,
+      "payout_formula": "booking_value",
+      "payout_note": null
+    },
+    {
+      "name": "personal_effects",
+      "title": "Personal Effects",
+      "match": {
+        "id": "effects_lost",
+        "kind": "judged",
+        "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
+        "verdict": "fail",
+        "rationale": "answer: no. No personal belongings are reported lost, stolen or damaged.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 0.9
+      },
+      "proofs": {
+        "id": "proofs:personal_effects",
+        "kind": "proof",
+        "description": "required proof: police_report or airline_acknowledgement",
+        "verdict": "fail",
+        "rationale": "police_report: missing; airline_acknowledgement: missing",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "100 * affected",
+      "payout_note": null
+    },
+    {
+      "name": "missed_connection",
+      "title": "Missed Departure or Missed Connection",
+      "match": {
+        "id": "missed_departure",
+        "kind": "judged",
+        "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
+        "verdict": "fail",
+        "rationale": "answer: no. No missed departure or connection is described.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 0.9
+      },
+      "proofs": {
+        "id": "proofs:missed_connection",
+        "kind": "proof",
+        "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "incident_report: missing; police_report: missing; medical_report: discharge-summary.md; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-discharge-summary"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "0.5 * booking_value / passengers * affected",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "UNCERTAIN",
+    "confidence": 0.9,
+    "summary": "Referred for review. The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+    "determining": [
+      "prior_knowledge",
+      "within_period:incident_date",
+      "late_reporting"
+    ],
+    "coverages_applied": [
+      "cancellation"
+    ],
+    "payout": null,
+    "currency": "EUR",
+    "unknowns": [
+      "The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+      "Did the claimant know about the incident, or the reason for it, before purchasing the policy? The purchase date is not stated anywhere, so the order of events cannot be established.",
+      "incident date falls inside policy period: cannot evaluate, unknown: policy period",
+      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end"
+    ],
+    "explanation": null
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "read_document",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

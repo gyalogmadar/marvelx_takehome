@@ -1,0 +1,566 @@
+{
+  "claim_id": "02-incident-before-policy-start",
+  "policy": "cfsr",
+  "strategy": "decomposed",
+  "description": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.\nBooking confirmation and medical certificate attached.",
+  "submitted_at": "2025-03-01T00:00:00Z",
+  "processed_at": "2026-10-28T19:06:42.718446Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
+        "Booking confirmation and medical certificate attached."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-03-01"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-booking-confirmation",
+      "filename": "booking-confirmation.md",
+      "kind": "markdown",
+      "doc_type": "booking_confirmation",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Booking confirmation ET-77231",
+        "EuroTrips Travel GmbH",
+        "Lead passenger: Tomasz Nowak",
+        "Route: Warsaw - Rome",
+        "Departure: 2025-03-14",
+        "Passengers: 1",
+        "Total paid: EUR 640.00",
+        "Booked and paid on 2025-02-01",
+        "CFSR cover period: 2025-02-01 to 2025-04-10"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from Warsaw to Rome departing on 2025-03-14, paid in full for EUR 640.00, with CFSR cover from 2025-02-01 to 2025-04-10."
+    },
+    {
+      "id": "d2-medical-certificate",
+      "filename": "medical-certificate.md",
+      "kind": "markdown",
+      "doc_type": "medical_report",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Medical certificate",
+        "Zakopane District Hospital",
+        "Patient: Tomasz Nowak",
+        "Admitted on 2025-01-28",
+        "Diagnosis: tibia fracture, cast for 8 weeks",
+        "The patient is not fit to travel.",
+        "Dr. H. Lindqvist, registration 55012"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A medical certificate from Zakopane District Hospital stating that patient Tomasz Nowak was admitted on 2025-01-28 with a tibia fracture requiring an 8-week cast and is not fit to travel."
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Tomasz Nowak",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "I am Tomasz Nowak.",
+          "value": "Tomasz Nowak",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 3,
+          "quote": "Lead passenger: Tomasz Nowak",
+          "value": "Tomasz Nowak",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-medical-certificate",
+          "line": 3,
+          "quote": "Patient: Tomasz Nowak",
+          "value": "Tomasz Nowak",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-01-28",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "I broke my leg skiing on 28 January 2025",
+          "value": "2025-01-28",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-medical-certificate",
+          "line": 4,
+          "quote": "Admitted on 2025-01-28",
+          "value": "2025-01-28",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "purchase_date",
+      "type": "date",
+      "value": "2025-02-01",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 8,
+          "quote": "Booked and paid on 2025-02-01",
+          "value": "2025-02-01",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 9,
+          "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+          "value": "2025-02-01 to 2025-04-10",
+          "confidence": 1.0
+        }
+      ],
+      "note": "observations could not be parsed"
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-03-01",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-03-01",
+          "value": "2025-03-01",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "booking_value",
+      "type": "money",
+      "value": 640.0,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 7,
+          "quote": "Total paid: EUR 640.00",
+          "value": "640.00",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "passengers",
+      "type": "int",
+      "value": 1,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": ">1",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "affected",
+      "type": "int",
+      "value": 1,
+      "confidence": 0.9,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": ">1",
+          "confidence": 0.9
+        }
+      ],
+      "note": null
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "prior_knowledge",
+      "kind": "judged",
+      "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
+      "verdict": "pass",
+      "rationale": "answer: no. The incident (leg fracture) occurred on 2025-01-28, which is prior to the policy purchase date of 2025-02-01. Therefore, the claimant knew about the incident before purchasing the policy.",
+      "facts_used": [
+        "incident_date",
+        "purchase_date"
+      ],
+      "document_ids": [],
+      "quote": "Booked and paid on 2025-02-01",
+      "confidence": 1.0
+    },
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "d2-medical-certificate",
+        "description"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim submitted within 30 days of the policy ending",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period end",
+      "facts_used": [
+        "policy_period",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "suspicious_documents",
+      "kind": "judged",
+      "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+      "verdict": "pass",
+      "rationale": "answer: no. The documents are internally consistent and align with the claim description. The incident date (2025-01-28) in the medical certificate matches the claim description. The booking date (2025-02-01) in the booking confirmation matches the policy start date and the claim description's timeline (incident before purchase). The passenger name, route, and dates are consistent across all documents. There are no contradictions or signs of fabrication.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": "Admitted on 2025-01-28",
+      "confidence": 0.95
+    }
+  ],
+  "coverages": [
+    {
+      "name": "cancellation",
+      "title": "Trip Cancellation or Rescheduling",
+      "match": {
+        "id": "cancellation_reason",
+        "kind": "judged",
+        "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
+        "verdict": "pass",
+        "rationale": "answer: yes. The claimant states, 'I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.' This constitutes a medical emergency supported by the attached medical certificate, which is a covered reason under the policy.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
+        "confidence": 1.0
+      },
+      "proofs": {
+        "id": "proofs:cancellation",
+        "kind": "proof",
+        "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "medical_report: medical-certificate.md; police_report: missing; jury_summons: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-medical-certificate"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [
+        {
+          "id": "cancellation_proof_fits",
+          "kind": "judged",
+          "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
+          "verdict": "pass",
+          "rationale": "answer: yes. The medical certificate explicitly names the claimant as 'Patient: Tomasz Nowak' and confirms the incident date with 'Admitted on 2025-01-28', which aligns with the stated reason of a leg injury preventing travel.",
+          "facts_used": [
+            "incident_date",
+            "claimant_name"
+          ],
+          "document_ids": [],
+          "quote": "Patient: Tomasz Nowak\nAdmitted on 2025-01-28",
+          "confidence": 1.0
+        },
+        {
+          "id": "agrees:incident_date",
+          "kind": "mechanical",
+          "description": "incident date is consistent across documents",
+          "verdict": "pass",
+          "rationale": "incident date = 2025-01-28 from 2 sources, no disagreement",
+          "facts_used": [
+            "incident_date"
+          ],
+          "document_ids": [
+            "d2-medical-certificate",
+            "description"
+          ],
+          "quote": null,
+          "confidence": 1.0
+        }
+      ],
+      "status": "eligible",
+      "payout": 640.0,
+      "payout_formula": "booking_value",
+      "payout_note": null
+    },
+    {
+      "name": "personal_effects",
+      "title": "Personal Effects",
+      "match": {
+        "id": "effects_lost",
+        "kind": "judged",
+        "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claim description states the claimant 'broke my leg skiing... so I cancelled my March trip to Rome.' There is no mention of personal belongings being lost, stolen, or damaged. The claim is for trip cancellation due to a medical emergency, not for personal effects.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:personal_effects",
+        "kind": "proof",
+        "description": "required proof: police_report or airline_acknowledgement",
+        "verdict": "fail",
+        "rationale": "police_report: missing; airline_acknowledgement: missing",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "100 * affected",
+      "payout_note": null
+    },
+    {
+      "name": "missed_connection",
+      "title": "Missed Departure or Missed Connection",
+      "match": {
+        "id": "missed_departure",
+        "kind": "judged",
+        "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claimant cancelled the trip due to a medical emergency (broken leg), not because they missed a scheduled departure or connection due to an external cause like a traffic accident. The policy distinguishes between 'Trip Cancellation' (Section 1) and 'Missed Departure' (Section 3). The claimant's situation falls under Section 1, not Section 3.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:missed_connection",
+        "kind": "proof",
+        "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "incident_report: missing; police_report: missing; medical_report: medical-certificate.md; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-medical-certificate"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "0.5 * booking_value / passengers * affected",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "UNCERTAIN",
+    "confidence": 0.95,
+    "summary": "Referred for review. The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+    "determining": [
+      "within_period:incident_date",
+      "late_reporting"
+    ],
+    "coverages_applied": [
+      "cancellation"
+    ],
+    "payout": null,
+    "currency": "EUR",
+    "unknowns": [
+      "The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+      "incident date falls inside policy period: cannot evaluate, unknown: policy period",
+      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end"
+    ],
+    "explanation": "Dear Tomasz Nowak, your claim for trip cancellation due to a medical emergency has been referred for further review. While your medical certificate and booking confirmation confirm the incident and the covered reason, we cannot yet verify if the claim falls within the policy period or the 30-day reporting window. Specifically, the policy start and end dates are missing from the provided documents, making it impossible to evaluate the 'within period' and 'late reporting' exclusions. Please provide a copy of your policy schedule or certificate of insurance that clearly states the coverage dates. Once we have this information, we can finalize the decision on your claim."
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 485,
+      "output_tokens": 117,
+      "cache_read_tokens": 346,
+      "latency_ms": 1128,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 445,
+      "output_tokens": 92,
+      "cache_read_tokens": 346,
+      "latency_ms": 60474,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1240,
+      "output_tokens": 876,
+      "cache_read_tokens": 777,
+      "latency_ms": 16607,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1234,
+      "output_tokens": 112,
+      "cache_read_tokens": 598,
+      "latency_ms": 1251,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1233,
+      "output_tokens": 145,
+      "cache_read_tokens": 598,
+      "latency_ms": 7515,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1242,
+      "output_tokens": 128,
+      "cache_read_tokens": 598,
+      "latency_ms": 1249,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1239,
+      "output_tokens": 115,
+      "cache_read_tokens": 598,
+      "latency_ms": 1246,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1230,
+      "output_tokens": 131,
+      "cache_read_tokens": 598,
+      "latency_ms": 33419,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1239,
+      "output_tokens": 146,
+      "cache_read_tokens": 598,
+      "latency_ms": 11730,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1418,
+      "output_tokens": 136,
+      "cache_read_tokens": 0,
+      "latency_ms": 1755,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

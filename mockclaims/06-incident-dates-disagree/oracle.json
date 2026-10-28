@@ -1,0 +1,128 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "certificate.md": {
+      "doc_type": "medical_report",
+      "issuer": "Hospital Clínico San Carlos"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 520.00",
+        "value": 520.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Sofia Marin here. I fell ill on 20 March 2025 and was hospitalised, so I cancelled my trip to Prague departing 22 March. Certificate and booking attached.",
+        "value": "Sofia Marin",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "certificate.md",
+        "line": 4,
+        "quote": "Admitted on 2025-03-12",
+        "value": "2025-03-12",
+        "confidence": 0.95
+      },
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Sofia Marin here. I fell ill on 20 March 2025 and was hospitalised, so I cancelled my trip to Prague departing 22 March. Certificate and booking attached.",
+        "value": "2025-03-20",
+        "confidence": 0.9
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Sofia Marin here. I fell ill on 20 March 2025 and was hospitalised, so I cancelled my trip to Prague departing 22 March. Certificate and booking attached.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "yes",
+      "rationale": "The claimant's dates contradict the certificate: illness on 20 March vs admission 12 March and discharge 19 March.",
+      "confidence": 0.9,
+      "document": "certificate.md",
+      "line": 4,
+      "quote": "Admitted on 2025-03-12"
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "Hospitalisation is a medical emergency.",
+      "confidence": 0.9,
+      "document": "certificate.md",
+      "line": 5,
+      "quote": "Diagnosis: pneumonia"
+    },
+    "cancellation_proof_fits": {
+      "answer": "no",
+      "rationale": "The certificate shows admission on 12 March and discharge on 19 March, before the stated 20 March illness and before departure.",
+      "confidence": 0.9,
+      "document": "certificate.md",
+      "line": 6,
+      "quote": "Discharged on 2025-03-19"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

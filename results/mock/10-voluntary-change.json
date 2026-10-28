@@ -1,0 +1,469 @@
+{
+  "claim_id": "10-voluntary-change",
+  "policy": "cfsr",
+  "strategy": "decomposed",
+  "description": "Hi, Emma Fischer. I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone. Booking attached, please refund.",
+  "submitted_at": "2025-03-16T00:00:00Z",
+  "processed_at": "2026-10-28T18:39:00.539093Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Hi, Emma Fischer. I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone. Booking attached, please refund."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-03-16"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-booking-confirmation",
+      "filename": "booking-confirmation.md",
+      "kind": "markdown",
+      "doc_type": "booking_confirmation",
+      "language": "en",
+      "issuer": "EuroTrips Travel GmbH",
+      "lines": [
+        "# Booking confirmation ET-77644",
+        "EuroTrips Travel GmbH",
+        "Lead passenger: Emma Fischer",
+        "Route: Hamburg - Copenhagen",
+        "Departure: 2025-03-15",
+        "Passengers: 1",
+        "Total paid: EUR 180.00",
+        "Booked and paid on 2025-02-01",
+        "CFSR cover period: 2025-02-01 to 2025-04-10"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Emma Fischer",
+      "confidence": 0.99,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Hi, Emma Fischer. I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone. Booking attached, please refund.",
+          "value": "Emma Fischer",
+          "confidence": 0.99
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-03-15",
+      "confidence": 0.6,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Hi, Emma Fischer. I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone. Booking attached, please refund.",
+          "value": "2025-03-15",
+          "confidence": 0.6
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "purchase_date",
+      "type": "date",
+      "value": "2025-02-01",
+      "confidence": 0.95,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 8,
+          "quote": "Booked and paid on 2025-02-01",
+          "value": "2025-02-01",
+          "confidence": 0.95
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": {
+        "start": "2025-02-01",
+        "end": "2025-04-10"
+      },
+      "confidence": 0.95,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 9,
+          "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+          "value": {
+            "start": "2025-02-01",
+            "end": "2025-04-10"
+          },
+          "confidence": 0.95
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-03-16",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-03-16",
+          "value": "2025-03-16",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "booking_value",
+      "type": "money",
+      "value": 180.0,
+      "confidence": 0.98,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 7,
+          "quote": "Total paid: EUR 180.00",
+          "value": 180.0,
+          "confidence": 0.98
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "passengers",
+      "type": "int",
+      "value": 1,
+      "confidence": 0.97,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": 1,
+          "confidence": 0.97
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "affected",
+      "type": "int",
+      "value": 1,
+      "confidence": 0.8,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Hi, Emma Fischer. I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone. Booking attached, please refund.",
+          "value": 1,
+          "confidence": 0.8
+        }
+      ],
+      "note": null
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "prior_knowledge",
+      "kind": "judged",
+      "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
+      "verdict": "pass",
+      "rationale": "answer: no. Nothing indicates the claimant knew of the incident before purchase.",
+      "facts_used": [
+        "incident_date",
+        "purchase_date"
+      ],
+      "document_ids": [],
+      "quote": null,
+      "confidence": 0.9
+    },
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "pass",
+      "rationale": "incident date 2025-03-15 (description) is inside policy period 2025-02-01 to 2025-04-10 (booking-confirmation.md)",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "description"
+      ],
+      "quote": null,
+      "confidence": 0.6
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim submitted within 30 days of the policy ending",
+      "verdict": "pass",
+      "rationale": "claim submitted 2025-03-16 (metadata) is 25 days before policy period end 2025-04-10 (booking-confirmation.md); limit is 30 days after",
+      "facts_used": [
+        "policy_period",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.95
+    },
+    {
+      "id": "suspicious_documents",
+      "kind": "judged",
+      "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+      "verdict": "pass",
+      "rationale": "answer: no. The documents are consistent with each other and show no alteration signs.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": null,
+      "confidence": 0.9
+    }
+  ],
+  "coverages": [
+    {
+      "name": "cancellation",
+      "title": "Trip Cancellation or Rescheduling",
+      "match": {
+        "id": "cancellation_reason",
+        "kind": "judged",
+        "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
+        "verdict": "fail",
+        "rationale": "answer: no. A friend dropping out is a voluntary change of plans, not a listed covered reason.",
+        "facts_used": [],
+        "document_ids": [
+          "description"
+        ],
+        "quote": "Hi, Emma Fischer. I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone. Booking attached, please refund.",
+        "confidence": 0.9
+      },
+      "proofs": {
+        "id": "proofs:cancellation",
+        "kind": "proof",
+        "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
+        "verdict": "fail",
+        "rationale": "medical_report: missing; police_report: missing; jury_summons: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "booking_value",
+      "payout_note": null
+    },
+    {
+      "name": "personal_effects",
+      "title": "Personal Effects",
+      "match": {
+        "id": "effects_lost",
+        "kind": "judged",
+        "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
+        "verdict": "fail",
+        "rationale": "answer: no. No personal belongings are reported lost, stolen or damaged.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 0.9
+      },
+      "proofs": {
+        "id": "proofs:personal_effects",
+        "kind": "proof",
+        "description": "required proof: police_report or airline_acknowledgement",
+        "verdict": "fail",
+        "rationale": "police_report: missing; airline_acknowledgement: missing",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "100 * affected",
+      "payout_note": null
+    },
+    {
+      "name": "missed_connection",
+      "title": "Missed Departure or Missed Connection",
+      "match": {
+        "id": "missed_departure",
+        "kind": "judged",
+        "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
+        "verdict": "fail",
+        "rationale": "answer: no. No missed departure or connection is described.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 0.9
+      },
+      "proofs": {
+        "id": "proofs:missed_connection",
+        "kind": "proof",
+        "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
+        "verdict": "fail",
+        "rationale": "incident_report: missing; police_report: missing; medical_report: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "0.5 * booking_value / passengers * affected",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "DENY",
+    "confidence": 0.9,
+    "summary": "Denied. The stated reason is not covered by any section of the policy. A friend dropping out is a voluntary change of plans, not a listed covered reason. No personal belongings are reported lost, stolen or damaged. No missed departure or connection is described.",
+    "determining": [
+      "cancellation_reason",
+      "effects_lost",
+      "missed_departure"
+    ],
+    "coverages_applied": [],
+    "payout": null,
+    "currency": "EUR",
+    "unknowns": [],
+    "explanation": null
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "scripted",
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cache_read_tokens": 0,
+      "latency_ms": 0,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

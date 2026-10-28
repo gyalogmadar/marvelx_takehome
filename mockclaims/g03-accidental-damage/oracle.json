@@ -1,0 +1,82 @@
+{
+  "documents": {
+    "receipt.md": {
+      "doc_type": "purchase_receipt",
+      "issuer": "TechHaus Berlin"
+    },
+    "repair-quote.md": {
+      "doc_type": "repair_quote",
+      "issuer": "ScreenFix Hamburg"
+    }
+  },
+  "facts": {
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Mira Sato. I dropped my tablet on 2 July 2025 and the screen cracked. Repair quote and the purchase receipt are attached.",
+        "value": "Mira Sato",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Mira Sato. I dropped my tablet on 2 July 2025 and the screen cracked. Repair quote and the purchase receipt are attached.",
+        "value": "2025-07-02",
+        "confidence": 0.9
+      }
+    ],
+    "item_value": [
+      {
+        "document": "receipt.md",
+        "line": 5,
+        "quote": "Price: EUR 900.00",
+        "value": 900.0,
+        "confidence": 0.98
+      }
+    ],
+    "repair_cost": [
+      {
+        "document": "repair-quote.md",
+        "line": 4,
+        "quote": "Quoted repair cost: EUR 180.00",
+        "value": 180.0,
+        "confidence": 0.98
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "receipt.md",
+        "line": 7,
+        "quote": "Gadget Cover period: 2025-03-01 to 2026-02-28",
+        "value": {
+          "start": "2025-03-01",
+          "end": "2026-02-28"
+        },
+        "confidence": 0.95
+      }
+    ]
+  },
+  "judgments": {
+    "unattended": {
+      "answer": "no",
+      "rationale": "The claimant states the device was with them.",
+      "confidence": 0.9
+    },
+    "device_stolen": {
+      "answer": "no",
+      "rationale": "No theft is described.",
+      "confidence": 0.9
+    },
+    "device_damaged": {
+      "answer": "yes",
+      "rationale": "Dropped, screen cracked, repair quoted.",
+      "confidence": 0.9,
+      "document": "repair-quote.md",
+      "line": 3,
+      "quote": "Device: Tablet Air 11, cracked display"
+    }
+  }
+}

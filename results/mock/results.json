@@ -1,0 +1,361 @@
+{
+  "title": "Mock claims (scripted backend)",
+  "name": "mock",
+  "backend": "scripted",
+  "strategy": "decomposed",
+  "claims_root": "/home/gyalogmadar/Fecske/jobsearch/MarvelX takehome/claims-pipeline/mockclaims",
+  "run_at": "2026-10-28T18:39:00.633447+00:00",
+  "metrics": {
+    "claims": 22,
+    "scored": 22,
+    "correct": 22,
+    "accuracy": 1.0,
+    "confusion": {
+      "APPROVE": {
+        "APPROVE": 9,
+        "DENY": 0,
+        "UNCERTAIN": 0
+      },
+      "DENY": {
+        "APPROVE": 0,
+        "DENY": 9,
+        "UNCERTAIN": 0
+      },
+      "UNCERTAIN": {
+        "APPROVE": 0,
+        "DENY": 0,
+        "UNCERTAIN": 4
+      }
+    },
+    "per_outcome": {
+      "APPROVE": {
+        "expected": 9,
+        "predicted": 9,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "DENY": {
+        "expected": 9,
+        "predicted": 9,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      "UNCERTAIN": {
+        "expected": 4,
+        "predicted": 4,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    },
+    "payout": {
+      "scored": 9,
+      "exact": 9
+    },
+    "components": {
+      "read_document": {
+        "calls": 42,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cost_usd": 0.0,
+        "latency_ms": 0,
+        "errors": 0
+      },
+      "extract_facts": {
+        "calls": 22,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cost_usd": 0.0,
+        "latency_ms": 0,
+        "errors": 0
+      },
+      "judge": {
+        "calls": 114,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cost_usd": 0.0,
+        "latency_ms": 0,
+        "errors": 0
+      },
+      "explain": {
+        "calls": 22,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cache_read_tokens": 0,
+        "cost_usd": 0.0,
+        "latency_ms": 0,
+        "errors": 0
+      }
+    },
+    "total_cost_usd": 0.0,
+    "unprocessed": 0
+  },
+  "claims": [
+    {
+      "claim_id": "01-clean-medical-cancellation",
+      "policy": "cfsr",
+      "note": "The clean case: covered reason, both proofs, inside period, reported in time.",
+      "expected": "APPROVE",
+      "expected_payout": 1240.0,
+      "actual": "APPROVE",
+      "actual_payout": 1240.0,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Approved under Trip Cancellation or Rescheduling. Payout 1,240.00 EUR."
+    },
+    {
+      "claim_id": "02-incident-before-policy-start",
+      "policy": "cfsr",
+      "note": "Incident date before the policy start. Everything else is fine, the period check alone must deny.",
+      "expected": "DENY",
+      "expected_payout": null,
+      "actual": "DENY",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.95,
+      "summary": "Denied. Incident date 2025-01-28 (medical-certificate.md) is outside policy period 2025-02-01 to 2025-04-10 (booking-confirmation.md)."
+    },
+    {
+      "claim_id": "03-late-reporting-31-days",
+      "policy": "cfsr",
+      "note": "Submitted 31 days after the policy ended. Boundary partner of claim 04.",
+      "expected": "DENY",
+      "expected_payout": null,
+      "actual": "DENY",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.95,
+      "summary": "Denied. Claim submitted 2025-05-11 (metadata) is 31 days after policy period end 2025-04-10 (booking-confirmation.md); limit is 30."
+    },
+    {
+      "claim_id": "04-late-reporting-boundary-30-days",
+      "policy": "cfsr",
+      "note": "Same claim as 03, submitted exactly 30 days after the policy ended: inside the limit.",
+      "expected": "APPROVE",
+      "expected_payout": 390.0,
+      "actual": "APPROVE",
+      "actual_payout": 390.0,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Approved under Trip Cancellation or Rescheduling. Payout 390.00 EUR."
+    },
+    {
+      "claim_id": "05-theft-without-police-report",
+      "policy": "cfsr",
+      "note": "Covered reason (theft) but the required police report is missing: both cancellation and personal effects fail on proof.",
+      "expected": "DENY",
+      "expected_payout": null,
+      "actual": "DENY",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 1.0,
+      "summary": "Denied. Medical_report: missing; police_report: missing; jury_summons: missing; booking_confirmation: booking-confirmation.md. The only supporting document is the claimant's own statement; there is no police report. Police_report: missing; airline_acknowledgement: missing."
+    },
+    {
+      "claim_id": "06-incident-dates-disagree",
+      "policy": "cfsr",
+      "note": "The description says 20 March, the certificate says 12 March. Cross-document disagreement is itself a reason to deny.",
+      "expected": "DENY",
+      "expected_payout": null,
+      "actual": "DENY",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Denied. The claimant's dates contradict the certificate: illness on 20 March vs admission 12 March and discharge 19 March."
+    },
+    {
+      "claim_id": "07-policy-period-unknown",
+      "policy": "cfsr",
+      "note": "A genuine referral: no policy period or purchase date anywhere. The coverage is otherwise eligible.",
+      "expected": "UNCERTAIN",
+      "expected_payout": null,
+      "actual": "UNCERTAIN",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Referred for review. The claim is otherwise eligible; the open exclusion(s) decide the outcome."
+    },
+    {
+      "claim_id": "08-altered-booking-image",
+      "policy": "cfsr",
+      "note": "The booking photo shows two alteration signs: it is untrusted, so the booking proof is missing and the suspicious-documents exclusion fires.",
+      "expected": "DENY",
+      "expected_payout": null,
+      "actual": "DENY",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Denied. The booking photo shows a retyped total and an overwritten date digit."
+    },
+    {
+      "claim_id": "09-prior-knowledge",
+      "policy": "cfsr",
+      "note": "The surgery was scheduled in a letter dated 20 January, before the 1 February purchase: prior knowledge.",
+      "expected": "DENY",
+      "expected_payout": null,
+      "actual": "DENY",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.95,
+      "summary": "Denied. The surgery was scheduled on 20 January, twelve days before the cover was bought on 1 February."
+    },
+    {
+      "claim_id": "10-voluntary-change",
+      "policy": "cfsr",
+      "note": "Not a covered reason. No coverage matches, so the denial comes from the match questions, not from an exclusion.",
+      "expected": "DENY",
+      "expected_payout": null,
+      "actual": "DENY",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Denied. The stated reason is not covered by any section of the policy. A friend dropping out is a voluntary change of plans, not a listed covered reason. No personal belongings are reported lost, stolen or damaged. No missed departure or connection is described."
+    },
+    {
+      "claim_id": "11-personal-effects-two-people",
+      "policy": "cfsr",
+      "note": "Personal effects, two people affected: flat 100 per person. The trip was not cancelled, so the other coverages do not apply.",
+      "expected": "APPROVE",
+      "expected_payout": 200.0,
+      "actual": "APPROVE",
+      "actual_payout": 200.0,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Approved under Personal Effects. Payout 200.00 EUR."
+    },
+    {
+      "claim_id": "12-missed-connection-formula",
+      "policy": "cfsr",
+      "note": "Missed connection formula: 50% x 800 / 4 passengers x 2 affected = 200.",
+      "expected": "APPROVE",
+      "expected_payout": 200.0,
+      "actual": "APPROVE",
+      "actual_payout": 200.0,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Approved under Missed Departure or Missed Connection. Payout 200.00 EUR."
+    },
+    {
+      "claim_id": "13-missed-connection-passengers-unknown",
+      "policy": "cfsr",
+      "note": "Same accident, but the booking does not state the passenger count, so the formula cannot be computed.",
+      "expected": "UNCERTAIN",
+      "expected_payout": null,
+      "actual": "UNCERTAIN",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Referred for review. Payout for Missed Departure or Missed Connection: cannot compute payout, missing: passengers."
+    },
+    {
+      "claim_id": "14-jury-duty",
+      "policy": "cfsr",
+      "note": "Jury duty, the first listed covered reason.",
+      "expected": "APPROVE",
+      "expected_payout": 560.0,
+      "actual": "APPROVE",
+      "actual_payout": 560.0,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Approved under Trip Cancellation or Rescheduling. Payout 560.00 EUR."
+    },
+    {
+      "claim_id": "15-spanish-medical-certificate",
+      "policy": "cfsr",
+      "note": "Everything in Spanish. Language must not change the outcome.",
+      "expected": "APPROVE",
+      "expected_payout": 430.0,
+      "actual": "APPROVE",
+      "actual_payout": 430.0,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Approved under Trip Cancellation or Rescheduling. Payout 430.00 EUR."
+    },
+    {
+      "claim_id": "16-theft-causing-missed-train",
+      "policy": "cfsr",
+      "note": "Two coverages at once: personal effects (100) plus missed connection (50% x 300 / 1 x 1 = 150). Payouts add.",
+      "expected": "APPROVE",
+      "expected_payout": 250.0,
+      "actual": "APPROVE",
+      "actual_payout": 250.0,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Approved under Personal Effects, Missed Departure or Missed Connection. Payout 250.00 EUR."
+    },
+    {
+      "claim_id": "17-weather-cancellation",
+      "policy": "cfsr",
+      "note": "The policy lists personal emergencies and says nothing about weather. The model cannot settle whether this is a covered reason, so the claim is referred.",
+      "expected": "UNCERTAIN",
+      "expected_payout": null,
+      "actual": "UNCERTAIN",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Referred for review. Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency? Weather is neither listed as a covered reason nor excluded; 'other specified personal emergencies' does not clearly include it."
+    },
+    {
+      "claim_id": "18-unreadable-police-report",
+      "policy": "cfsr",
+      "note": "The police report could not be read. The proof may exist, so this is a referral, not a denial.",
+      "expected": "UNCERTAIN",
+      "expected_payout": null,
+      "actual": "UNCERTAIN",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.85,
+      "summary": "Referred for review. Required proof: (medical_report or police_report or jury_summons) and booking_confirmation: medical_report: missing, but 1 unreadable document(s); police_report: missing, but 1 unreadable document(s); jury_summons: missing, but 1 unreadable document(s); booking_confirmation: booking-confirmation.md."
+    },
+    {
+      "claim_id": "g01-theft-clean",
+      "policy": "gadget",
+      "note": "Theft: min(1200, 1000) - 50 = 950.",
+      "expected": "APPROVE",
+      "expected_payout": 950.0,
+      "actual": "APPROVE",
+      "actual_payout": 950.0,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Approved under Theft. Payout 950.00 EUR."
+    },
+    {
+      "claim_id": "g02-theft-reported-late",
+      "policy": "gadget",
+      "note": "Same theft reported four days later: outside the 48-hour window.",
+      "expected": "DENY",
+      "expected_payout": null,
+      "actual": "DENY",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.97,
+      "summary": "Denied. Claim submitted 2025-06-14 (metadata) is 4 days after incident date 2025-06-10 (police-report.md); limit is 2."
+    },
+    {
+      "claim_id": "g03-accidental-damage",
+      "policy": "gadget",
+      "note": "Accidental damage: min(180, 900) - 50 = 130.",
+      "expected": "APPROVE",
+      "expected_payout": 130.0,
+      "actual": "APPROVE",
+      "actual_payout": 130.0,
+      "match": true,
+      "confidence": 0.9,
+      "summary": "Approved under Accidental Damage. Payout 130.00 EUR."
+    },
+    {
+      "claim_id": "g04-left-unattended",
+      "policy": "gadget",
+      "note": "Theft with full proof, but the device was left unattended in a public place.",
+      "expected": "DENY",
+      "expected_payout": null,
+      "actual": "DENY",
+      "actual_payout": null,
+      "match": true,
+      "confidence": 0.95,
+      "summary": "Denied. The claimant left the laptop on the table and walked away."
+    }
+  ]
+}

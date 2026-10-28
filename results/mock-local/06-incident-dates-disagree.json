@@ -1,0 +1,553 @@
+{
+  "claim_id": "06-incident-dates-disagree",
+  "policy": "cfsr",
+  "strategy": "decomposed",
+  "description": "Sofia Marin here. I fell ill on 20 March 2025 and was hospitalised, so I cancelled my trip to Prague departing 22 March. Certificate and booking attached.",
+  "submitted_at": "2025-03-28T00:00:00Z",
+  "processed_at": "2026-10-28T19:08:35.272412Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Sofia Marin here. I fell ill on 20 March 2025 and was hospitalised, so I cancelled my trip to Prague departing 22 March. Certificate and booking attached."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-03-28"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-booking-confirmation",
+      "filename": "booking-confirmation.md",
+      "kind": "markdown",
+      "doc_type": "booking_confirmation",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Booking confirmation ET-77455",
+        "EuroTrips Travel GmbH",
+        "Lead passenger: Sofia Marin",
+        "Route: Madrid - Prague",
+        "Departure: 2025-03-22",
+        "Passengers: 1",
+        "Total paid: EUR 520.00",
+        "Booked and paid on 2025-02-01",
+        "CFSR cover period: 2025-02-01 to 2025-04-10"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A booking confirmation for a trip from Madrid to Prague departing on 2025-03-22, issued by EuroTrips Travel GmbH for passenger Sofia Marin, with a total payment of EUR 520.00 and a CFSR cover period from 2025-02-01 to 2025-04-10."
+    },
+    {
+      "id": "d2-certificate",
+      "filename": "certificate.md",
+      "kind": "markdown",
+      "doc_type": "medical_report",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Medical certificate",
+        "Hospital Clínico San Carlos",
+        "Patient: Sofia Marin",
+        "Admitted on 2025-03-12",
+        "Diagnosis: pneumonia",
+        "Discharged on 2025-03-19",
+        "The patient is not fit to travel.",
+        "Dr. H. Lindqvist, registration 55012"
+      ],
+      "alteration_signs": [],
+      "trust": "questionable",
+      "trust_reasons": [
+        "incident_date disagrees with another document"
+      ],
+      "media_type": null,
+      "summary": "A medical certificate from Hospital Clínico San Carlos stating that patient Sofia Marin was admitted on 2025-03-12 with pneumonia and discharged on 2025-03-19, and is not fit to travel."
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Sofia Marin",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Sofia Marin here.",
+          "value": "Sofia Marin",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 3,
+          "quote": "Lead passenger: Sofia Marin",
+          "value": "Sofia Marin",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-certificate",
+          "line": 3,
+          "quote": "Patient: Sofia Marin",
+          "value": "Sofia Marin",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-03-20",
+      "confidence": 0.54,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "I fell ill on 20 March 2025",
+          "value": "2025-03-20",
+          "confidence": 0.9
+        },
+        {
+          "document_id": "d2-certificate",
+          "line": 4,
+          "quote": "Admitted on 2025-03-12",
+          "value": "2025-03-12",
+          "confidence": 0.9
+        }
+      ],
+      "note": "observations disagree: 2025-03-20 vs 2025-03-12"
+    },
+    {
+      "name": "purchase_date",
+      "type": "date",
+      "value": "2025-02-01",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 8,
+          "quote": "Booked and paid on 2025-02-01",
+          "value": "2025-02-01",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 9,
+          "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+          "value": "2025-02-01 to 2025-04-10",
+          "confidence": 1.0
+        }
+      ],
+      "note": "observations could not be parsed"
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-03-28",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-03-28",
+          "value": "2025-03-28",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "booking_value",
+      "type": "money",
+      "value": 520.0,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 7,
+          "quote": "Total paid: EUR 520.00",
+          "value": "520.00 EUR",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "passengers",
+      "type": "int",
+      "value": 1,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": ">=1",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "affected",
+      "type": "int",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [],
+      "note": "no usable observation"
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "prior_knowledge",
+      "kind": "judged",
+      "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
+      "verdict": "pass",
+      "rationale": "answer: no. The policy was purchased on 2025-02-01, which is prior to the incident date of 2025-03-20 (or the admission date of 2025-03-12). Since the incident occurred after the purchase date, the claimant could not have had prior knowledge of it before purchasing the policy.",
+      "facts_used": [
+        "incident_date",
+        "purchase_date"
+      ],
+      "document_ids": [],
+      "quote": "Booked and paid on 2025-02-01",
+      "confidence": 0.95
+    },
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "d2-certificate",
+        "description"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim submitted within 30 days of the policy ending",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period end",
+      "facts_used": [
+        "policy_period",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "suspicious_documents",
+      "kind": "judged",
+      "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+      "verdict": "fail",
+      "rationale": "answer: yes. The claim description states the claimant fell ill on 20 March 2025, but the medical certificate states she was admitted on 2025-03-12 and discharged on 2025-03-19. It is logically inconsistent to be discharged from the hospital on 19 March and then 'fall ill' and be hospitalized on 20 March for the same trip cancellation event. Additionally, the extracted facts explicitly note that the incident_date observations disagree (2025-03-20 vs 2025-03-12).",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": "Admitted on 2025-03-12",
+      "confidence": 0.95
+    }
+  ],
+  "coverages": [
+    {
+      "name": "cancellation",
+      "title": "Trip Cancellation or Rescheduling",
+      "match": {
+        "id": "cancellation_reason",
+        "kind": "judged",
+        "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
+        "verdict": "pass",
+        "rationale": "answer: yes. The claimant states she 'fell ill... and was hospitalised, so I cancelled my trip', which falls under the policy's covered reason of 'Medical emergency (must be supported by a medical report)'. A medical certificate is provided in the documents.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I fell ill on 20 March 2025 and was hospitalised, so I cancelled my trip to Prague departing 22 March.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:cancellation",
+        "kind": "proof",
+        "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "medical_report: certificate.md (questionable); police_report: missing; jury_summons: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-certificate"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [
+        {
+          "id": "cancellation_proof_fits",
+          "kind": "judged",
+          "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
+          "verdict": "fail",
+          "rationale": "answer: no. The medical certificate names the claimant (\"Patient: Sofia Marin\") and confirms the medical condition (\"Diagnosis: pneumonia\"), but the dates on the certificate (\"Admitted on 2025-03-12\", \"Discharged on 2025-03-19\") do not cover the stated incident date of 20 March 2025. The certificate indicates the patient was discharged before the claimed date of illness.",
+          "facts_used": [
+            "incident_date",
+            "claimant_name"
+          ],
+          "document_ids": [],
+          "quote": "Admitted on 2025-03-12 ... Discharged on 2025-03-19",
+          "confidence": 0.95
+        },
+        {
+          "id": "agrees:incident_date",
+          "kind": "mechanical",
+          "description": "incident date is consistent across documents",
+          "verdict": "fail",
+          "rationale": "observations disagree: 2025-03-20 vs 2025-03-12",
+          "facts_used": [
+            "incident_date"
+          ],
+          "document_ids": [
+            "d2-certificate",
+            "description"
+          ],
+          "quote": null,
+          "confidence": 0.54
+        }
+      ],
+      "status": "ineligible",
+      "payout": null,
+      "payout_formula": "booking_value",
+      "payout_note": null
+    },
+    {
+      "name": "personal_effects",
+      "title": "Personal Effects",
+      "match": {
+        "id": "effects_lost",
+        "kind": "judged",
+        "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claim description states the claimant fell ill and cancelled the trip, but makes no mention of personal belongings being lost, stolen, or damaged. The provided documents (booking confirmation and medical certificate) also contain no information regarding personal effects.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "Sofia Marin here. I fell ill on 20 March 2025 and was hospitalised, so I cancelled my trip to Prague departing 22 March. Certificate and booking attached.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:personal_effects",
+        "kind": "proof",
+        "description": "required proof: police_report or airline_acknowledgement",
+        "verdict": "fail",
+        "rationale": "police_report: missing; airline_acknowledgement: missing",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "100 * affected",
+      "payout_note": null
+    },
+    {
+      "name": "missed_connection",
+      "title": "Missed Departure or Missed Connection",
+      "match": {
+        "id": "missed_departure",
+        "kind": "judged",
+        "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claimant states she cancelled the trip because she was hospitalised, which falls under the 'Trip Cancellation' section, not the 'Missed Departure' section. The policy defines 'Missed Departure' as missing a scheduled departure due to a covered reason like a 'traffic accident en route', which is not the case here.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "If you miss a scheduled departure or connection due to a covered reason (e.g., traffic accident en route), you may be compensated.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:missed_connection",
+        "kind": "proof",
+        "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "incident_report: missing; police_report: missing; medical_report: certificate.md (questionable); booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-certificate"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "0.5 * booking_value / passengers * affected",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "DENY",
+    "confidence": 0.95,
+    "summary": "Denied. The claim description states the claimant fell ill on 20 March 2025, but the medical certificate states she was admitted on 2025-03-12 and discharged on 2025-03-19. It is logically inconsistent to be discharged from the hospital on 19 March and then 'fall ill' and be hospitalized on 20 March for the same trip cancellation event. Additionally, the extracted facts explicitly note that the incident_date observations disagree (2025-03-20 vs 2025-03-12).",
+    "determining": [
+      "suspicious_documents"
+    ],
+    "coverages_applied": [],
+    "payout": null,
+    "currency": "EUR",
+    "unknowns": [],
+    "explanation": "Your claim for trip cancellation has been denied due to inconsistencies in the provided documentation. Your claim description states that you fell ill on 20 March 2025, but the attached medical certificate indicates you were admitted on 12 March 2025 and discharged on 19 March 2025. Because the certificate shows you were discharged before the date you claimed to have fallen ill, the documents do not logically support the incident date required for coverage. We cannot verify that the medical emergency occurred during the relevant period for your trip cancellation. Please note that the booking confirmation was accepted, but the medical certificate was found to be inconsistent with your statement."
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 483,
+      "output_tokens": 125,
+      "cache_read_tokens": 346,
+      "latency_ms": 1175,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 447,
+      "output_tokens": 96,
+      "cache_read_tokens": 346,
+      "latency_ms": 834,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1225,
+      "output_tokens": 798,
+      "cache_read_tokens": 777,
+      "latency_ms": 4927,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1246,
+      "output_tokens": 137,
+      "cache_read_tokens": 598,
+      "latency_ms": 1420,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1245,
+      "output_tokens": 180,
+      "cache_read_tokens": 598,
+      "latency_ms": 1670,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1254,
+      "output_tokens": 123,
+      "cache_read_tokens": 598,
+      "latency_ms": 1313,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1251,
+      "output_tokens": 164,
+      "cache_read_tokens": 598,
+      "latency_ms": 1572,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1242,
+      "output_tokens": 130,
+      "cache_read_tokens": 598,
+      "latency_ms": 1427,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1251,
+      "output_tokens": 137,
+      "cache_read_tokens": 598,
+      "latency_ms": 1449,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1535,
+      "output_tokens": 146,
+      "cache_read_tokens": 594,
+      "latency_ms": 1595,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

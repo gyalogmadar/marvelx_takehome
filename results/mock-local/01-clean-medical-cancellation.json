@@ -1,0 +1,567 @@
+{
+  "claim_id": "01-clean-medical-cancellation",
+  "policy": "cfsr",
+  "strategy": "decomposed",
+  "description": "My name is Anna Weber. I had to cancel my trip to Lisbon because I was admitted to hospital with acute appendicitis on 20 March 2025, two days before departure.\nI attach the hospital certificate and my booking confirmation. I am asking for a refund of the 1,240 euros I paid.",
+  "submitted_at": "2025-03-25T00:00:00Z",
+  "processed_at": "2026-10-28T19:04:26.436445Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "My name is Anna Weber. I had to cancel my trip to Lisbon because I was admitted to hospital with acute appendicitis on 20 March 2025, two days before departure.",
+        "I attach the hospital certificate and my booking confirmation. I am asking for a refund of the 1,240 euros I paid."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-03-25"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-booking-confirmation",
+      "filename": "booking-confirmation.md",
+      "kind": "markdown",
+      "doc_type": "booking_confirmation",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Booking confirmation ET-77120",
+        "EuroTrips Travel GmbH",
+        "Lead passenger: Anna Weber",
+        "Route: Berlin - Lisbon",
+        "Departure: 2025-03-22",
+        "Passengers: 1",
+        "Total paid: EUR 1,240.00",
+        "Booked and paid on 2025-02-01",
+        "CFSR cover period: 2025-02-01 to 2025-04-10"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from Berlin to Lisbon departing on 2025-03-22, with a total payment of EUR 1,240.00 and a CFSR cover period from 2025-02-01 to 2025-04-10."
+    },
+    {
+      "id": "d2-hospital-certificate",
+      "filename": "hospital-certificate.md",
+      "kind": "markdown",
+      "doc_type": "medical_report",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Medical certificate",
+        "St. Hedwig Hospital, Berlin",
+        "Patient: Anna Weber",
+        "Admitted on 2025-03-20",
+        "Diagnosis: acute appendicitis, appendectomy",
+        "Discharged on 2025-03-24",
+        "The patient is not fit to travel.",
+        "Dr. H. Lindqvist, registration 55012"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A medical certificate from St. Hedwig Hospital in Berlin for patient Anna Weber, detailing an admission on 2025-03-20 for acute appendicitis and appendectomy, with discharge on 2025-03-24. The certificate states the patient is not fit to travel and is signed by Dr. H. Lindqvist."
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Anna Weber",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "My name is Anna Weber.",
+          "value": "Anna Weber",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 3,
+          "quote": "Lead passenger: Anna Weber",
+          "value": "Anna Weber",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-hospital-certificate",
+          "line": 3,
+          "quote": "Patient: Anna Weber",
+          "value": "Anna Weber",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-03-20",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "I was admitted to hospital with acute appendicitis on 20 March 2025",
+          "value": "2025-03-20",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-hospital-certificate",
+          "line": 4,
+          "quote": "Admitted on 2025-03-20",
+          "value": "2025-03-20",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "purchase_date",
+      "type": "date",
+      "value": "2025-02-01",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 8,
+          "quote": "Booked and paid on 2025-02-01",
+          "value": "2025-02-01",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": {
+        "start": "2025-02-01",
+        "end": "2025-04-10"
+      },
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 9,
+          "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+          "value": "2025-02-01/2025-04-10",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-03-25",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-03-25",
+          "value": "2025-03-25",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "booking_value",
+      "type": "money",
+      "value": 1240.0,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 2,
+          "quote": "I am asking for a refund of the 1,240 euros I paid.",
+          "value": "1240.00",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 7,
+          "quote": "Total paid: EUR 1,240.00",
+          "value": "1240.00",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "passengers",
+      "type": "int",
+      "value": 1,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": ">=1",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "affected",
+      "type": "int",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [],
+      "note": "no usable observation"
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "prior_knowledge",
+      "kind": "judged",
+      "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
+      "verdict": "pass",
+      "rationale": "answer: no. The policy excludes claims based on 'Prior knowledge of the incident or reason before purchase.' The claimant purchased the policy on 2025-02-01, but the incident (admission for acute appendicitis) occurred on 2025-03-20. Since the incident happened nearly two months after the purchase date, the claimant could not have known about this specific incident before purchasing the policy.",
+      "facts_used": [
+        "incident_date",
+        "purchase_date"
+      ],
+      "document_ids": [],
+      "quote": "Prior knowledge of the incident or reason before purchase",
+      "confidence": 0.95
+    },
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "pass",
+      "rationale": "incident date 2025-03-20 (description) is inside policy period 2025-02-01 to 2025-04-10 (booking-confirmation.md)",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "d2-hospital-certificate",
+        "description"
+      ],
+      "quote": null,
+      "confidence": 1.0
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim submitted within 30 days of the policy ending",
+      "verdict": "pass",
+      "rationale": "claim submitted 2025-03-25 (metadata) is 16 days before policy period end 2025-04-10 (booking-confirmation.md); limit is 30 days after",
+      "facts_used": [
+        "policy_period",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 1.0
+    },
+    {
+      "id": "suspicious_documents",
+      "kind": "judged",
+      "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+      "verdict": "pass",
+      "rationale": "answer: no. The documents are internally consistent and align with the claim description. The hospital certificate confirms the admission date (2025-03-20) and diagnosis (acute appendicitis) stated in the claim. The booking confirmation confirms the departure date (2025-03-22), which is two days after the admission date as stated in the claim ('two days before departure'). The amounts and names match across all documents. There are no contradictions or signs of fabrication.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": "Admitted on 2025-03-20",
+      "confidence": 0.95
+    }
+  ],
+  "coverages": [
+    {
+      "name": "cancellation",
+      "title": "Trip Cancellation or Rescheduling",
+      "match": {
+        "id": "cancellation_reason",
+        "kind": "judged",
+        "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
+        "verdict": "pass",
+        "rationale": "answer: yes. The claimant states she cancelled the trip because she was admitted to hospital with acute appendicitis, which falls under the policy's covered reason of a 'Medical emergency (must be supported by a medical report)'. The provided hospital certificate confirms the diagnosis and admission.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I had to cancel my trip to Lisbon because I was admitted to hospital with acute appendicitis on 20 March 2025, two days before departure.",
+        "confidence": 1.0
+      },
+      "proofs": {
+        "id": "proofs:cancellation",
+        "kind": "proof",
+        "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "medical_report: hospital-certificate.md; police_report: missing; jury_summons: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-hospital-certificate"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [
+        {
+          "id": "cancellation_proof_fits",
+          "kind": "judged",
+          "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
+          "verdict": "pass",
+          "rationale": "answer: yes. The hospital certificate explicitly names the claimant as 'Anna Weber' (line 3) and confirms the incident date of admission as '2025-03-20' (line 4), which matches the stated reason for cancellation (acute appendicitis).",
+          "facts_used": [
+            "incident_date",
+            "claimant_name"
+          ],
+          "document_ids": [],
+          "quote": "Patient: Anna Weber\nAdmitted on 2025-03-20",
+          "confidence": 1.0
+        },
+        {
+          "id": "agrees:incident_date",
+          "kind": "mechanical",
+          "description": "incident date is consistent across documents",
+          "verdict": "pass",
+          "rationale": "incident date = 2025-03-20 from 2 sources, no disagreement",
+          "facts_used": [
+            "incident_date"
+          ],
+          "document_ids": [
+            "d2-hospital-certificate",
+            "description"
+          ],
+          "quote": null,
+          "confidence": 1.0
+        }
+      ],
+      "status": "eligible",
+      "payout": 1240.0,
+      "payout_formula": "booking_value",
+      "payout_note": null
+    },
+    {
+      "name": "personal_effects",
+      "title": "Personal Effects",
+      "match": {
+        "id": "effects_lost",
+        "kind": "judged",
+        "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claim description states the trip was cancelled due to a medical emergency (acute appendicitis) and requests a refund for the trip cost. There is no mention of personal belongings being lost, stolen, or damaged. The claim falls under the 'Trip Cancellation or Rescheduling' section, not the 'Personal Effects' section.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I had to cancel my trip to Lisbon because I was admitted to hospital with acute appendicitis on 20 March 2025, two days before departure.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:personal_effects",
+        "kind": "proof",
+        "description": "required proof: police_report or airline_acknowledgement",
+        "verdict": "fail",
+        "rationale": "police_report: missing; airline_acknowledgement: missing",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "100 * affected",
+      "payout_note": null
+    },
+    {
+      "name": "missed_connection",
+      "title": "Missed Departure or Missed Connection",
+      "match": {
+        "id": "missed_departure",
+        "kind": "judged",
+        "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claimant states she cancelled the trip due to a medical emergency (acute appendicitis), not because she missed a departure or connection due to an external cause like a traffic accident. The policy distinguishes between 'Trip Cancellation or Rescheduling' (Section 1) and 'Missed Departure or Missed Connection' (Section 3). The facts describe a cancellation, not a missed departure.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I had to cancel my trip to Lisbon because I was admitted to hospital with acute appendicitis on 20 March 2025, two days before departure.",
+        "confidence": 1.0
+      },
+      "proofs": {
+        "id": "proofs:missed_connection",
+        "kind": "proof",
+        "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "incident_report: missing; police_report: missing; medical_report: hospital-certificate.md; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-hospital-certificate"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "0.5 * booking_value / passengers * affected",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "APPROVE",
+    "confidence": 0.95,
+    "summary": "Approved under Trip Cancellation or Rescheduling. Payout 1,240.00 EUR.",
+    "determining": [
+      "cancellation_reason",
+      "proofs:cancellation",
+      "cancellation_proof_fits",
+      "agrees:incident_date"
+    ],
+    "coverages_applied": [
+      "cancellation"
+    ],
+    "payout": 1240.0,
+    "currency": "EUR",
+    "unknowns": [],
+    "explanation": "Dear Anna Weber, your claim for trip cancellation has been approved for a payout of 1,240.00 EUR. We have reviewed your hospital certificate, which confirms your admission for acute appendicitis on 20 March 2025, and your booking confirmation, which verifies the trip details and amount paid. These documents satisfy the requirements for a covered medical emergency under the Trip Cancellation or Rescheduling section of your policy. As the incident occurred within your policy period and was reported in a timely manner, no exclusions apply. Please allow a few business days for the payment to be processed to your account."
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 485,
+      "output_tokens": 121,
+      "cache_read_tokens": 0,
+      "latency_ms": 1184,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 457,
+      "output_tokens": 121,
+      "cache_read_tokens": 346,
+      "latency_ms": 1000,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1299,
+      "output_tokens": 883,
+      "cache_read_tokens": 0,
+      "latency_ms": 5634,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1320,
+      "output_tokens": 141,
+      "cache_read_tokens": 0,
+      "latency_ms": 49161,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1319,
+      "output_tokens": 151,
+      "cache_read_tokens": 598,
+      "latency_ms": 11722,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1328,
+      "output_tokens": 128,
+      "cache_read_tokens": 598,
+      "latency_ms": 14766,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1325,
+      "output_tokens": 117,
+      "cache_read_tokens": 598,
+      "latency_ms": 1262,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1316,
+      "output_tokens": 137,
+      "cache_read_tokens": 598,
+      "latency_ms": 1312,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1325,
+      "output_tokens": 152,
+      "cache_read_tokens": 598,
+      "latency_ms": 1423,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1532,
+      "output_tokens": 138,
+      "cache_read_tokens": 0,
+      "latency_ms": 1655,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

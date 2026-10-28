@@ -1,0 +1,118 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "police-report.md": {
+      "doc_type": "police_report",
+      "issuer": "Police Fédérale"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 300.00",
+        "value": 300.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Nora Lind. On 11 March 2025 my handbag with my ticket and wallet was snatched at Brussels-Midi; while I was at the police station I missed my train to Amsterdam and bought a new ticket later. I claim for the missed train and my stolen belongings. Police report and booking attached.",
+        "value": "Nora Lind",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "police-report.md",
+        "line": 4,
+        "quote": "Date of incident: 2025-03-11",
+        "value": "2025-03-11",
+        "confidence": 0.97
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Nora Lind. On 11 March 2025 my handbag with my ticket and wallet was snatched at Brussels-Midi; while I was at the police station I missed my train to Amsterdam and bought a new ticket later. I claim for the missed train and my stolen belongings. Police report and booking attached.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "no",
+      "rationale": "The claim does not describe a cancelled or rescheduled trip for a covered reason.",
+      "confidence": 0.9
+    },
+    "cancellation_proof_fits": {
+      "answer": "unknown",
+      "rationale": "Not evaluated: the cancellation coverage did not match.",
+      "confidence": 0.9
+    },
+    "effects_lost": {
+      "answer": "yes",
+      "rationale": "Handbag and contents stolen during the trip, police confirmed.",
+      "confidence": 0.9,
+      "document": "police-report.md",
+      "line": 5,
+      "quote": "Incident: snatch theft of a handbag containing wallet, phone and rail ticket"
+    },
+    "missed_departure": {
+      "answer": "yes",
+      "rationale": "The theft and the police visit caused her to miss the booked train.",
+      "confidence": 0.9,
+      "document": "description",
+      "line": 1,
+      "quote": "Nora Lind. On 11 March 2025 my handbag with my ticket and wallet was snatched at Brussels-Midi; while I was at the police station I missed my train to Amsterdam and bought a new ticket later. I claim for the missed train and my stolen belongings. Police report and booking attached."
+    }
+  }
+}

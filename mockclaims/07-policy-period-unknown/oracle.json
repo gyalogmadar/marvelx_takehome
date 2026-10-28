@@ -1,0 +1,97 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "discharge-summary.md": {
+      "doc_type": "medical_report",
+      "issuer": "Royal Free Hospital"
+    }
+  },
+  "facts": {
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March. Please see the attached documents.",
+        "value": "Peter Hall",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "discharge-summary.md",
+        "line": 4,
+        "quote": "Admitted on 2025-03-15",
+        "value": "2025-03-15",
+        "confidence": 0.97
+      }
+    ],
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 275.00",
+        "value": 275.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March. Please see the attached documents.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "unknown",
+      "rationale": "The purchase date is not stated anywhere, so the order of events cannot be established.",
+      "confidence": 0.5
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "Hospital admission the day before departure.",
+      "confidence": 0.9,
+      "document": "discharge-summary.md",
+      "line": 5,
+      "quote": "Diagnosis: renal colic"
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "Names the claimant, covers the date.",
+      "confidence": 0.9,
+      "document": "discharge-summary.md",
+      "line": 3,
+      "quote": "Patient: Peter Hall"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

@@ -1,0 +1,460 @@
+{
+  "claim_id": "10-voluntary-change",
+  "policy": "cfsr",
+  "strategy": "decomposed",
+  "description": "Hi, Emma Fischer. I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone. Booking attached, please refund.",
+  "submitted_at": "2025-03-16T00:00:00Z",
+  "processed_at": "2026-10-28T19:10:42.951515Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Hi, Emma Fischer. I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone. Booking attached, please refund."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-03-16"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-booking-confirmation",
+      "filename": "booking-confirmation.md",
+      "kind": "markdown",
+      "doc_type": "booking_confirmation",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Booking confirmation ET-77644",
+        "EuroTrips Travel GmbH",
+        "Lead passenger: Emma Fischer",
+        "Route: Hamburg - Copenhagen",
+        "Departure: 2025-03-15",
+        "Passengers: 1",
+        "Total paid: EUR 180.00",
+        "Booked and paid on 2025-02-01",
+        "CFSR cover period: 2025-02-01 to 2025-04-10"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from Hamburg to Copenhagen departing on 2025-03-15, paid in full for EUR 180.00, with a CFSR cover period from 2025-02-01 to 2025-04-10."
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Emma Fischer",
+      "confidence": 0.95,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Hi, Emma Fischer.",
+          "value": "Emma Fischer",
+          "confidence": 0.95
+        },
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 3,
+          "quote": "Lead passenger: Emma Fischer",
+          "value": "Emma Fischer",
+          "confidence": 0.95
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-03-15",
+      "confidence": 0.8,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "I decided not to go to Copenhagen on 15 March 2025 after all",
+          "value": "2025-03-15",
+          "confidence": 0.8
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "purchase_date",
+      "type": "date",
+      "value": "2025-02-01",
+      "confidence": 0.95,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 8,
+          "quote": "Booked and paid on 2025-02-01",
+          "value": "2025-02-01",
+          "confidence": 0.95
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 9,
+          "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+          "value": "2025-02-01 to 2025-04-10",
+          "confidence": 0.95
+        }
+      ],
+      "note": "observations could not be parsed"
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-03-16",
+      "confidence": 0.95,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-03-16",
+          "value": "2025-03-16",
+          "confidence": 0.95
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "booking_value",
+      "type": "money",
+      "value": 180.0,
+      "confidence": 0.95,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 7,
+          "quote": "Total paid: EUR 180.00",
+          "value": "180.00",
+          "confidence": 0.95
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "passengers",
+      "type": "int",
+      "value": 1,
+      "confidence": 0.95,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": ">1",
+          "confidence": 0.95
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "affected",
+      "type": "int",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [],
+      "note": "no usable observation"
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "prior_knowledge",
+      "kind": "judged",
+      "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
+      "verdict": "unknown",
+      "rationale": "answer: unknown. The claimant states the reason for cancellation is that 'my friend could no longer join me'. The documents do not specify when the friend decided not to join, nor do they state whether the claimant was aware of this change before purchasing the policy on 2025-02-01. Therefore, it is unknown if the claimant had prior knowledge of the reason before purchase.",
+      "facts_used": [
+        "incident_date",
+        "purchase_date"
+      ],
+      "document_ids": [],
+      "quote": "I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone.",
+      "confidence": 0.9
+    },
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "description"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim submitted within 30 days of the policy ending",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period end",
+      "facts_used": [
+        "policy_period",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "suspicious_documents",
+      "kind": "judged",
+      "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+      "verdict": "pass",
+      "rationale": "answer: no. The documents are internally consistent. The claim description states the trip was on '15 March 2025' and the booking confirmation lists 'Departure: 2025-03-15'. The claimant's name 'Emma Fischer' matches the 'Lead passenger' in the booking. The booking value of 'EUR 180.00' matches the extracted fact. There are no contradictions or signs of fabrication between the provided documents.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": "Departure: 2025-03-15",
+      "confidence": 0.95
+    }
+  ],
+  "coverages": [
+    {
+      "name": "cancellation",
+      "title": "Trip Cancellation or Rescheduling",
+      "match": {
+        "id": "cancellation_reason",
+        "kind": "judged",
+        "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claimant explicitly states the reason for cancellation was that \"my friend could no longer join me and it would not have been fun alone.\" This is a voluntary change based on personal preference, which does not fall under the covered reasons of jury duty, medical emergency, theft/criminal incident, or other specified personal emergencies. The policy explicitly excludes \"voluntary changes to your travel\".",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone.",
+        "confidence": 0.98
+      },
+      "proofs": {
+        "id": "proofs:cancellation",
+        "kind": "proof",
+        "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
+        "verdict": "fail",
+        "rationale": "medical_report: missing; police_report: missing; jury_summons: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "booking_value",
+      "payout_note": null
+    },
+    {
+      "name": "personal_effects",
+      "title": "Personal Effects",
+      "match": {
+        "id": "effects_lost",
+        "kind": "judged",
+        "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claim description states the reason for cancellation was that the claimant's friend could no longer join her, not that her belongings were lost, stolen, or damaged. The policy defines 'Personal Effects' coverage as applying when 'personal belongings are lost or damaged during your trip', which is not the case here.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:personal_effects",
+        "kind": "proof",
+        "description": "required proof: police_report or airline_acknowledgement",
+        "verdict": "fail",
+        "rationale": "police_report: missing; airline_acknowledgement: missing",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "100 * affected",
+      "payout_note": null
+    },
+    {
+      "name": "missed_connection",
+      "title": "Missed Departure or Missed Connection",
+      "match": {
+        "id": "missed_departure",
+        "kind": "judged",
+        "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claimant explicitly states the reason for cancellation was a personal decision based on a friend's absence, not an external covered cause like a traffic accident. The policy excludes 'voluntary changes to your travel' and requires a covered reason for missed departure compensation.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "I decided not to go to Copenhagen on 15 March 2025 after all because my friend could no longer join me and it would not have been fun alone.",
+        "confidence": 0.98
+      },
+      "proofs": {
+        "id": "proofs:missed_connection",
+        "kind": "proof",
+        "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
+        "verdict": "fail",
+        "rationale": "incident_report: missing; police_report: missing; medical_report: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "0.5 * booking_value / passengers * affected",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "DENY",
+    "confidence": 0.95,
+    "summary": "Denied. The stated reason is not covered by any section of the policy. The claimant explicitly states the reason for cancellation was that \"my friend could no longer join me and it would not have been fun alone.\" This is a voluntary change based on personal preference, which does not fall under the covered reasons of jury duty, medical emergency, theft/criminal incident, or other specified personal emergencies. The policy explicitly excludes \"voluntary changes to your travel\". The claim description states the reason for cancellation was that the claimant's friend could no longer join her, not that her belongings were lost, stolen, or damaged. The policy defines 'Personal Effects' coverage as applying when 'personal belongings are lost or damaged during your trip', which is not the case here. The claimant explicitly states the reason for cancellation was a personal decision based on a friend's absence, not an external covered cause like a traffic accident. The policy excludes 'voluntary changes to your travel' and requires a covered reason for missed departure compensation.",
+    "determining": [
+      "cancellation_reason",
+      "effects_lost",
+      "missed_departure"
+    ],
+    "coverages_applied": [],
+    "payout": null,
+    "currency": "EUR",
+    "unknowns": [],
+    "explanation": "Dear Emma Fischer, your claim for the trip to Copenhagen on 15 March 2025 has been denied. You stated that you cancelled because \"my friend could no longer join me and it would not have been fun alone,\" which constitutes a voluntary change to your travel. This reason does not fall under the covered categories of jury duty, medical emergency, theft, or other specified personal emergencies. Consequently, the claim is excluded under the policy provision that rejects voluntary changes to travel. No further documentation can alter this outcome as the underlying reason is not covered."
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 483,
+      "output_tokens": 119,
+      "cache_read_tokens": 346,
+      "latency_ms": 1155,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1119,
+      "output_tokens": 655,
+      "cache_read_tokens": 777,
+      "latency_ms": 4068,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1102,
+      "output_tokens": 156,
+      "cache_read_tokens": 598,
+      "latency_ms": 1446,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1101,
+      "output_tokens": 147,
+      "cache_read_tokens": 598,
+      "latency_ms": 1301,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1110,
+      "output_tokens": 154,
+      "cache_read_tokens": 598,
+      "latency_ms": 1447,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1098,
+      "output_tokens": 139,
+      "cache_read_tokens": 598,
+      "latency_ms": 1380,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1107,
+      "output_tokens": 128,
+      "cache_read_tokens": 598,
+      "latency_ms": 1257,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1455,
+      "output_tokens": 123,
+      "cache_read_tokens": 0,
+      "latency_ms": 1527,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "police-report.md": {
+      "doc_type": "police_report",
+      "issuer": "Commissariat de Police Lyon 3e"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 98.00",
+        "value": 98.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 2",
+        "value": 2,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Omar and Leila Haddad. On 9 March 2025 at Lyon Part-Dieu station both our suitcases were stolen while we waited for the train to Marseille. We continued the trip. Police report attached. We claim for our lost belongings.",
+        "value": "Omar Haddad",
+        "confidence": 0.9
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "police-report.md",
+        "line": 4,
+        "quote": "Date of incident: 2025-03-09",
+        "value": "2025-03-09",
+        "confidence": 0.97
+      }
+    ],
+    "affected": [
+      {
+        "document": "police-report.md",
+        "line": 3,
+        "quote": "Reporting person: Omar Haddad and Leila Haddad",
+        "value": 2,
+        "confidence": 0.9
+      },
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Omar and Leila Haddad. On 9 March 2025 at Lyon Part-Dieu station both our suitcases were stolen while we waited for the train to Marseille. We continued the trip. Police report attached. We claim for our lost belongings.",
+        "value": 2,
+        "confidence": 0.85
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "no",
+      "rationale": "The claim does not describe a cancelled or rescheduled trip for a covered reason.",
+      "confidence": 0.9
+    },
+    "cancellation_proof_fits": {
+      "answer": "unknown",
+      "rationale": "Not evaluated: the cancellation coverage did not match.",
+      "confidence": 0.9
+    },
+    "effects_lost": {
+      "answer": "yes",
+      "rationale": "Two suitcases stolen at the station during the trip, confirmed by police.",
+      "confidence": 0.9,
+      "document": "police-report.md",
+      "line": 5,
+      "quote": "Incident: theft of two suitcases from the platform at Lyon Part-Dieu"
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

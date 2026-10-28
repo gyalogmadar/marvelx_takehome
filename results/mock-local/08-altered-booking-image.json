@@ -1,0 +1,574 @@
+{
+  "claim_id": "08-altered-booking-image",
+  "policy": "cfsr",
+  "strategy": "decomposed",
+  "description": "Ines Costa. Appendix surgery 10 March 2025, cancelled trip to Athens on 12 March. Attached: the hospital letter and a photo of my booking.",
+  "submitted_at": "2025-03-18T00:00:00Z",
+  "processed_at": "2026-10-28T19:10:10.525273Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Ines Costa. Appendix surgery 10 March 2025, cancelled trip to Athens on 12 March. Attached: the hospital letter and a photo of my booking."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-03-18"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-booking-photo",
+      "filename": "booking-photo.png",
+      "kind": "image",
+      "doc_type": "booking_confirmation",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Booking confirmation ET-77588",
+        "",
+        "EuroTrips Travel GmbH",
+        "",
+        "Lead passenger: Ines Costa",
+        "",
+        "Route: Lisbon - Athens",
+        "",
+        "Departure: 2025-03-12",
+        "",
+        "Passengers: 1",
+        "",
+        "Total paid: EUR 2,180.00",
+        "",
+        "Booked and paid on 2025-02-01",
+        "",
+        "CFSS cover period: 2025-02-01 to 2025-04-10"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": "image/png",
+      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from Lisbon to Athens departing on 2025-03-12. The lead passenger is Ines Costa, with a total paid of EUR 2,180.00. The booking was made and paid on 2025-02-01, which falls within the stated CFSS cover period of 2025-02-01 to 2025-04-10."
+    },
+    {
+      "id": "d2-hospital-letter",
+      "filename": "hospital-letter.md",
+      "kind": "markdown",
+      "doc_type": "medical_report",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Medical certificate",
+        "Hospital de Santa Maria",
+        "Patient: Ines Costa",
+        "Admitted on 2025-03-10",
+        "Diagnosis: appendicitis",
+        "Discharged on 2025-03-13",
+        "The patient is not fit to travel.",
+        "Dr. H. Lindqvist, registration 55012"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A medical certificate from Hospital de Santa Maria stating that patient Ines Costa was admitted on 2025-03-10 for appendicitis and discharged on 2025-03-13, and is not fit to travel."
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Ines Costa",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Ines Costa. Appendix surgery 10 March 2025, cancelled trip to Athens on 12 March. Attached: the hospital letter and a photo of my booking.",
+          "value": "Ines Costa",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d1-booking-photo",
+          "line": 5,
+          "quote": "Lead passenger: Ines Costa",
+          "value": "Ines Costa",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-hospital-letter",
+          "line": 3,
+          "quote": "Patient: Ines Costa",
+          "value": "Ines Costa",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-03-10",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Ines Costa. Appendix surgery 10 March 2025, cancelled trip to Athens on 12 March. Attached: the hospital letter and a photo of my booking.",
+          "value": "2025-03-10",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-hospital-letter",
+          "line": 4,
+          "quote": "Admitted on 2025-03-10",
+          "value": "2025-03-10",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "purchase_date",
+      "type": "date",
+      "value": "2025-02-01",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-photo",
+          "line": 15,
+          "quote": "Booked and paid on 2025-02-01",
+          "value": "2025-02-01",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-photo",
+          "line": 17,
+          "quote": "CFSS cover period: 2025-02-01 to 2025-04-10",
+          "value": "2025-02-01 to 2025-04-10",
+          "confidence": 1.0
+        }
+      ],
+      "note": "observations could not be parsed"
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-03-18",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-03-18",
+          "value": "2025-03-18",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "booking_value",
+      "type": "money",
+      "value": 2180.0,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-photo",
+          "line": 13,
+          "quote": "Total paid: EUR 2,180.00",
+          "value": "2180.00",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "passengers",
+      "type": "int",
+      "value": 1,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-photo",
+          "line": 11,
+          "quote": "Passengers: 1",
+          "value": ">1",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "affected",
+      "type": "int",
+      "value": 1,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-photo",
+          "line": 11,
+          "quote": "Passengers: 1",
+          "value": ">1",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "prior_knowledge",
+      "kind": "judged",
+      "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
+      "verdict": "pass",
+      "rationale": "answer: no. The policy was purchased on 2025-02-01, and the incident (appendicitis requiring surgery) occurred on 2025-03-10. Since the incident date is after the purchase date, the claimant could not have had prior knowledge of the specific incident before purchasing the policy.",
+      "facts_used": [
+        "incident_date",
+        "purchase_date"
+      ],
+      "document_ids": [],
+      "quote": "Booked and paid on 2025-02-01",
+      "confidence": 0.95
+    },
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-booking-photo",
+        "d2-hospital-letter",
+        "description"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim submitted within 30 days of the policy ending",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period end",
+      "facts_used": [
+        "policy_period",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "d1-booking-photo",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "suspicious_documents",
+      "kind": "judged",
+      "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+      "verdict": "pass",
+      "rationale": "answer: no. The documents are internally consistent and align with the claim description. The hospital letter confirms the patient (Ines Costa) was admitted on 2025-03-10 for appendicitis, which matches the claim description's 'Appendix surgery 10 March 2025'. The booking confirmation shows a departure date of 2025-03-12, which falls within the hospitalization period (admitted 2025-03-10, discharged 2025-03-13), supporting the reason for cancellation. The booking date (2025-02-01) precedes the incident, and the policy period (2025-02-01 to 2025-04-10) covers the incident date. There are no contradictions or signs of fabrication.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": "Admitted on 2025-03-10 ... Discharged on 2025-03-13",
+      "confidence": 0.95
+    }
+  ],
+  "coverages": [
+    {
+      "name": "cancellation",
+      "title": "Trip Cancellation or Rescheduling",
+      "match": {
+        "id": "cancellation_reason",
+        "kind": "judged",
+        "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
+        "verdict": "pass",
+        "rationale": "answer: yes. The claim description states the trip was cancelled due to 'Appendix surgery', and the attached medical certificate confirms a diagnosis of 'appendicitis' and that the patient is 'not fit to travel', which constitutes a medical emergency supported by a medical report as required by the policy.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "Appendix surgery 10 March 2025, cancelled trip to Athens on 12 March.",
+        "confidence": 1.0
+      },
+      "proofs": {
+        "id": "proofs:cancellation",
+        "kind": "proof",
+        "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "medical_report: hospital-letter.md; police_report: missing; jury_summons: missing; booking_confirmation: booking-photo.png",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-photo",
+          "d2-hospital-letter"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [
+        {
+          "id": "cancellation_proof_fits",
+          "kind": "judged",
+          "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
+          "verdict": "pass",
+          "rationale": "answer: yes. The hospital letter confirms the medical reason (appendicitis/appendix surgery), names the claimant (Ines Costa), and covers the incident date (admitted 2025-03-10).",
+          "facts_used": [
+            "incident_date",
+            "claimant_name"
+          ],
+          "document_ids": [],
+          "quote": "Patient: Ines Costa\nAdmitted on 2025-03-10\nDiagnosis: appendicitis",
+          "confidence": 1.0
+        },
+        {
+          "id": "agrees:incident_date",
+          "kind": "mechanical",
+          "description": "incident date is consistent across documents",
+          "verdict": "pass",
+          "rationale": "incident date = 2025-03-10 from 2 sources, no disagreement",
+          "facts_used": [
+            "incident_date"
+          ],
+          "document_ids": [
+            "d2-hospital-letter",
+            "description"
+          ],
+          "quote": null,
+          "confidence": 1.0
+        }
+      ],
+      "status": "eligible",
+      "payout": 2180.0,
+      "payout_formula": "booking_value",
+      "payout_note": null
+    },
+    {
+      "name": "personal_effects",
+      "title": "Personal Effects",
+      "match": {
+        "id": "effects_lost",
+        "kind": "judged",
+        "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claim description states the trip was cancelled due to an 'Appendix surgery', and the attached medical certificate confirms a diagnosis of 'appendicitis' requiring hospitalization. There is no mention of personal belongings being lost, stolen, or damaged in any of the provided documents.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "Ines Costa. Appendix surgery 10 March 2025, cancelled trip to Athens on 12 March.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:personal_effects",
+        "kind": "proof",
+        "description": "required proof: police_report or airline_acknowledgement",
+        "verdict": "fail",
+        "rationale": "police_report: missing; airline_acknowledgement: missing",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "100 * affected",
+      "payout_note": null
+    },
+    {
+      "name": "missed_connection",
+      "title": "Missed Departure or Missed Connection",
+      "match": {
+        "id": "missed_departure",
+        "kind": "judged",
+        "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claimant's trip was cancelled due to a medical emergency (appendicitis surgery), not because they missed a departure or connection due to an external cause like a traffic accident. The policy distinguishes between 'Trip Cancellation' (Section 1) and 'Missed Departure' (Section 3). The documents state the trip was 'cancelled' due to the surgery, not that the claimant missed the flight due to a delay or accident en route.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "Ines Costa. Appendix surgery 10 March 2025, cancelled trip to Athens on 12 March.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:missed_connection",
+        "kind": "proof",
+        "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "incident_report: missing; police_report: missing; medical_report: hospital-letter.md; booking_confirmation: booking-photo.png",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-photo",
+          "d2-hospital-letter"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "0.5 * booking_value / passengers * affected",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "UNCERTAIN",
+    "confidence": 0.95,
+    "summary": "Referred for review. The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+    "determining": [
+      "within_period:incident_date",
+      "late_reporting"
+    ],
+    "coverages_applied": [
+      "cancellation"
+    ],
+    "payout": null,
+    "currency": "EUR",
+    "unknowns": [
+      "The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+      "incident date falls inside policy period: cannot evaluate, unknown: policy period",
+      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end"
+    ],
+    "explanation": "Your claim for trip cancellation due to appendicitis surgery is otherwise eligible, as supported by the hospital letter and booking confirmation. However, we cannot finalize the decision because the policy period details are missing from the file. We need to verify that the incident date of 10 March 2025 falls within the coverage period and that the claim was submitted within 30 days of the policy ending. Please provide the policy document or certificate stating the exact start and end dates of your coverage. Once we have these dates, we can confirm whether the claim meets the timing requirements for payout."
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 623,
+      "output_tokens": 314,
+      "cache_read_tokens": 346,
+      "latency_ms": 36887,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 450,
+      "output_tokens": 98,
+      "cache_read_tokens": 346,
+      "latency_ms": 12956,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1253,
+      "output_tokens": 942,
+      "cache_read_tokens": 777,
+      "latency_ms": 6711,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1247,
+      "output_tokens": 127,
+      "cache_read_tokens": 621,
+      "latency_ms": 1327,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1246,
+      "output_tokens": 251,
+      "cache_read_tokens": 598,
+      "latency_ms": 6963,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1255,
+      "output_tokens": 119,
+      "cache_read_tokens": 629,
+      "latency_ms": 1207,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1252,
+      "output_tokens": 114,
+      "cache_read_tokens": 598,
+      "latency_ms": 2651,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1243,
+      "output_tokens": 117,
+      "cache_read_tokens": 598,
+      "latency_ms": 1172,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1252,
+      "output_tokens": 156,
+      "cache_read_tokens": 626,
+      "latency_ms": 1476,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1515,
+      "output_tokens": 129,
+      "cache_read_tokens": 594,
+      "latency_ms": 2860,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

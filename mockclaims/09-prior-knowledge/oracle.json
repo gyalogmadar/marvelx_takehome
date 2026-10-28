@@ -1,0 +1,121 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "surgery-letter.md": {
+      "doc_type": "medical_report",
+      "issuer": "Karolinska University Hospital"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 710.00",
+        "value": 710.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Jonas Berg. I had surgery on 5 March 2025 and could not travel to Barcelona on 8 March. Attaching the surgery letter and booking.",
+        "value": "Jonas Berg",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "surgery-letter.md",
+        "line": 4,
+        "quote": "Your elective knee arthroscopy is scheduled for 2025-03-05.",
+        "value": "2025-03-05",
+        "confidence": 0.95
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Jonas Berg. I had surgery on 5 March 2025 and could not travel to Barcelona on 8 March. Attaching the surgery letter and booking.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "yes",
+      "rationale": "The surgery was scheduled on 20 January, twelve days before the cover was bought on 1 February.",
+      "confidence": 0.95,
+      "document": "surgery-letter.md",
+      "line": 2,
+      "quote": "Letter dated 2025-01-20"
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "Surgery preventing travel is a medical reason.",
+      "confidence": 0.9,
+      "document": "surgery-letter.md",
+      "line": 4,
+      "quote": "Your elective knee arthroscopy is scheduled for 2025-03-05."
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "Names the claimant and the date.",
+      "confidence": 0.9,
+      "document": "surgery-letter.md",
+      "line": 3,
+      "quote": "Patient: Jonas Berg"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

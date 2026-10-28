@@ -1,0 +1,132 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "hospital-certificate.md": {
+      "doc_type": "medical_report",
+      "issuer": "St. Hedwig Hospital"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 1,240.00",
+        "value": 1240.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "My name is Anna Weber. I had to cancel my trip to Lisbon because I was admitted to hospital with acute appendicitis on 20 March 2025, two days before departure.",
+        "value": "Anna Weber",
+        "confidence": 0.99
+      },
+      {
+        "document": "hospital-certificate.md",
+        "line": 3,
+        "quote": "Patient: Anna Weber",
+        "value": "Anna Weber",
+        "confidence": 0.95
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "hospital-certificate.md",
+        "line": 4,
+        "quote": "Admitted on 2025-03-20",
+        "value": "2025-03-20",
+        "confidence": 0.97
+      },
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "My name is Anna Weber. I had to cancel my trip to Lisbon because I was admitted to hospital with acute appendicitis on 20 March 2025, two days before departure.",
+        "value": "2025-03-20",
+        "confidence": 0.9
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "My name is Anna Weber. I had to cancel my trip to Lisbon because I was admitted to hospital with acute appendicitis on 20 March 2025, two days before departure.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "Hospital admission for appendicitis two days before departure is a medical emergency.",
+      "confidence": 0.9,
+      "document": "hospital-certificate.md",
+      "line": 5,
+      "quote": "Diagnosis: acute appendicitis, appendectomy"
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "The certificate names Anna Weber, is dated 20 March and states she is unfit to travel.",
+      "confidence": 0.9,
+      "document": "hospital-certificate.md",
+      "line": 7,
+      "quote": "The patient is not fit to travel."
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

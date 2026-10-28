@@ -1,0 +1,125 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "medical-certificate.md": {
+      "doc_type": "medical_report",
+      "issuer": "Zakopane District Hospital"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 640.00",
+        "value": 640.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
+        "value": "Tomasz Nowak",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "medical-certificate.md",
+        "line": 4,
+        "quote": "Admitted on 2025-01-28",
+        "value": "2025-01-28",
+        "confidence": 0.97
+      },
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
+        "value": "2025-01-28",
+        "confidence": 0.9
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "A fracture with a medical flying ban is a medical emergency.",
+      "confidence": 0.9,
+      "document": "medical-certificate.md",
+      "line": 5,
+      "quote": "Diagnosis: tibia fracture, cast for 8 weeks"
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "Certificate names the claimant and the injury date.",
+      "confidence": 0.9,
+      "document": "medical-certificate.md",
+      "line": 3,
+      "quote": "Patient: Tomasz Nowak"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

@@ -1,0 +1,34 @@
+[project]
+name = "claims-pipeline"
+version = "0.1.0"
+description = "Policy-as-code insurance claim processing pipeline with an auditable evidence tree"
+readme = "README.md"
+requires-python = ">=3.11,<4.0"
+dependencies = [
+  "fastapi (>=0.115)",
+  "uvicorn[standard] (>=0.30)",
+  "pydantic (>=2.7)",
+  "pydantic-settings (>=2.3)",
+  "python-multipart (>=0.0.9)",
+  "anthropic (>=0.50)",
+  "pillow (>=10)",
+  "httpx (>=0.27)",
+]
+
+[project.scripts]
+claims-benchmark = "claims_pipeline.benchmark.run:main"
+
+[tool.poetry]
+packages = [{ include = "claims_pipeline" }]
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=8"
+httpx = ">=0.27"
+playwright = ">=1.45"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"

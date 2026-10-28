@@ -1,0 +1,114 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 95.00",
+        "value": 95.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Aiko Tanaka. My luggage was stolen at Gare du Nord on 5 March 2025 and I cancelled the rest of my trip to Lille. The police report is attached as a PDF, together with my booking.",
+        "value": "Aiko Tanaka",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Aiko Tanaka. My luggage was stolen at Gare du Nord on 5 March 2025 and I cancelled the rest of my trip to Lille. The police report is attached as a PDF, together with my booking.",
+        "value": "2025-03-05",
+        "confidence": 0.85
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Aiko Tanaka. My luggage was stolen at Gare du Nord on 5 March 2025 and I cancelled the rest of my trip to Lille. The police report is attached as a PDF, together with my booking.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "Theft leading to cancellation.",
+      "confidence": 0.9,
+      "document": "description",
+      "line": 1,
+      "quote": "Aiko Tanaka. My luggage was stolen at Gare du Nord on 5 March 2025 and I cancelled the rest of my trip to Lille. The police report is attached as a PDF, together with my booking."
+    },
+    "cancellation_proof_fits": {
+      "answer": "unknown",
+      "rationale": "The police report could not be read, so it cannot be checked against the claim.",
+      "confidence": 0.3
+    },
+    "effects_lost": {
+      "answer": "yes",
+      "rationale": "Luggage stolen during the trip.",
+      "confidence": 0.9,
+      "document": "description",
+      "line": 1,
+      "quote": "Aiko Tanaka. My luggage was stolen at Gare du Nord on 5 March 2025 and I cancelled the rest of my trip to Lille. The police report is attached as a PDF, together with my booking."
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

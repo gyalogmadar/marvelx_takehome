@@ -1,0 +1,550 @@
+{
+  "claim_id": "07-policy-period-unknown",
+  "policy": "cfsr",
+  "strategy": "decomposed",
+  "description": "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March. Please see the attached documents.",
+  "submitted_at": "2025-03-20T00:00:00Z",
+  "processed_at": "2026-10-28T19:08:57.556849Z",
+  "documents": [
+    {
+      "id": "description",
+      "filename": "description",
+      "kind": "description",
+      "doc_type": "claim_description",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March. Please see the attached documents."
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "metadata",
+      "filename": "metadata",
+      "kind": "metadata",
+      "doc_type": "claim_metadata",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "submitted_at: 2025-03-20"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": null
+    },
+    {
+      "id": "d1-booking-confirmation",
+      "filename": "booking-confirmation.md",
+      "kind": "markdown",
+      "doc_type": "booking_confirmation",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Booking confirmation ET-77510",
+        "EuroTrips Travel GmbH",
+        "Lead passenger: Peter Hall",
+        "Route: London - Oslo",
+        "Departure: 2025-03-16",
+        "Passengers: 1",
+        "Total paid: EUR 275.00"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from London to Oslo on 2025-03-16 for one passenger, with a total payment of EUR 275.00."
+    },
+    {
+      "id": "d2-discharge-summary",
+      "filename": "discharge-summary.md",
+      "kind": "markdown",
+      "doc_type": "medical_report",
+      "language": "en",
+      "issuer": null,
+      "lines": [
+        "# Medical certificate",
+        "Royal Free Hospital",
+        "Patient: Peter Hall",
+        "Admitted on 2025-03-15",
+        "Diagnosis: renal colic",
+        "Discharged on 2025-03-17",
+        "The patient is not fit to travel.",
+        "Dr. H. Lindqvist, registration 55012"
+      ],
+      "alteration_signs": [],
+      "trust": "trusted",
+      "trust_reasons": [],
+      "media_type": null,
+      "summary": "A medical certificate from the Royal Free Hospital for patient Peter Hall, admitted on 2025-03-15 for renal colic and discharged on 2025-03-17, stating the patient is not fit to travel, signed by Dr. H. Lindqvist."
+    }
+  ],
+  "facts": [
+    {
+      "name": "claimant_name",
+      "type": "text",
+      "value": "Peter Hall",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March. Please see the attached documents.",
+          "value": "Peter Hall",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 3,
+          "quote": "Lead passenger: Peter Hall",
+          "value": "Peter Hall",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-discharge-summary",
+          "line": 3,
+          "quote": "Patient: Peter Hall",
+          "value": "Peter Hall",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "incident_date",
+      "type": "date",
+      "value": "2025-03-15",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March. Please see the attached documents.",
+          "value": "2025-03-15",
+          "confidence": 1.0
+        },
+        {
+          "document_id": "d2-discharge-summary",
+          "line": 4,
+          "quote": "Admitted on 2025-03-15",
+          "value": "2025-03-15",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "purchase_date",
+      "type": "date",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [],
+      "note": "no usable observation"
+    },
+    {
+      "name": "policy_period",
+      "type": "period",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 5,
+          "quote": "Departure: 2025-03-16",
+          "value": "2025-03-16 to 2025-03-16",
+          "confidence": 0.8
+        }
+      ],
+      "note": "observations could not be parsed"
+    },
+    {
+      "name": "claim_submitted",
+      "type": "date",
+      "value": "2025-03-20",
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "metadata",
+          "line": 1,
+          "quote": "submitted_at: 2025-03-20",
+          "value": "2025-03-20",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "booking_value",
+      "type": "money",
+      "value": 275.0,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 7,
+          "quote": "Total paid: EUR 275.00",
+          "value": "275.00 EUR",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "passengers",
+      "type": "int",
+      "value": 1,
+      "confidence": 1.0,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": ">=1",
+          "confidence": 1.0
+        }
+      ],
+      "note": null
+    },
+    {
+      "name": "affected",
+      "type": "int",
+      "value": null,
+      "confidence": 0.0,
+      "observations": [],
+      "note": "no usable observation"
+    }
+  ],
+  "exclusions": [
+    {
+      "id": "prior_knowledge",
+      "kind": "judged",
+      "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
+      "verdict": "unknown",
+      "rationale": "answer: unknown. The documents do not state the date the insurance policy was purchased, nor do they contain any statement regarding the claimant's knowledge of the incident prior to purchase. The purchase date is explicitly listed as 'unknown' in the extracted facts, and the provided documents (claim description, metadata, booking confirmation, discharge summary) do not contain information to determine if the claimant had prior knowledge.",
+      "facts_used": [
+        "incident_date",
+        "purchase_date"
+      ],
+      "document_ids": [],
+      "quote": "purchase_date: unknown",
+      "confidence": 1.0
+    },
+    {
+      "id": "within_period:incident_date",
+      "kind": "mechanical",
+      "description": "incident date falls inside policy period",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period",
+      "facts_used": [
+        "incident_date",
+        "policy_period"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "d2-discharge-summary",
+        "description"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "late_reporting",
+      "kind": "mechanical",
+      "description": "claim submitted within 30 days of the policy ending",
+      "verdict": "unknown",
+      "rationale": "cannot evaluate, unknown: policy period end",
+      "facts_used": [
+        "policy_period",
+        "claim_submitted"
+      ],
+      "document_ids": [
+        "d1-booking-confirmation",
+        "metadata"
+      ],
+      "quote": null,
+      "confidence": 0.0
+    },
+    {
+      "id": "suspicious_documents",
+      "kind": "judged",
+      "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+      "verdict": "pass",
+      "rationale": "answer: no. The documents are consistent with each other and the claim description. The claim states the claimant was 'Hospitalised with a kidney stone on 15 March 2025' and missed a trip on '16 March'. The medical report confirms admission on '2025-03-15' with a diagnosis of 'renal colic' (a medical term for kidney stone pain) and states the patient is 'not fit to travel'. The booking confirmation confirms a departure on '2025-03-16' for 'Peter Hall'. There are no contradictions in dates, names, or medical facts.",
+      "facts_used": [],
+      "document_ids": [],
+      "quote": "Diagnosis: renal colic",
+      "confidence": 0.95
+    }
+  ],
+  "coverages": [
+    {
+      "name": "cancellation",
+      "title": "Trip Cancellation or Rescheduling",
+      "match": {
+        "id": "cancellation_reason",
+        "kind": "judged",
+        "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
+        "verdict": "pass",
+        "rationale": "answer: yes. The claim description states the claimant was 'Hospitalised with a kidney stone', and the attached medical report confirms a diagnosis of 'renal colic' with a note that 'The patient is not fit to travel.' This constitutes a medical emergency, which is a covered reason for trip cancellation or rescheduling under the policy.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "Hospitalised with a kidney stone on 15 March 2025",
+        "confidence": 1.0
+      },
+      "proofs": {
+        "id": "proofs:cancellation",
+        "kind": "proof",
+        "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "medical_report: discharge-summary.md; police_report: missing; jury_summons: missing; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-discharge-summary"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [
+        {
+          "id": "cancellation_proof_fits",
+          "kind": "judged",
+          "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
+          "verdict": "pass",
+          "rationale": "answer: yes. The medical report confirms the reason (renal colic/kidney stone), names the claimant (Peter Hall), and covers the incident date (admitted 2025-03-15).",
+          "facts_used": [
+            "incident_date",
+            "claimant_name"
+          ],
+          "document_ids": [],
+          "quote": "Patient: Peter Hall\nAdmitted on 2025-03-15\nDiagnosis: renal colic",
+          "confidence": 1.0
+        },
+        {
+          "id": "agrees:incident_date",
+          "kind": "mechanical",
+          "description": "incident date is consistent across documents",
+          "verdict": "pass",
+          "rationale": "incident date = 2025-03-15 from 2 sources, no disagreement",
+          "facts_used": [
+            "incident_date"
+          ],
+          "document_ids": [
+            "d2-discharge-summary",
+            "description"
+          ],
+          "quote": null,
+          "confidence": 1.0
+        }
+      ],
+      "status": "eligible",
+      "payout": 275.0,
+      "payout_formula": "booking_value",
+      "payout_note": null
+    },
+    {
+      "name": "personal_effects",
+      "title": "Personal Effects",
+      "match": {
+        "id": "effects_lost",
+        "kind": "judged",
+        "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claim description and attached documents state that the claimant was 'Hospitalised with a kidney stone' and 'missed my trip to Oslo', which falls under trip cancellation due to a medical emergency. There is no mention of personal belongings being lost, stolen, or damaged.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "Peter Hall. Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:personal_effects",
+        "kind": "proof",
+        "description": "required proof: police_report or airline_acknowledgement",
+        "verdict": "fail",
+        "rationale": "police_report: missing; airline_acknowledgement: missing",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "100 * affected",
+      "payout_note": null
+    },
+    {
+      "name": "missed_connection",
+      "title": "Missed Departure or Missed Connection",
+      "match": {
+        "id": "missed_departure",
+        "kind": "judged",
+        "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
+        "verdict": "fail",
+        "rationale": "answer: no. The claimant missed the departure due to a medical emergency (hospitalization for a kidney stone), not an external cause like a traffic accident. The policy lists 'traffic accident en route' as an example of a covered reason for missed departures, but the actual cause here is a medical condition, which falls under the 'Trip Cancellation' section rather than the specific 'Missed Departure' section triggered by external transit issues.",
+        "facts_used": [],
+        "document_ids": [],
+        "quote": "Hospitalised with a kidney stone on 15 March 2025, missed my trip to Oslo on 16 March.",
+        "confidence": 0.95
+      },
+      "proofs": {
+        "id": "proofs:missed_connection",
+        "kind": "proof",
+        "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
+        "verdict": "pass",
+        "rationale": "incident_report: missing; police_report: missing; medical_report: discharge-summary.md; booking_confirmation: booking-confirmation.md",
+        "facts_used": [],
+        "document_ids": [
+          "d1-booking-confirmation",
+          "d2-discharge-summary"
+        ],
+        "quote": null,
+        "confidence": 1.0
+      },
+      "checks": [],
+      "status": "not_applicable",
+      "payout": null,
+      "payout_formula": "0.5 * booking_value / passengers * affected",
+      "payout_note": null
+    }
+  ],
+  "decision": {
+    "outcome": "UNCERTAIN",
+    "confidence": 0.95,
+    "summary": "Referred for review. The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+    "determining": [
+      "prior_knowledge",
+      "within_period:incident_date",
+      "late_reporting"
+    ],
+    "coverages_applied": [
+      "cancellation"
+    ],
+    "payout": null,
+    "currency": "EUR",
+    "unknowns": [
+      "The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+      "Did the claimant know about the incident, or the reason for it, before purchasing the policy? The documents do not state the date the insurance policy was purchased, nor do they contain any statement regarding the claimant's knowledge of the incident prior to purchase. The purchase date is explicitly listed as 'unknown' in the extracted facts, and the provided documents (claim description, metadata, booking confirmation, discharge summary) do not contain information to determine if the claimant had prior knowledge.",
+      "incident date falls inside policy period: cannot evaluate, unknown: policy period",
+      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end"
+    ],
+    "explanation": "Your claim for trip cancellation due to a medical emergency has been referred for further review. While your discharge summary and booking confirmation confirm the incident and the covered reason, we cannot verify if the policy was purchased before you knew of the condition. Additionally, the documents provided do not state the policy period, so we cannot confirm the incident occurred within coverage or that the claim was submitted within 30 days of the policy ending. Please provide the policy purchase date and the specific start and end dates of your coverage period."
+  },
+  "calls": [
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 436,
+      "output_tokens": 90,
+      "cache_read_tokens": 346,
+      "latency_ms": 889,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "read_document",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 448,
+      "output_tokens": 108,
+      "cache_read_tokens": 346,
+      "latency_ms": 925,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "extract_facts",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1168,
+      "output_tokens": 747,
+      "cache_read_tokens": 777,
+      "latency_ms": 4621,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1133,
+      "output_tokens": 122,
+      "cache_read_tokens": 598,
+      "latency_ms": 6438,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1132,
+      "output_tokens": 174,
+      "cache_read_tokens": 598,
+      "latency_ms": 1562,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1141,
+      "output_tokens": 121,
+      "cache_read_tokens": 598,
+      "latency_ms": 1245,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1138,
+      "output_tokens": 111,
+      "cache_read_tokens": 598,
+      "latency_ms": 1154,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1129,
+      "output_tokens": 122,
+      "cache_read_tokens": 598,
+      "latency_ms": 1194,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "judge",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1138,
+      "output_tokens": 155,
+      "cache_read_tokens": 598,
+      "latency_ms": 2652,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    },
+    {
+      "component": "explain",
+      "model": "qwen3.8-27b-hauhau-aggressive",
+      "input_tokens": 1566,
+      "output_tokens": 112,
+      "cache_read_tokens": 0,
+      "latency_ms": 1609,
+      "cost_usd": 0.0,
+      "ok": true,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "policy": "cfsr",
+  "submitted_at": "2025-03-01",
+  "note": "Incident date before the policy start. Everything else is fine, the period check alone must deny."
+}

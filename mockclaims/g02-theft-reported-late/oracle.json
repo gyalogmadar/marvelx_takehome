@@ -1,0 +1,73 @@
+{
+  "documents": {
+    "receipt.md": {
+      "doc_type": "purchase_receipt",
+      "issuer": "TechHaus Berlin"
+    },
+    "police-report.md": {
+      "doc_type": "police_report",
+      "issuer": "Polizei Berlin"
+    }
+  },
+  "facts": {
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Ben Adler. My phone was stolen from my jacket pocket on the tram on 10 June 2025. Police report and receipt attached.",
+        "value": "Ben Adler",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "police-report.md",
+        "line": 4,
+        "quote": "Date of incident: 2025-06-10",
+        "value": "2025-06-10",
+        "confidence": 0.97
+      }
+    ],
+    "item_value": [
+      {
+        "document": "receipt.md",
+        "line": 5,
+        "quote": "Price: EUR 1,200.00",
+        "value": 1200.0,
+        "confidence": 0.98
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "receipt.md",
+        "line": 7,
+        "quote": "Gadget Cover period: 2025-01-15 to 2026-01-14",
+        "value": {
+          "start": "2025-01-15",
+          "end": "2026-01-14"
+        },
+        "confidence": 0.95
+      }
+    ]
+  },
+  "judgments": {
+    "unattended": {
+      "answer": "no",
+      "rationale": "The claimant states the device was with them.",
+      "confidence": 0.9
+    },
+    "device_stolen": {
+      "answer": "yes",
+      "rationale": "Pickpocketed on the tram, police confirmed.",
+      "confidence": 0.9,
+      "document": "police-report.md",
+      "line": 5,
+      "quote": "Incident: pickpocketing of a mobile phone on tram M10"
+    },
+    "device_damaged": {
+      "answer": "no",
+      "rationale": "No accidental damage is described.",
+      "confidence": 0.9
+    }
+  }
+}

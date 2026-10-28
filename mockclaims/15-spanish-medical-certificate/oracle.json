@@ -1,0 +1,126 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "certificado-medico.md": {
+      "doc_type": "medical_report",
+      "issuer": "Hospital Universitario Virgen del Rocío",
+      "language": "es"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 430.00",
+        "value": 430.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Carmen Ruiz. Ingresé en el hospital el 2 de marzo de 2025 con una crisis asmática grave y tuve que cancelar mi viaje a Berlín del 4 de marzo. Adjunto certificado médico y reserva.",
+        "value": "Carmen Ruiz",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "certificado-medico.md",
+        "line": 4,
+        "quote": "Fecha de ingreso: 2025-03-02",
+        "value": "2025-03-02",
+        "confidence": 0.97
+      },
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Carmen Ruiz. Ingresé en el hospital el 2 de marzo de 2025 con una crisis asmática grave y tuve que cancelar mi viaje a Berlín del 4 de marzo. Adjunto certificado médico y reserva.",
+        "value": "2025-03-02",
+        "confidence": 0.9
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Carmen Ruiz. Ingresé en el hospital el 2 de marzo de 2025 con una crisis asmática grave y tuve que cancelar mi viaje a Berlín del 4 de marzo. Adjunto certificado médico y reserva.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "A severe asthma attack requiring admission two days before departure is a medical emergency.",
+      "confidence": 0.9,
+      "document": "certificado-medico.md",
+      "line": 5,
+      "quote": "Diagnóstico: crisis asmática grave"
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "The certificate names Carmen Ruiz, gives the admission date and states she is unfit to travel.",
+      "confidence": 0.9,
+      "document": "certificado-medico.md",
+      "line": 7,
+      "quote": "El paciente no está en condiciones de viajar."
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

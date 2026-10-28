@@ -1,0 +1,118 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "airline-notice.md": {
+      "doc_type": "incident_report",
+      "issuer": "Eurowings"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 240.00",
+        "value": 240.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Felix Brandt. My flight to Dublin on 7 March 2025 was cancelled by the airline because of storm Hanna and I could not travel. Airline notice and booking attached. I would like my money back.",
+        "value": "Felix Brandt",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "airline-notice.md",
+        "line": 3,
+        "quote": "Flight EW 9410 Frankfurt - Dublin on 2025-03-07 has been cancelled due to severe weather (storm Hanna).",
+        "value": "2025-03-07",
+        "confidence": 0.95
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Felix Brandt. My flight to Dublin on 7 March 2025 was cancelled by the airline because of storm Hanna and I could not travel. Airline notice and booking attached. I would like my money back.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "unknown",
+      "rationale": "Weather is neither listed as a covered reason nor excluded; 'other specified personal emergencies' does not clearly include it.",
+      "confidence": 0.5,
+      "document": "airline-notice.md",
+      "line": 3,
+      "quote": "Flight EW 9410 Frankfurt - Dublin on 2025-03-07 has been cancelled due to severe weather (storm Hanna)."
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "The notice names the claimant and the date.",
+      "confidence": 0.9,
+      "document": "airline-notice.md",
+      "line": 2,
+      "quote": "Dear Felix Brandt,"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

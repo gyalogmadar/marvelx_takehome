@@ -1,0 +1,122 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH"
+    },
+    "accident-report.md": {
+      "doc_type": "incident_report",
+      "issuer": "Polizia Locale di Milano"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 800.00",
+        "value": 800.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 4",
+        "value": 4,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Family Rossi (Marco, Giulia and our two children). On the way to Milan Centrale on 3 March 2025 our taxi was hit by a van; Giulia and I were taken to the emergency room and the four of us missed the train to Zurich. Accident report from the police and booking attached. Only the two of us were injured; the children were fine.",
+        "value": "Marco Rossi",
+        "confidence": 0.9
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "accident-report.md",
+        "line": 4,
+        "quote": "Date of incident: 2025-03-03",
+        "value": "2025-03-03",
+        "confidence": 0.97
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Family Rossi (Marco, Giulia and our two children). On the way to Milan Centrale on 3 March 2025 our taxi was hit by a van; Giulia and I were taken to the emergency room and the four of us missed the train to Zurich. Accident report from the police and booking attached. Only the two of us were injured; the children were fine.",
+        "value": 2,
+        "confidence": 0.85
+      },
+      {
+        "document": "accident-report.md",
+        "line": 5,
+        "quote": "Incident: road traffic collision, taxi struck by a van on Viale Lunigiana; two passengers injured",
+        "value": 2,
+        "confidence": 0.9
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "no",
+      "rationale": "The claim does not describe a cancelled or rescheduled trip for a covered reason.",
+      "confidence": 0.9
+    },
+    "cancellation_proof_fits": {
+      "answer": "unknown",
+      "rationale": "Not evaluated: the cancellation coverage did not match.",
+      "confidence": 0.9
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "yes",
+      "rationale": "A traffic accident en route caused the family to miss the train; the policy's own example.",
+      "confidence": 0.9,
+      "document": "accident-report.md",
+      "line": 5,
+      "quote": "Incident: road traffic collision, taxi struck by a van on Viale Lunigiana; two passengers injured"
+    }
+  }
+}
