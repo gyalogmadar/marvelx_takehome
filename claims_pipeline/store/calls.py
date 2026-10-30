@@ -1,10 +1,10 @@
-"""Model calls into the database, as they happen (see llm/calllog.py ``run_scope``)."""
+"""Model calls into the database, as they happen: the sink store/runs.py gives the call log."""
 from __future__ import annotations
 
 from datetime import datetime
 from typing import Any
 
-from claims_pipeline.llm.config import cost_usd
+from claims_pipeline.llm.pricing import cost_usd
 
 from . import models as m
 

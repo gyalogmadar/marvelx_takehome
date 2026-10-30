@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
-from claims_pipeline.pipeline import ClaimFile, ClaimInput
+from claims_pipeline.domain import ClaimFile, ClaimInput
 
 SIDECARS = {"description.txt", "answer.json", "expected.json", "oracle.json", "claim.json", ".DS_Store"}
 

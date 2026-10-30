@@ -14,8 +14,9 @@ each extracted fact, and the judge reads those probabilities.
 """
 from __future__ import annotations
 
+from claims_pipeline.settings import Settings
+
 from .base import SCORERS, BackendError
-from .config import Settings
 
 REAL_BACKENDS = ("anthropic", "openai")
 
@@ -23,41 +24,33 @@ REAL_BACKENDS = ("anthropic", "openai")
 def make_client(settings: Settings | None = None):
     settings = settings or Settings()
     if settings.backend == "anthropic":
-        from .anthropic_backend import AnthropicClient
+        from .anthropic_client import AnthropicClient
 
         return AnthropicClient(settings)
     if settings.backend == "openai":
-        from .openai_backend import OpenAIClient
+        from .openai_client import OpenAIClient
 
         return OpenAIClient(settings)
     raise BackendError(f"backend {settings.backend!r} has no model client; set CLAIMS_BACKEND to "
                        f"one of {REAL_BACKENDS}")
 
 
-def make_decomposed_backend(settings: Settings | None = None):
-    """The four-component backend on top of whichever client the settings name."""
-    from .anthropic_backend import AnthropicBackend
-
-    settings = settings or Settings()
-    return with_routes(AnthropicBackend(settings, make_client(settings)), settings)
-
-
-def with_routes(backend, settings: Settings):
+def with_routes(backend, settings: Settings, clef_client=None):
     """The backend, with ``judge`` on the configured judge backend and the scoring components
-    on the configured scorer, when either is set."""
+    on the configured scorer, when either is set (on ``clef_client`` when one is given)."""
     overrides = {}
     if settings.judge_backend:
         if settings.judge_backend != "clef":
             raise BackendError(f"unknown judge backend {settings.judge_backend!r}; supported: clef")
-        from .clef_backend import ClefJudge
+        from .clef import ClefJudge
 
-        overrides["judge"] = ClefJudge(settings)
+        overrides["judge"] = ClefJudge(settings, clef_client)
     if settings.scorer:
         if settings.scorer != "clef":
             raise BackendError(f"unknown scorer {settings.scorer!r}; supported: clef")
-        from .clef_backend import ClefScorer
+        from .clef import ClefScorer
 
-        scorer = ClefScorer(settings)
+        scorer = ClefScorer(settings, clef_client)
         overrides.update(score_document=scorer, score_facts=scorer)
     return Routed(backend, **overrides) if overrides else backend
 

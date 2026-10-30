@@ -12,13 +12,12 @@ import httpx
 from claims_pipeline.benchmark.loader import load_claim_dir
 from claims_pipeline.clef_e2e import process_claim_clef
 from claims_pipeline.e2e import E2EOut, process_claim_e2e
-from claims_pipeline.llm.anthropic_backend import (
-    AnthropicBackend, AnthropicClient, ExplainOut, ExtractOut, JudgmentOut, ObservationOut, ReadOut,
-)
-from claims_pipeline.llm.clef_backend import ClefClient, ClefJudge, ClefScorer
+from claims_pipeline.llm.anthropic_client import AnthropicClient
+from claims_pipeline.llm.chat_backend import ChatBackend, ExplainOut, ExtractOut, JudgmentOut, ObservationOut, ReadOut
+from claims_pipeline.llm.clef import ClefClient, ClefJudge, ClefScorer
 from claims_pipeline.llm.clients import Routed
-from claims_pipeline.llm.config import Settings
-from claims_pipeline.llm.openai_backend import reply_format
+from claims_pipeline.settings import Settings
+from claims_pipeline.llm.openai_client import reply_format
 from claims_pipeline.llm.scripted import ScriptedBackend
 from claims_pipeline.llm.types import Usage
 from claims_pipeline.pipeline import process_claim
@@ -53,7 +52,7 @@ def _decomposed(claim: str) -> list[dict]:
         "judge": JudgmentOut(answer="no", quote="q", rationale="r", confidence=0.9),
         "explain": ExplainOut(text="x"),
     })
-    process_claim(loaded.input, get_policy(loaded.policy), AnthropicBackend(Settings(), api))
+    process_claim(loaded.input, get_policy(loaded.policy), ChatBackend(Settings(), api))
     return api.calls
 
 

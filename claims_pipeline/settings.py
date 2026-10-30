@@ -1,8 +1,11 @@
-"""Per-component model configuration and price table.
+"""Configuration: every setting of the application, from the environment (prefix CLAIMS_) or .env.
 
-Every model-backed component can run on its own model and effort level.  The
-defaults put everything on Claude Opus 5.5; changing one row here is the
-whole cost experiment for that component.
+Which backend and strategy pieces run (backend, judge_backend, scorer), how each
+model-backed component runs (model, effort, thinking, sampling, token budget; one
+row per component, so changing one row is the whole experiment for that
+component), where the model servers are, and where things are kept (the
+database, the call log).  ``store/runconfig.py`` records every setting except
+secrets and paths with each run.
 """
 from __future__ import annotations
 
@@ -10,15 +13,6 @@ from pydantic import BaseModel
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 DEFAULT_MODEL = "claude-opus-5-5"
-
-# USD per million tokens: (input, output, cache read)
-PRICES: dict[str, tuple[float, float, float]] = {
-    "claude-opus-5-5": (4.00, 20.00, 0.20),
-    "claude-sonnet-5-5": (2.00, 10.00, 0.20),
-    "claude-haiku-5-5": (0.10, 0.50, 0.01),
-    "scripted": (0.0, 0.0, 0.0),
-}
-
 
 class ComponentConfig(BaseModel):
     model: str
@@ -89,12 +83,6 @@ class Settings(BaseSettings):
         return ComponentConfig(model=model, effort=effort, max_tokens=max_tokens, thinking=thinking)
 
     def components(self) -> dict[str, ComponentConfig]:
-        from .base import COMPONENTS
+        from claims_pipeline.llm.base import COMPONENTS
 
         return {c: self.component(c) for c in COMPONENTS}
-
-
-def cost_usd(model: str, input_tokens: int, output_tokens: int, cache_read_tokens: int) -> float:
-    price_in, price_out, price_cache = PRICES.get(model, (0.0, 0.0, 0.0))
-    return round((input_tokens - cache_read_tokens) * price_in / 1e6 + cache_read_tokens * price_cache / 1e6
-                 + output_tokens * price_out / 1e6, 6)

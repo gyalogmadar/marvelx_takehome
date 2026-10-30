@@ -10,11 +10,12 @@ import pytest
 from claims_pipeline import prompts
 from claims_pipeline.benchmark.loader import load_claim_dir
 from claims_pipeline.llm import calllog
-from claims_pipeline.llm.anthropic_backend import AnthropicBackend, AnthropicClient, JudgmentOut
+from claims_pipeline.llm.anthropic_client import AnthropicClient
+from claims_pipeline.llm.chat_backend import ChatBackend, JudgmentOut
 from claims_pipeline.llm.base import BackendError
 from claims_pipeline.llm.calllog import CallLog, claim_scope
-from claims_pipeline.llm.config import Settings
-from claims_pipeline.llm.openai_backend import OpenAIClient
+from claims_pipeline.settings import Settings
+from claims_pipeline.llm.openai_client import OpenAIClient
 from claims_pipeline.pipeline import process_claim
 from claims_pipeline.policies import get_policy
 
@@ -123,7 +124,7 @@ def test_pipeline_links_every_model_call_to_its_log_line(tmp_path):
                                          "choices": [{"finish_reason": "stop", "message": {"content": json.dumps(payload)}}]})
 
     client = openai_client(tmp_path, handler)
-    result = process_claim(loaded.input, get_policy("cfsr"), AnthropicBackend(client.settings, client))
+    result = process_claim(loaded.input, get_policy("cfsr"), ChatBackend(client.settings, client))
     log = {r["call_id"]: r for r in calllog.read(tmp_path, claim_id=loaded.input.claim_id)}
     assert len(log) == len(result.calls) and all(c.call_id in log for c in result.calls)
     assert {r["strategy"] for r in log.values()} == {"decomposed"}

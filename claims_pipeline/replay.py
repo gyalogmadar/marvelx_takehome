@@ -1,8 +1,8 @@
 """Replay: run a stored run again with no model, from the outputs its model calls recorded.
 
     replay_run(sessions, run_id) -> ClaimResult
-    python -m claims_pipeline.store.replay --list    # the recorded batches
-    python -m claims_pipeline.store.replay 3 7       # replay batches 3 and 7, list what moves
+    python -m claims_pipeline.replay --list    # the recorded batches
+    python -m claims_pipeline.replay 3 7       # replay batches 3 and 7, list what moves
 
 Each component asks the replay client instead of a model; the client answers every
 call with the next recorded output for that component, in the order they were made.
@@ -23,12 +23,12 @@ from sqlalchemy.orm import sessionmaker
 
 from claims_pipeline.domain import ClaimResult
 from claims_pipeline.llm.base import BackendError
-from claims_pipeline.llm.config import Settings
 from claims_pipeline.llm.types import Usage
-from claims_pipeline.pipeline import ClaimFile, ClaimInput
 from claims_pipeline.policies import get_policy
+from claims_pipeline.settings import Settings
 
-from . import models as m
+from claims_pipeline.store import models as m
+from claims_pipeline.store.repository import load_claim
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -66,54 +66,31 @@ class ReplayClient:
         return call.response, usage
 
 
-def claim_input(claim: m.Claim) -> ClaimInput:
-    return ClaimInput(claim_id=claim.name, description=claim.description, metadata=dict(claim.meta),
-                      submitted_at=claim.submitted_at,
-                      files=[ClaimFile(d.filename, d.content) for d in claim.documents])
-
-
 def replay_run(sessions: sessionmaker, run_id: str) -> ClaimResult:
-    from claims_pipeline.clef_e2e import process_claim_clef
-    from claims_pipeline.e2e import process_claim_e2e
-    from claims_pipeline.llm.anthropic_backend import AnthropicBackend
-    from claims_pipeline.llm.clef_backend import ClefJudge, ClefScorer
-    from claims_pipeline.llm.clients import Routed
-    from claims_pipeline.pipeline import process_claim
+    from claims_pipeline.strategies import strategy
 
     with sessions() as s:
         run = s.get(m.Run, run_id)
         if run is None:
             raise LookupError(f"no run {run_id!r}")
         config = s.get(m.RunConfig, run.config_id).config if run.config_id else {}
-        claim = claim_input(run.claim)
+        claim = load_claim(run.claim)
         policy = get_policy(run.claim.policy)
         calls = list(run.calls)
-        strategy = run.strategy
+        name = run.strategy
 
     # runs imported from before the store recorded no settings: today's defaults stand in
-    settings = Settings(**{**config.get("settings", {}), "trace": False})
     how = config.get("run", {})
-    client = ReplayClient(calls, settings)
-    if strategy == "e2e":
-        return process_claim_e2e(claim, policy, client)
-    if strategy == "clef":
-        return process_claim_clef(claim, policy, client)
-    overrides: dict[str, Any] = {}
-    if how.get("judge") == "clef":
-        overrides["judge"] = ClefJudge(settings, client)
-    if how.get("scorer") == "clef":
-        scorer = ClefScorer(settings, client)
-        overrides.update(score_document=scorer, score_facts=scorer)
-    backend = AnthropicBackend(settings, client)
-    return process_claim(claim, policy, Routed(backend, **overrides) if overrides else backend,
-                         explain=how.get("explain", True))
+    settings = Settings(**{**config.get("settings", {}), "trace": False,
+                           "judge_backend": how.get("judge") or "", "scorer": how.get("scorer") or ""})
+    process = strategy(settings, name, client=ReplayClient(calls, settings), explain=how.get("explain", True))
+    return process(claim, policy)
 
 
 def replay_batch(sessions: sessionmaker, batch_id: int) -> dict[str, Any]:
     """Replay every finished run of a batch under today's code; score both against the benchmark."""
     from claims_pipeline.benchmark.report import score_row
-
-    from .queries import batch_results
+    from claims_pipeline.benchmark.views import batch_results
 
     with sessions() as s:
         data = batch_results(s, batch_id)
@@ -142,8 +119,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("batches", type=int, nargs="*", help="batch ids")
     ap.add_argument("--list", action="store_true", help="list the recorded batches")
     args = ap.parse_args(argv)
-    from .db import sessions as open_sessions
-    from .queries import batches
+    from claims_pipeline.benchmark.views import batches
+    from claims_pipeline.store.db import sessions as open_sessions
 
     sessions = open_sessions(Settings().database_url)
     if args.list or not args.batches:

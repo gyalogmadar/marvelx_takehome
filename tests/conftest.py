@@ -7,7 +7,7 @@ import pytest
 
 from claims_pipeline.components import CheckContext, Date, Facts, Int, Money, Period, Text
 from claims_pipeline.domain import Reading, Observation
-from claims_pipeline.llm.config import Settings
+from claims_pipeline.settings import Settings
 
 # The repo's .env is the deployment's config (backend, server, thinking); tests never read it.
 Settings.model_config["env_file"] = None

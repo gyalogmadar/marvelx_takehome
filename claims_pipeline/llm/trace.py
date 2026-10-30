@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 from claims_pipeline.domain import ModelCall
 
 from .base import SCORERS, ModelBackend
-from .config import cost_usd
+from .pricing import cost_usd
 from .types import (
     DocumentReading,
     DocumentReadRequest,

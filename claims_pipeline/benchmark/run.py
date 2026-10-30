@@ -30,28 +30,13 @@ from pathlib import Path
 from claims_pipeline.benchmark.loader import claim_dirs, load_claim_dir
 from claims_pipeline.benchmark.report import markdown, metrics, score_row
 from claims_pipeline.domain import ClaimResult
-from claims_pipeline.llm import Settings
-from claims_pipeline.llm.scripted import ScriptedBackend
-from claims_pipeline.pipeline import process_claim
 from claims_pipeline.policies import get_policy
+from claims_pipeline.settings import Settings
 from claims_pipeline.store import models
 from claims_pipeline.store import repository as repo
 from claims_pipeline.store.db import sessions as open_sessions
 from claims_pipeline.store.runs import current_config, finish_run, prepare_run
-
-
-def make_backend(kind: str, oracle_path: Path | None, settings: Settings):
-    if kind == "scripted":
-        from claims_pipeline.llm.clients import with_routes
-
-        if oracle_path is None:
-            raise FileNotFoundError("scripted backend needs an oracle.json in the claim folder")
-        return with_routes(ScriptedBackend.from_file(oracle_path), settings)
-    if kind in ("anthropic", "openai"):
-        from claims_pipeline.llm.clients import make_decomposed_backend
-
-        return make_decomposed_backend(settings.model_copy(update={"backend": kind}))
-    raise ValueError(f"unknown backend {kind!r}")
+from claims_pipeline.strategies import strategy as run_strategy
 
 
 def run(claims_root: Path, out: Path, policy_name: str | None, backend_kind: str, explain: bool, title: str,
@@ -64,19 +49,8 @@ def run(claims_root: Path, out: Path, policy_name: str | None, backend_kind: str
     out.mkdir(parents=True, exist_ok=True)
     rows: list[dict] = []
     results: dict[str, ClaimResult] = {}
-    e2e_api = None
-    if strategy == "e2e":
-        from claims_pipeline.e2e import process_claim_e2e
-        from claims_pipeline.llm.clients import make_client
-
-        if backend_kind == "scripted":
-            raise ValueError("the e2e strategy needs a real model: --backend anthropic|openai")
-        e2e_api = make_client(settings.model_copy(update={"backend": backend_kind}))
-    elif strategy == "clef":
-        from claims_pipeline.clef_e2e import process_claim_clef
-        from claims_pipeline.llm.clef_backend import ClefClient
-
-        clef_api = ClefClient(settings)
+    if strategy == "e2e" and backend_kind == "scripted":
+        raise ValueError("the e2e strategy needs a real model: --backend anthropic|openai")
     sessions = batch = bench = None
     if store:
         sessions = open_sessions(settings.database_url)
@@ -93,12 +67,12 @@ def run(claims_root: Path, out: Path, policy_name: str | None, backend_kind: str
                "expected": expected.get("decision"), "expected_payout": expected.get("payout"),
                "actual": None, "actual_payout": None, "match": False, "confidence": None, "summary": None}
         def process() -> ClaimResult:
-            if strategy == "e2e":
-                return process_claim_e2e(loaded.input, policy, e2e_api)
-            if strategy == "clef":
-                return process_claim_clef(loaded.input, policy, clef_api)
-            return process_claim(loaded.input, policy, make_backend(backend_kind, loaded.oracle_path, settings),
-                                 explain=explain)
+            oracle = None
+            if backend_kind == "scripted" and strategy == "decomposed":
+                if loaded.oracle_path is None:
+                    raise FileNotFoundError("scripted backend needs an oracle.json in the claim folder")
+                oracle = json.loads(loaded.oracle_path.read_text())
+            return run_strategy(settings, strategy, oracle=oracle, explain=explain)(loaded.input, policy)
 
         try:
             if sessions is None:

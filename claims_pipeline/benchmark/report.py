@@ -5,6 +5,7 @@ from collections import Counter, defaultdict
 
 from claims_pipeline.components.explain import evidence_outline
 from claims_pipeline.domain import ClaimResult
+from claims_pipeline.llm.pricing import cost_usd
 
 OUTCOMES = ("APPROVE", "DENY", "UNCERTAIN")
 
@@ -47,7 +48,9 @@ def metrics(rows: list[dict], results: dict[str, ClaimResult]) -> dict:
             c["input_tokens"] += call.input_tokens
             c["output_tokens"] += call.output_tokens
             c["cache_read_tokens"] += call.cache_read_tokens
-            c["cost_usd"] = round(c["cost_usd"] + call.cost_usd, 6)
+            # priced from the tokens with today's table (llm/pricing.py), so older runs are priced too
+            c["cost_usd"] = round(c["cost_usd"] + cost_usd(call.model, call.input_tokens, call.output_tokens,
+                                                           call.cache_read_tokens), 6)
             c["latency_ms"] += call.latency_ms
             c["errors"] += 0 if call.ok else 1
     # the review signal: how often a component sent a claim to a person, and whether it should have gone

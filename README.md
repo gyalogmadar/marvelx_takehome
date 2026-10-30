@@ -14,29 +14,120 @@ read documents  ->  extract facts  ->  assess trust  ->  run checks  ->  decide 
 
 ![Evidence view: a referred claim, hovering a fact lights the source line](docs/screenshots/evidence-view.png)
 
-## Why it looks like this
+## Where this stands
 
-* **Policy as code.** A policy is one short Python file composed from about ten components:
-  typed facts, proof rules, mechanical checks, one `judged` check for questions that need reading, a
-  coverage, a payout formula. `claims_pipeline/policies/cfsr.py` reads line by line against
-  `policy.md`; `gadget.py` is a second, deliberately different policy that shows a new policy is a new
-  file of the same size and nothing else. See [docs/AUTHORING.md](docs/AUTHORING.md).
-* **Code decides.** Every check answers *pass*, *fail* or *unknown*. Any failed exclusion denies. A
-  matched coverage with its proofs present and every check passed approves. Anything still open is
-  referred to a human with a list of what would resolve it. The model never chooses the outcome; it
-  transcribes, extracts, answers narrow yes/no questions with a quote, and writes the explanation.
-* **One data model.** The result tree (`claims_pipeline/domain/types.py`) is what the API returns,
-  what the UI renders, what the benchmark scores and what the audit trail stores. Every fact carries
-  its observations (document, line, quote, confidence); every check names the facts it consumed.
-* **Swappable model components.** The four model-backed steps sit behind one interface
-  (`claims_pipeline/llm/base.py`). Each has its own model and effort setting, every call is traced
-  with tokens, cache hits, latency and cost, and a scripted backend replays recorded answers so the
-  whole system runs offline and deterministically. That is also the seam for prompt tuning or
-  fine-tuning a single component later.
+There looks to be an idea worth pursuing here: **breaking a policy down into a workflow**. The policy
+becomes a short file of typed facts, proof rules and checks; models only read documents and answer
+narrow questions; code makes the decision and keeps the evidence for it. On the mock claims, that
+workflow was more accurate than handing the same model the whole claim in one prompt, even on a local
+model: Qwen 27B with Clef as the judge got 24 of 35 decisions and payouts right, against 20 of 35 for
+Qwen end to end (recorded runs, before the latest round of fixes). The judge matters: Qwen judging
+its own workflow got 17 of 35, 21 once the decision-logic fixes were replayed over the same answers.
 
-## Two strategies, one comparison
+The separation of concerns is brittle. The boundary between "the policy" and "the machinery" holds in
+the code, but it does not hold by itself: while iterating against failing cases, the coding agent
+repeatedly tried to hard-code rules for individual edge cases into the policy files. The current answer
+is the review signal (every model component can say "a person must look at this"), so cases the policy
+wording does not settle go to a human instead of into a new rule. Where that line belongs is a product
+question, not a code question.
 
-The repository runs the same claims two ways and compares them:
+Settling it needs more product knowledge: more than one real policy, and a closer look at how claim
+adjusters actually think and work (what they check first, what makes them refer, what they consider
+evidence). For a showcase it works.
+
+## Reading the code
+
+The suggested path below follows a claim from the policy it is judged against to the screen it is
+shown on. Each step is one package with one job, and each only depends on the ones before it.
+
+**1. Start with a policy.** Open `claims_pipeline/policies/texts/cfsr.md`, the policy wording, next to
+`claims_pipeline/policies/cfsr.py`, the same policy as code. Each clause is one line: the facts to find
+(`Date("incident_date", ...)`), each covered section (`Coverage`: a question that says whether it
+applies, the proof it requires, its checks, its payout formula), the exclusions and the red flags.
+`gadget.py` is a second, deliberately different policy built from the same parts. Anything only one
+policy needs lives in that policy's file and nowhere else.
+
+**2. The vocabulary a policy is written in: `components/`.** `facts.py` declares the fact types and
+how several readings of one fact merge. `checks.py` holds the mechanical checks (a date inside a period,
+days between two dates, a document present) and `judged`, the one check that asks a model.
+`coverage.py` evaluates one covered section, using `quantum.py` for the payout formula. `policy.py`
+holds the one fixed decision rule, and the rule that sends a claim to a person when a component flags
+something the decision rests on. `sources.py` turns the uploaded files into readings, `trust.py`
+marks documents that look altered, `scoring.py` attaches the scorer's probabilities, and `explain.py`
+writes the narrative. None of it knows any particular policy.
+
+**3. What comes out: `domain/`.** `claim.py` is a claim as submitted. `types.py` is the result tree:
+decision, then the checks that decided it, then the facts they used, then the observations of each
+fact (document, line, quote), then the readings. The API returns it, the UI draws it, the benchmark
+scores it and the store keeps it.
+
+**4. The workflow: `pipeline.py`.** The same steps for every policy: read every document, extract the
+facts, score them, assess trust, run the checks, decide, narrate. About a hundred lines. Read it once
+and the rest falls into place.
+
+**5. Where a model comes in: `llm/` and `prompts/`.** The interface between the workflow and any model
+is `llm/base.py` and `llm/types.py`: four components (read a document, extract facts, judge one
+question, explain), each with a typed request and answer, each able to raise a review flag.
+`chat_backend.py` implements them on a chat model; `anthropic_client.py` and `openai_client.py` are the
+two clients it runs on (Claude, or any OpenAI-compatible server such as llama.cpp); `render.py` is how
+evidence is written into a model's input. `clef.py` is Cloudflare's Clef, a decision model that can
+stand in for the judge or score what the others concluded. `scripted.py` answers from an oracle file,
+so the whole system runs offline and deterministically. `clients.py` picks a client and routes single
+components to Clef. `trace.py`, `calllog.py` and `pricing.py` record every call, in full, with its
+cost. The words the models are told are files in `claims_pipeline/prompts/`, versioned by hash and
+pinned by `tests/golden/prompts.json`.
+
+**6. Choosing how to process a claim: `strategies.py`.** The one place that decides what runs:
+*decomposed* (the workflow above), *e2e* (`e2e.py`: one chat-model call with the whole claim) or
+*clef* (`clef_e2e.py`: one Clef request). The API, the benchmark runner and replay all ask here. All
+three strategies fill the same result tree, so they compare claim by claim.
+
+**7. Keeping every run: `store/`.** Persistence and nothing else. `models.py` is the schema, named in
+the policy's own words (a `check_result` points at the `policy_check` that asked it), migrated by
+Alembic (`migrations/`). `repository.py` saves a result tree and loads it back exactly. `runs.py` is
+the lifecycle of a run: open it, record its model calls as they happen (`calls.py`), save the tree or
+the failure. `runconfig.py` hashes what a run was made with (code version, prompt versions, settings),
+so two runs with the same config id were made the same way. `queries.py` is what the API reads.
+
+**8. Measuring: `benchmark/` and `replay.py`.** `benchmark/run.py` runs a folder of claims and records
+the execution as a batch; `loader.py` reads a claim folder, `report.py` scores, `views.py` reads
+recorded batches back with their scores, `compare.py` lines up any number of runs, and `importer.py`
+loads result folders written before the store existed. `replay.py` re-runs a recorded run with no
+model, from the answers its calls returned: under today's code it shows what a rule change does to
+past decisions. `mockclaims/`, generated by `scripts/make_mockclaims.py`, is the adversarial test set.
+
+**9. Where people meet it: `api/` and `ui/`.** `api/app.py` is the FastAPI surface (submit, look up,
+reprocess, the evidence behind a reading, benchmarks); it only reads and writes through the store.
+`ui/` is React: the claim list, the evidence view (`ClaimDetail.tsx`: decision, checks, facts and the
+document lines they came from, lit up on hover), submission, benchmarks and the policy view.
+
+**How it ties together.** Dependencies point one way:
+
+```
+domain, prompts, settings
+  -> components -> policies
+  -> llm                      (the model interface, clients, Clef, the call log)
+  -> pipeline, e2e, clef_e2e  (the three ways to process a claim)
+  -> strategies               (which one runs, on what)
+  -> store                    (keeping it)
+  -> benchmark, replay        (measuring it)
+  -> api, ui                  (showing it)
+```
+
+Where to change what:
+
+| to change | edit |
+|---|---|
+| what a policy covers or excludes | its file in `policies/` (and its wording in `policies/texts/`) |
+| a kind of fact, check or proof rule every policy can use | `components/` |
+| what a model is told | the file in `claims_pipeline/prompts/`, then `python -m tests.prompt_renders` and review the diff |
+| which model runs which component, and how | settings (`claims_pipeline/settings.py`, `.env`) |
+| when a claim goes to a person | `components/policy.py` (`decide`, `_review`) |
+| what is kept about a run | `store/models.py`, plus an Alembic migration |
+
+## Strategies, side by side
+
+The repository runs the same claims in different ways and compares them. The two main ones:
 
 | | **decomposed** (default) | **e2e** |
 |---|---|---|
@@ -257,31 +348,15 @@ cost, and the evidence tree of every miss. Runs appear in the UI under *Benchmar
 (period boundaries, the 30-day reporting limit on both sides, missing proof, disagreeing dates, an
 altered image, prior knowledge, a voluntary change, the connection formula with and without its inputs,
 two coverages paying at once, a Spanish certificate, an unreadable attachment, an ambiguous weather
-cancellation) plus four cases for the second policy. All 22 resolve as expected offline.
-
-## Repository layout
-
-```
-claims_pipeline/
-  domain/types.py       the result tree
-  components/           facts, checks, coverage + proof rules, policy + decision rule, quantum, trust, explain, sources
-  policies/             cfsr.py, gadget.py, texts/ (the policy wording)
-  llm/                  backend interface, scripted backend, anthropic backend, per-component config, tracing
-  pipeline.py           the five steps, same for every policy (decomposed strategy)
-  e2e.py                the end-to-end strategy: one call, whole context
-  api/                  FastAPI app + SQLite store
-  benchmark/            loader, runner, report, compare
-ui/                     React + Vite: claims, evidence view, submit, benchmarks, policies
-mockclaims/             the adversarial offline set (generated)
-docs/AUTHORING.md       how to compose a new policy
-tests/                  components, decision rule, every mock claim end to end, API
-```
+cancellation) plus four cases for the second policy, and the `b` cases shaped like the real claims
+(names written differently, WebP certificates, a booking that says it was already refunded). All 36
+resolve as expected offline.
 
 ## Assumptions and limits
 
-* The benchmark's claims have no recorded submission date; the pipeline then relies on the
-  description or documents for `claim_submitted`, and reports the 30-day check as unknown rather
-  than guessing. The API uses the real submission time.
+* The benchmark's claims have no recorded submission date. The intake system's `Current date is:`
+  stamp at the top of a document is taken as the submission date (every model is told so); without it
+  the 30-day check is unknown rather than guessed. The API uses the real submission time.
 * Cancellation pays "up to the total bill": the formula pays the booking value when the proofs are in
   order, which is what a handler would do absent a stated lower amount.
 * A new policy is a code change with review and deploy, not a runtime upload. That matches how

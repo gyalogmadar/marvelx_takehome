@@ -15,6 +15,7 @@ nothing else is needed to show, audit or compare a run.
     start_batch(s, ...)                a group of runs under one config (one benchmark execution)
     set_case(s, benchmark, name, ...)  a benchmark claim and what it is expected to get
     load_run(s, run_id)                the run as a ClaimResult
+    load_claim(claim)                  a stored claim as the input a strategy takes
 """
 from __future__ import annotations
 
@@ -36,7 +37,7 @@ from . import models as m
 
 if TYPE_CHECKING:  # pragma: no cover
     from claims_pipeline.components import Policy
-    from claims_pipeline.pipeline import ClaimInput
+    from claims_pipeline.domain import ClaimInput
 
 
 def now() -> datetime:
@@ -126,6 +127,14 @@ def add_claim(s: Session, claim: "ClaimInput", policy: str, origin: str = "submi
     s.add(row)
     s.flush()
     return row
+
+
+def load_claim(claim: m.Claim) -> "ClaimInput":
+    from claims_pipeline.domain import ClaimFile, ClaimInput
+
+    return ClaimInput(claim_id=claim.name, description=claim.description, metadata=dict(claim.meta),
+                      submitted_at=claim.submitted_at,
+                      files=[ClaimFile(d.filename, d.content) for d in claim.documents])
 
 
 def _media_type(filename: str) -> str | None:

@@ -8,10 +8,10 @@ import pytest
 
 from claims_pipeline.benchmark.loader import load_claim_dir
 from claims_pipeline.domain import Outcome
-from claims_pipeline.llm.anthropic_backend import render_readings, render_facts
-from claims_pipeline.llm.clef_backend import ALTERED_OPTIONS, FACT_OPTIONS, ClefClient, ClefScorer
+from claims_pipeline.llm.render import render_facts, render_readings
+from claims_pipeline.llm.clef import ALTERED_OPTIONS, FACT_OPTIONS, ClefClient, ClefScorer
 from claims_pipeline.llm.clients import Routed, with_routes
-from claims_pipeline.llm.config import Settings
+from claims_pipeline.settings import Settings
 from claims_pipeline.llm.scripted import ScriptedBackend
 from claims_pipeline.pipeline import process_claim
 from claims_pipeline.policies import get_policy

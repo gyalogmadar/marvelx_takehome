@@ -36,11 +36,11 @@ from typing import Any
 import httpx
 
 from claims_pipeline.prompts import clef, prompt
+from claims_pipeline.settings import Settings
 
-from .anthropic_backend import render_facts, render_readings
+from .render import render_facts, render_readings
 from .base import BackendError
 from .calllog import CallLog
-from .config import Settings
 from .images import for_local_server
 from .types import DocumentScoreRequest, FactScoreRequest, JudgeRequest, Judgment, Scores, Usage
 

@@ -21,9 +21,9 @@ from pathlib import Path
 def load(run: str | Path) -> dict:
     """A run's results: a recorded batch by its id, or a results folder."""
     if str(run).isdigit():
-        from claims_pipeline.llm.config import Settings
+        from claims_pipeline.settings import Settings
         from claims_pipeline.store.db import sessions
-        from claims_pipeline.store.queries import batch_results
+        from claims_pipeline.benchmark.views import batch_results
 
         with sessions(Settings().database_url)() as s:
             data = batch_results(s, int(run))

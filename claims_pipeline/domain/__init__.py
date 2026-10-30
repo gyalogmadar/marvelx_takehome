@@ -1,3 +1,4 @@
+from .claim import ClaimFile, ClaimInput
 from .types import (
     CheckResult,
     ClaimResult,
@@ -15,6 +16,7 @@ from .types import (
 )
 
 __all__ = [
+    "ClaimFile", "ClaimInput",
     "CheckResult", "ClaimResult", "CoverageResult", "CoverageStatus", "Decision",
     "DocumentKind", "Fact", "ModelCall", "Observation", "Outcome", "Reading",
     "Trust", "Verdict",

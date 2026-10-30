@@ -26,31 +26,21 @@ from pathlib import Path
 from fastapi import BackgroundTasks, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 
-from claims_pipeline.llm import Settings
-from claims_pipeline.llm.base import ModelBackend
-from claims_pipeline.llm.scripted import ScriptedBackend
-from claims_pipeline.pipeline import ClaimFile, ClaimInput, process_claim
+from claims_pipeline.benchmark import views
+from claims_pipeline.domain import ClaimFile, ClaimInput
 from claims_pipeline.policies import POLICIES, get_policy
+from claims_pipeline.settings import Settings
 from claims_pipeline.store import models as m
 from claims_pipeline.store import queries
 from claims_pipeline.store.db import sessions as open_sessions
-from claims_pipeline.store.replay import claim_input
+from claims_pipeline.store.repository import load_claim
 from claims_pipeline.store.runs import finish_run, prepare_run
+from claims_pipeline.strategies import STRATEGIES
+from claims_pipeline.strategies import strategy as strategy_for
 
 ORACLE_FILENAME = "oracle.json"
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 UI_DIST = PROJECT_ROOT / "ui" / "dist"
-
-
-def make_backend(settings: Settings, oracle: dict | None) -> ModelBackend:
-    """The decomposed backend: the configured model, or (scripted) the oracle uploaded with the claim."""
-    if settings.backend in ("anthropic", "openai"):
-        from claims_pipeline.llm.clients import make_decomposed_backend
-
-        return make_decomposed_backend(settings)
-    from claims_pipeline.llm.clients import with_routes
-
-    return with_routes(ScriptedBackend(oracle or {}, strict=False), settings)
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -67,22 +57,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     def sessions(request: Request):
         return request.app.state.sessions
 
-    def process(claim: ClaimInput, policy_name: str, strategy: str, oracle: dict | None):
-        def run():
-            policy = get_policy(policy_name)
-            if strategy == "e2e":
-                from claims_pipeline.e2e import process_claim_e2e
-                from claims_pipeline.llm.clients import make_client
-
-                return process_claim_e2e(claim, policy, make_client(settings))
-            if strategy == "clef":
-                from claims_pipeline.clef_e2e import process_claim_clef
-                from claims_pipeline.llm.clef_backend import ClefClient
-
-                return process_claim_clef(claim, policy, ClefClient(settings))
-            return process_claim(claim, policy, make_backend(settings, oracle))
-        return run
-
     def start(request: Request, claim: ClaimInput, policy_name: str, strategy: str, oracle: dict | None):
         """Store the claim and open a run; return (run_id, the work that completes it)."""
         backend = "clef" if strategy == "clef" else settings.backend
@@ -90,14 +64,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                              backend=backend)
 
         def work():
-            try:
-                finish_run(sessions(request), run_id, process(claim, policy_name, strategy, oracle))
+            try:  # building the strategy happens inside the run, so a misconfiguration is recorded as its failure
+                finish_run(sessions(request), run_id, lambda: strategy_for(
+                    settings, strategy, oracle=oracle, oracle_strict=False)(claim, get_policy(policy_name)))
             except Exception:  # the run is stored as failed, with the error; the API keeps serving
                 pass
         return run_id, work
 
     def check_strategy(strategy: str) -> None:
-        if strategy not in ("decomposed", "e2e", "clef"):
+        if strategy not in STRATEGIES:
             raise HTTPException(400, "strategy must be 'decomposed', 'e2e' or 'clef'")
         if strategy == "clef" and not settings.clef_base_url:
             raise HTTPException(400, "the clef strategy needs CLAIMS_CLEF_BASE_URL")
@@ -183,7 +158,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             claim = queries.latest_claim(s, claim_id)
             if claim is None:
                 raise HTTPException(404, "no such claim")
-            inp, policy_name = claim_input(claim), claim.policy
+            inp, policy_name = load_claim(claim), claim.policy
         run_id, work = start(request, inp, policy_name, strategy, None)
         if wait:
             work()
@@ -234,19 +209,19 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @app.get("/benchmarks")
     def list_benchmarks(request: Request):
         with sessions(request)() as s:
-            return queries.batches(s)
+            return views.batches(s)
 
     @app.get("/benchmarks/{run}")
     def get_benchmark(run: str, request: Request):
         with sessions(request)() as s:
-            data = queries.batch_results(s, batch_id(run))
+            data = views.batch_results(s, batch_id(run))
         if data is None:
             raise HTTPException(404, f"no benchmark run {run!r}")
         return data
 
     def batch_run_id(request: Request, run: str, claim_id: str) -> str:
         with sessions(request)() as s:
-            rec = queries.batch_claim(s, batch_id(run), claim_id)
+            rec = views.batch_claim(s, batch_id(run), claim_id)
         if rec is None or rec["run_id"] is None:
             raise HTTPException(404, "no result for that claim in this run")
         return rec["run_id"]
@@ -254,7 +229,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @app.get("/benchmarks/{run}/claims/{claim_id}")
     def get_benchmark_claim(run: str, claim_id: str, request: Request):
         with sessions(request)() as s:
-            rec = queries.batch_claim(s, batch_id(run), claim_id)
+            rec = views.batch_claim(s, batch_id(run), claim_id)
         if rec is None:
             raise HTTPException(404, "no result for that claim in this run")
         return rec

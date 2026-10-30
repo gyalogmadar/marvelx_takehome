@@ -6,7 +6,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from claims_pipeline.api import create_app
-from claims_pipeline.llm import Settings
+from claims_pipeline.settings import Settings
 
 ROOT = Path(__file__).resolve().parents[1] / "mockclaims"
 

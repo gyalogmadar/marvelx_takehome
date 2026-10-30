@@ -23,7 +23,7 @@ from typing import Any
 
 from sqlalchemy.orm import Session
 
-from claims_pipeline.llm.config import Settings
+from claims_pipeline.settings import Settings
 
 from . import models as m
 from .repository import now

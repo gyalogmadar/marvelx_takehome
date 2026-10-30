@@ -8,11 +8,11 @@ import pytest
 
 from claims_pipeline.benchmark.loader import load_claim_dir
 from claims_pipeline.domain import Outcome
-from claims_pipeline.llm.anthropic_backend import AnthropicBackend, JudgmentOut
+from claims_pipeline.llm.chat_backend import ChatBackend, JudgmentOut
 from claims_pipeline.llm.base import BackendError
-from claims_pipeline.llm.clients import make_client, make_decomposed_backend
-from claims_pipeline.llm.config import Settings
-from claims_pipeline.llm.openai_backend import OpenAIClient, extract_json, to_openai_content
+from claims_pipeline.llm.clients import make_client
+from claims_pipeline.settings import Settings
+from claims_pipeline.llm.openai_client import OpenAIClient, extract_json, to_openai_content
 from claims_pipeline.pipeline import process_claim
 from claims_pipeline.policies import get_policy
 
@@ -105,18 +105,17 @@ def test_factory_and_pipeline_through_the_openai_client():
                           "rationale": "a voluntary change", "confidence": 0.9})
         return reply({"text": "Dear Emma, ..."})
 
-    backend = AnthropicBackend(SETTINGS, client_with(handler))
+    backend = ChatBackend(SETTINGS, client_with(handler))
     result = process_claim(loaded.input, policy, backend)
     assert result.decision.outcome == Outcome.DENY and "not covered" in result.decision.summary
     assert {c.model for c in result.calls} == {"qwen-test"} and all(c.ok for c in result.calls)
     assert backend.name == "openai"
-    assert isinstance(make_decomposed_backend(SETTINGS), AnthropicBackend)
 
 
 def test_images_reach_a_local_server_as_png_or_jpeg_whatever_their_extension():
     import base64, io
     from PIL import Image
-    from claims_pipeline.llm.anthropic_backend import image_block
+    from claims_pipeline.llm.anthropic_client import image_block
     from claims_pipeline.llm.images import sniff
 
     def encoded(fmt):
@@ -134,7 +133,7 @@ def test_images_reach_a_local_server_as_png_or_jpeg_whatever_their_extension():
 
 def test_judges_are_not_shown_our_trust_conclusions():
     from claims_pipeline.domain import Reading, Trust
-    from claims_pipeline.llm.anthropic_backend import render_readings
+    from claims_pipeline.llm.render import render_readings
 
     doc = Reading(id="d1", filename="cert.md", kind="markdown", lines=["x"], trust=Trust.QUESTIONABLE,
                    trust_reasons=["claimant_name disagrees with another document"], alteration_signs=["overwritten date"])

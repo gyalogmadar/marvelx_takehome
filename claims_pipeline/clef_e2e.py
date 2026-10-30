@@ -22,11 +22,11 @@ from claims_pipeline.domain import ClaimResult, Decision, Reading, ModelCall, Ou
 from claims_pipeline.e2e import build_content
 from claims_pipeline.llm.base import BackendError
 from claims_pipeline.llm.calllog import claim_scope
-from claims_pipeline.llm.clef_backend import ClefClient, choice_question, read_choice
-from claims_pipeline.llm.openai_backend import data_url
+from claims_pipeline.llm.clef import ClefClient, choice_question, read_choice
+from claims_pipeline.llm.openai_client import data_url
 from claims_pipeline.llm.types import Usage
 from claims_pipeline.prompts import clef, prompt
-from claims_pipeline.pipeline import ClaimInput
+from claims_pipeline.domain import ClaimInput
 
 MAX_IMAGES = 4
 

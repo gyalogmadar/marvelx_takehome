@@ -22,8 +22,9 @@ with whatever the server answered.
 
 Which claim a call belongs to comes from ``claim_scope`` (a context variable set
 by the pipeline), so the clients need no extra arguments.  Inside ``run_scope``
-(set by whoever stores the run: the API, the benchmark runner) each call is also
-written to the database as a ``model_call`` row of that run, as it happens.
+each record is also handed to the scope's ``sink`` as it is written; the store
+uses that to keep every call of a run in the database (store/runs.py).  The call
+log itself knows nothing of the store.
 
     python -m claims_pipeline.llm.calllog results/decomposed/trace --claim "claim 7" --component judge
 """
@@ -39,14 +40,15 @@ import json
 import threading
 import uuid
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any, Callable, Iterator
 
 from claims_pipeline import prompts
 
 __all__ = ["CallLog", "claim_scope", "run_scope", "current_scope", "redact_images", "read", "main"]
 
 _SCOPE: contextvars.ContextVar[dict[str, str]] = contextvars.ContextVar("claims_call_scope", default={})
-_STORE: contextvars.ContextVar[Any] = contextvars.ContextVar("claims_call_store", default=None)
+_SINK: contextvars.ContextVar[Callable[[dict[str, Any]], None] | None] = contextvars.ContextVar("claims_call_sink",
+                                                                                              default=None)
 _EXT = {"image/png": "png", "image/jpeg": "jpg", "image/webp": "webp", "image/gif": "gif"}
 
 
@@ -61,14 +63,14 @@ def claim_scope(claim_id: str, strategy: str) -> Iterator[None]:
 
 
 @contextlib.contextmanager
-def run_scope(run_id: str, sessions) -> Iterator[None]:
-    """Calls made inside belong to this run and are written to the store ``sessions`` opens."""
-    token, store = _SCOPE.set({**_SCOPE.get(), "run_id": run_id}), _STORE.set(sessions)
+def run_scope(run_id: str, sink: Callable[[dict[str, Any]], None]) -> Iterator[None]:
+    """Calls made inside belong to this run; each record also goes to ``sink`` (images as references)."""
+    token, store = _SCOPE.set({**_SCOPE.get(), "run_id": run_id}), _SINK.set(sink)
     try:
         yield
     finally:
         _SCOPE.reset(token)
-        _STORE.reset(store)
+        _SINK.reset(store)
 
 
 def current_scope() -> dict[str, str]:
@@ -111,11 +113,9 @@ class CallLog:
             self.dir.mkdir(parents=True, exist_ok=True)
             with self.path.open("a", encoding="utf-8") as fh:
                 fh.write(line + "\n")
-        sessions = _STORE.get()
-        if sessions is not None and rec.get("run_id"):
-            from claims_pipeline.store.calls import store_call
-
-            store_call(sessions, {**rec, "request": redact_images(request, _image_ref)})
+        sink = _SINK.get()
+        if sink is not None and rec.get("run_id"):
+            sink({**rec, "request": redact_images(request, _image_ref)})
         return call_id
 
 

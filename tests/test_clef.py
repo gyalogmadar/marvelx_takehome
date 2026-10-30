@@ -10,13 +10,14 @@ from claims_pipeline.benchmark import run as bench
 from claims_pipeline.benchmark.loader import load_claim_dir
 from claims_pipeline.clef_e2e import MAX_IMAGES, process_claim_clef
 from claims_pipeline.domain import Outcome, Verdict
-from claims_pipeline.llm import clef_backend
+from claims_pipeline.llm import clef
 from claims_pipeline.llm.base import BackendError
-from claims_pipeline.llm.clef_backend import JUDGE_OPTIONS, ClefClient, ClefJudge, read_choice
+from claims_pipeline.llm.clef import JUDGE_OPTIONS, ClefClient, ClefJudge, read_choice
 from claims_pipeline.llm.clients import Routed, with_routes
-from claims_pipeline.llm.config import Settings
+from claims_pipeline.settings import Settings
 from claims_pipeline.llm.scripted import ScriptedBackend
-from claims_pipeline.pipeline import ClaimFile, process_claim
+from claims_pipeline.domain import ClaimFile
+from claims_pipeline.pipeline import process_claim
 from claims_pipeline.policies import get_policy
 
 ROOT = Path(__file__).resolve().parents[1] / "mockclaims"
@@ -170,7 +171,7 @@ def test_runner_runs_the_clef_strategy(tmp_path, monkeypatch):
     def init(self, s=None, http=None, log=None):
         real_init(self, s, httpx.Client(base_url="http://clef.local/v1", transport=transport), log)
 
-    monkeypatch.setattr(clef_backend.ClefClient, "__init__", init)
+    monkeypatch.setattr(clef.ClefClient, "__init__", init)
     monkeypatch.setenv("CLAIMS_CLEF_BASE_URL", "http://clef.local/v1")
     m = bench.run(ROOT, tmp_path / "out", None, "clef", False, "t", strategy="clef")
     data = json.loads((tmp_path / "out" / "results.json").read_text())
@@ -178,11 +179,12 @@ def test_runner_runs_the_clef_strategy(tmp_path, monkeypatch):
 
 
 def test_every_strategy_is_told_what_the_current_date_stamp_means(tmp_path):
-    from claims_pipeline.e2e import TASK
-    from claims_pipeline.llm.anthropic_backend import ROLE, SUBMISSION_STAMP
     from claims_pipeline.clef_e2e import state_and_images
+    from claims_pipeline.prompts import prompt
 
-    assert "Current date is" in SUBMISSION_STAMP and SUBMISSION_STAMP in ROLE    # decomposed and e2e system prompts
+    SUBMISSION_STAMP = prompt("submission_stamp").text
+    assert "Current date is" in SUBMISSION_STAMP                                 # decomposed and e2e system prompts:
+    assert all("{submission_stamp}" in prompt(p).text for p in ("system", "e2e_system"))
     loaded = load_claim_dir(ROOT / "b13-submission-date-only-in-stamp")
     assert loaded.input.submitted_at is None
     state, _, _ = state_and_images(loaded.input, get_policy("cfsr"))

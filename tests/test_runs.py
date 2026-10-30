@@ -10,14 +10,14 @@ from claims_pipeline import prompts
 from claims_pipeline.benchmark import run as bench
 from claims_pipeline.benchmark.loader import load_claim_dir
 from claims_pipeline.e2e import process_claim_e2e
-from claims_pipeline.llm.anthropic_backend import AnthropicBackend
-from claims_pipeline.llm.config import Settings
-from claims_pipeline.llm.openai_backend import OpenAIClient
+from claims_pipeline.llm.chat_backend import ChatBackend
+from claims_pipeline.settings import Settings
+from claims_pipeline.llm.openai_client import OpenAIClient
 from claims_pipeline.pipeline import process_claim
 from claims_pipeline.policies import get_policy
 from claims_pipeline.store import models as m
 from claims_pipeline.store.db import sessions as open_sessions
-from claims_pipeline.store.replay import replay_run
+from claims_pipeline.replay import replay_run
 from claims_pipeline.store.repository import load_run
 from claims_pipeline.store.runconfig import build_config, save_config
 from claims_pipeline.store.runs import record_run
@@ -53,7 +53,7 @@ def record(env, claim="10-voluntary-change", strategy="decomposed"):
     settings, client, sessions = env
     loaded = load_claim_dir(ROOT / claim)
     policy = get_policy(loaded.policy)
-    process = (lambda: process_claim(loaded.input, policy, AnthropicBackend(settings, client))) if strategy == "decomposed" \
+    process = (lambda: process_claim(loaded.input, policy, ChatBackend(settings, client))) if strategy == "decomposed" \
         else (lambda: process_claim_e2e(loaded.input, policy, client))
     return record_run(sessions, loaded.input, policy, settings, strategy=strategy, backend="openai", process=process)
 
@@ -144,8 +144,8 @@ def test_a_benchmark_run_is_a_batch_of_recorded_runs(tmp_path, monkeypatch):
 
 
 def test_old_result_folders_import_as_batches(tmp_path, monkeypatch):
-    from claims_pipeline.store.importer import import_folder
-    from claims_pipeline.store.queries import batch_results
+    from claims_pipeline.benchmark.importer import import_folder
+    from claims_pipeline.benchmark.views import batch_results
 
     root = tmp_path / "mini"
     for name in ("01-clean-medical-cancellation", "05-theft-without-police-report"):
@@ -162,3 +162,16 @@ def test_old_result_folders_import_as_batches(tmp_path, monkeypatch):
         for run in batch.runs:
             stored = json.loads((tmp_path / "old-run" / f"{run.claim.name}.json").read_text())
             assert load_run(s, run.id).model_dump(mode="json") == stored
+
+
+def test_one_place_decides_what_a_strategy_runs_on():
+    from claims_pipeline.strategies import strategy
+
+    loaded = load_claim_dir(ROOT / "01-clean-medical-cancellation")
+    oracle = json.loads(loaded.oracle_path.read_text())
+    result = strategy(Settings(backend="scripted"), oracle=oracle)(loaded.input, get_policy("cfsr"))
+    assert result.decision.outcome.value == "APPROVE"
+    with pytest.raises(Exception):
+        strategy(Settings(backend="scripted"), "e2e")                  # the single-call strategy needs a real model
+    with pytest.raises(ValueError):
+        strategy(Settings(), "guess")

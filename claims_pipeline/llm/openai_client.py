@@ -26,10 +26,10 @@ import httpx
 from pydantic import BaseModel, ValidationError
 
 from claims_pipeline.prompts import prompt
+from claims_pipeline.settings import Settings
 
 from .base import BackendError
 from .calllog import CallLog
-from .config import Settings
 from .images import for_local_server
 from .types import Usage
 

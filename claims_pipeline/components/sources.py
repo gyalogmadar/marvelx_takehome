@@ -21,7 +21,7 @@ from .scoring import scores_for_reading
 
 if TYPE_CHECKING:  # pragma: no cover
     from claims_pipeline.llm.base import ModelBackend
-    from claims_pipeline.pipeline import ClaimInput
+    from claims_pipeline.domain import ClaimInput
 
 IMAGE_TYPES = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif"}
 TEXT_TYPES = {".md": "markdown", ".markdown": "markdown", ".txt": "text"}

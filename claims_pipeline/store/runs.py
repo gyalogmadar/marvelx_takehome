@@ -14,8 +14,9 @@ from typing import TYPE_CHECKING, Callable
 
 from claims_pipeline.domain import ClaimResult
 from claims_pipeline.llm.calllog import run_scope
-from claims_pipeline.llm.config import Settings
+from claims_pipeline.settings import Settings
 
+from .calls import store_call
 from .repository import add_claim, fail_run, save_run, snapshot_policy, snapshot_prompts, start_run
 from .runconfig import build_config, save_config
 
@@ -23,7 +24,7 @@ if TYPE_CHECKING:  # pragma: no cover
     from sqlalchemy.orm import sessionmaker
 
     from claims_pipeline.components import Policy
-    from claims_pipeline.pipeline import ClaimInput
+    from claims_pipeline.domain import ClaimInput
 
 
 def current_config(s, settings: Settings, *, strategy: str, backend: str, explain: bool = True) -> str:
@@ -46,7 +47,7 @@ def prepare_run(sessions: "sessionmaker", claim: "ClaimInput", policy: "Policy",
 def finish_run(sessions: "sessionmaker", run_id: str, process: Callable[[], ClaimResult]) -> ClaimResult:
     """Run ``process`` as run ``run_id`` and keep what it produced (or why it failed)."""
     try:
-        with run_scope(run_id, sessions):
+        with run_scope(run_id, lambda rec: store_call(sessions, rec)):
             result = process()
     except Exception as exc:
         with sessions() as s, s.begin():

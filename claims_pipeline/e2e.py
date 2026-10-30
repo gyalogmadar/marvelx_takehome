@@ -18,13 +18,13 @@ from pydantic import BaseModel, Field
 from claims_pipeline.components import Policy
 from claims_pipeline.components.sources import IMAGE_TYPES, TEXT_TYPES, description_lines, document_key, file_lines
 from claims_pipeline.domain import ClaimResult, Decision, Reading, ModelCall, Outcome
-from claims_pipeline.llm.anthropic_backend import image_block
+from claims_pipeline.llm.anthropic_client import image_block
 from claims_pipeline.llm.base import BackendError
 from claims_pipeline.llm.calllog import claim_scope
-from claims_pipeline.llm.config import cost_usd
+from claims_pipeline.llm.pricing import cost_usd
 from claims_pipeline.llm.types import Usage
 from claims_pipeline.prompts import prompt
-from claims_pipeline.pipeline import ClaimInput
+from claims_pipeline.domain import ClaimInput
 
 TASK = prompt("e2e").text  # claims_pipeline/prompts/e2e.md
 

@@ -10,12 +10,12 @@ from claims_pipeline.benchmark.compare import compare, markdown
 from claims_pipeline.benchmark.loader import load_claim_dir
 from claims_pipeline.domain import Outcome
 from claims_pipeline.e2e import E2EOut, DocOut, EvidenceOut, build_content, process_claim_e2e
-from claims_pipeline.llm.anthropic_backend import (
-    AnthropicBackend, AnthropicClient, ExplainOut, ExtractOut, JudgmentOut, ObservationOut, ReadOut,
-)
-from claims_pipeline.llm.config import Settings
+from claims_pipeline.llm.anthropic_client import AnthropicClient
+from claims_pipeline.llm.chat_backend import ChatBackend, ExplainOut, ExtractOut, JudgmentOut, ObservationOut, ReadOut
+from claims_pipeline.settings import Settings
 from claims_pipeline.llm.types import Usage
-from claims_pipeline.pipeline import ClaimFile, ClaimInput, process_claim
+from claims_pipeline.domain import ClaimFile, ClaimInput
+from claims_pipeline.pipeline import process_claim
 from claims_pipeline.policies import get_policy
 
 ROOT = Path(__file__).resolve().parents[1] / "mockclaims"
@@ -43,7 +43,7 @@ def make_claim(name="01-clean-medical-cancellation"):
     return loaded, get_policy(loaded.policy)
 
 
-def test_decomposed_pipeline_through_anthropic_backend():
+def test_decomposed_pipeline_through_the_chat_backend():
     loaded, policy = make_claim()
 
     def read(content):
@@ -72,7 +72,7 @@ def test_decomposed_pipeline_through_anthropic_backend():
         return JudgmentOut(answer=answer, document_filename="hospital-certificate.md", line=5, quote="Diagnosis: acute appendicitis", rationale="because", confidence=0.9)
 
     api = FakeApi({"read_document": read, "extract_facts": extract, "judge": judge, "explain": ExplainOut(text="Dear Anna, ...")})
-    result = process_claim(loaded.input, policy, AnthropicBackend(Settings(), api))
+    result = process_claim(loaded.input, policy, ChatBackend(Settings(), api))
 
     assert result.decision.outcome == Outcome.APPROVE and result.decision.payout == 1240.0
     assert result.decision.explanation == "Dear Anna, ..."
@@ -96,7 +96,7 @@ def test_every_reading_observation_and_judgment_names_its_model_call():
     judge = JudgmentOut(answer="no", document_filename="hospital-certificate.md", line=5, quote="Diagnosis", rationale="r",
                         confidence=0.9)
     api = FakeApi({"read_document": read, "extract_facts": extract, "judge": judge, "explain": ExplainOut(text="x")})
-    result = process_claim(loaded.input, policy, AnthropicBackend(Settings(), api))
+    result = process_claim(loaded.input, policy, ChatBackend(Settings(), api))
 
     logged = {c.call_id: c.component for c in result.calls}
     files = [r for r in result.readings if r.kind not in ("description", "metadata")]
@@ -126,7 +126,7 @@ def test_read_document_sends_images_and_keeps_text_lines():
 
     api = FakeApi({"read_document": read, "extract_facts": ExtractOut(observations=[]),
                    "judge": JudgmentOut(answer="unknown", rationale="?", confidence=0.3), "explain": ExplainOut(text="")})
-    result = process_claim(loaded.input, policy, AnthropicBackend(Settings(), api))
+    result = process_claim(loaded.input, policy, ChatBackend(Settings(), api))
     assert seen["Filename: booking-photo.png"] == ["text", "image"]
     img = next(d for d in result.readings if d.kind == "image")
     assert img.lines[0] == "Booking confirmation ET-77588" and img.trust.value == "untrusted"

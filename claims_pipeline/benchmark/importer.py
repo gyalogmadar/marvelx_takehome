@@ -1,7 +1,7 @@
 """Import benchmark runs written before the store existed: results/<run>/ folders.
 
-    python -m claims_pipeline.store.importer results/mock-decomposed results/e2e ...
-    python -m claims_pipeline.store.importer results/*            # every folder; done ones are skipped
+    python -m claims_pipeline.benchmark.importer results/mock-decomposed results/e2e ...
+    python -m claims_pipeline.benchmark.importer results/*            # every folder; done ones are skipped
 
 Each folder becomes a batch: its claims (read from the claims folder the run was made
 on, ``claims_root`` in results.json), one run per claim with the result tree, and every
@@ -24,14 +24,16 @@ from sqlalchemy import select
 
 from claims_pipeline.benchmark.loader import load_claim_dir
 from claims_pipeline.domain import ClaimResult
-from claims_pipeline.llm.config import Settings
+from claims_pipeline.settings import Settings
 from claims_pipeline.policies import get_policy
 
-from . import models as m
-from .calls import store_call
-from .db import sessions as open_sessions
-from .repository import add_claim, benchmark, fail_run, save_run, set_case, snapshot_policy, start_batch, start_run
-from .runconfig import save_config
+from claims_pipeline.store import models as m
+from claims_pipeline.store.calls import store_call
+from claims_pipeline.store.db import sessions as open_sessions
+from claims_pipeline.store.repository import (
+    add_claim, benchmark, fail_run, save_run, set_case, snapshot_policy, start_batch, start_run,
+)
+from claims_pipeline.store.runconfig import save_config
 
 
 def import_folder(sessions, folder: Path) -> str:

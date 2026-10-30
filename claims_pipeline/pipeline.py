@@ -17,7 +17,6 @@ reached while a read failed is referred instead.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
 from claims_pipeline.components import CheckContext, Facts, Policy
@@ -25,26 +24,11 @@ from claims_pipeline.components.explain import narrate
 from claims_pipeline.components.scoring import score_facts
 from claims_pipeline.components.sources import read_documents
 from claims_pipeline.components.trust import assess_trust
-from claims_pipeline.domain import ClaimResult, Decision, ModelCall, Observation, Outcome
+from claims_pipeline.domain import ClaimInput, ClaimResult, Decision, ModelCall, Observation, Outcome
 from claims_pipeline.llm.base import BackendError, ModelBackend, call_id_of
 from claims_pipeline.llm.calllog import claim_scope
 from claims_pipeline.llm.trace import TracedBackend, Tracer
 from claims_pipeline.llm.types import ExtractRequest, FactRequest
-
-
-@dataclass
-class ClaimFile:
-    filename: str
-    content: bytes
-
-
-@dataclass
-class ClaimInput:
-    claim_id: str
-    description: str
-    files: list[ClaimFile] = field(default_factory=list)
-    metadata: dict[str, str] = field(default_factory=dict)
-    submitted_at: datetime | None = None  # None for historical claims whose submission date is unknown
 
 
 def process_claim(claim: ClaimInput, policy: Policy, backend: ModelBackend, explain: bool = True) -> ClaimResult:

@@ -9,10 +9,10 @@ import pytest
 from claims_pipeline.benchmark.loader import load_claim_dir
 from claims_pipeline.domain import Outcome, Verdict
 from claims_pipeline.e2e import process_claim_e2e
-from claims_pipeline.llm.anthropic_backend import ExtractOut, JudgmentOut
+from claims_pipeline.llm.chat_backend import ExtractOut, JudgmentOut
 from claims_pipeline.llm.base import BackendError
-from claims_pipeline.llm.config import Settings
-from claims_pipeline.llm.openai_backend import OpenAIClient, example_of, reply_format
+from claims_pipeline.settings import Settings
+from claims_pipeline.llm.openai_client import OpenAIClient, example_of, reply_format
 from claims_pipeline.llm.scripted import OracleMissing, ScriptedBackend
 from claims_pipeline.llm.types import Usage
 from claims_pipeline.pipeline import process_claim
@@ -174,3 +174,12 @@ def test_failed_e2e_call_is_an_uncertain_result():
     result = process_claim_e2e(loaded.input, get_policy(loaded.policy), client)
     assert result.decision.outcome == Outcome.UNCERTAIN and "503" in result.decision.unknowns[0]
     assert [(c.component, c.ok) for c in result.calls] == [("e2e", False)] and result.calls[0].call_id
+
+
+def test_local_qwen_is_priced_whatever_name_the_server_reports():
+    from claims_pipeline.llm.pricing import cost_usd
+
+    for name in ("Qwen3.6-27B-UD-Q4_K_XL.gguf", "/models/qwen3.8-27b-hauhau-aggressive"):
+        # 1M input of which 200k cached, 100k output: 0.8 x 0.25 + 0.2 x 0.04 + 0.1 x 2.09
+        assert cost_usd(name, 1_000_000, 100_000, 200_000) == round(0.2 + 0.008 + 0.209, 6)
+    assert cost_usd("qwen-test", 1_000_000, 0, 0) == 0.0
