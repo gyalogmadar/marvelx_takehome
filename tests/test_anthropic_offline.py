@@ -34,7 +34,8 @@ class FakeApi(AnthropicClient):
         answer = self.answers[component]
         out = answer(content) if callable(answer) else answer
         assert isinstance(out, output_model)
-        return out, Usage(model="fake", input_tokens=1000, output_tokens=50, cache_read_tokens=800)
+        return out, Usage(model="fake", input_tokens=1000, output_tokens=50, cache_read_tokens=800,
+                          call_id=f"{component}-{len(self.calls)}")
 
 
 def make_claim(name="01-clean-medical-cancellation"):
@@ -86,6 +87,31 @@ def test_decomposed_pipeline_through_anthropic_backend():
     assert judged.document_ids == ["d2-hospital-certificate"] and judged.quote == "Diagnosis: acute appendicitis"
 
 
+def test_every_reading_observation_and_judgment_names_its_model_call():
+    """The proof chain reaches the exact call: what was read, extracted and judged, and by which call."""
+    loaded, policy = make_claim()
+    read = ReadOut(doc_type="medical_report", language="en", lines=None, alteration_signs=[], summary="s")
+    extract = ExtractOut(observations=[ObservationOut(fact="incident_date", document_id="d2-hospital-certificate", line=4,
+                                                      quote="Admitted on 2025-03-20", value="2025-03-20", confidence=0.9)])
+    judge = JudgmentOut(answer="no", document_filename="hospital-certificate.md", line=5, quote="Diagnosis", rationale="r",
+                        confidence=0.9)
+    api = FakeApi({"read_document": read, "extract_facts": extract, "judge": judge, "explain": ExplainOut(text="x")})
+    result = process_claim(loaded.input, policy, AnthropicBackend(Settings(), api))
+
+    logged = {c.call_id: c.component for c in result.calls}
+    files = [r for r in result.readings if r.kind not in ("description", "metadata")]
+    assert files and all(logged[r.call_id] == "read_document" for r in files)
+    assert all(r.call_id is None for r in result.readings if r.kind in ("description", "metadata"))
+    (obs,) = result.fact("incident_date").observations
+    assert logged[obs.call_id] == "extract_facts"
+    judged = [c for c in result.exclusions + [x for cov in result.coverages for x in (cov.match, *cov.checks)]
+              if c.kind == "judged"]
+    assert judged and all(logged[c.call_id] == "judge" for c in judged)
+    assert len({c.call_id for c in judged}) == len(judged)                       # one call per judged check
+    assert all(c.quote_line == 5 for c in judged)
+    assert all(c.call_id is None for c in result.exclusions if c.kind == "mechanical")
+
+
 def test_read_document_sends_images_and_keeps_text_lines():
     loaded, policy = make_claim("08-altered-booking-image")
     seen = {}
@@ -102,9 +128,9 @@ def test_read_document_sends_images_and_keeps_text_lines():
                    "judge": JudgmentOut(answer="unknown", rationale="?", confidence=0.3), "explain": ExplainOut(text="")})
     result = process_claim(loaded.input, policy, AnthropicBackend(Settings(), api))
     assert seen["Filename: booking-photo.png"] == ["text", "image"]
-    img = next(d for d in result.documents if d.kind == "image")
+    img = next(d for d in result.readings if d.kind == "image")
     assert img.lines[0] == "Booking confirmation ET-77588" and img.trust.value == "untrusted"
-    txt = next(d for d in result.documents if d.filename == "hospital-letter.md")
+    txt = next(d for d in result.readings if d.filename == "hospital-letter.md")
     assert txt.lines[0].startswith("# Medical certificate") and txt.language == "pt"   # file lines kept, model lines ignored
 
 
@@ -122,7 +148,7 @@ def test_e2e_strategy_builds_one_prompt_and_fills_the_tree():
     texts = [b["text"] for b in content if b["type"] == "text"]
     assert texts[0].startswith("# Claim description") and "submitted: 2025-03-06" in texts[0]
     assert any("# Document: accident-report.md" in t and "1: # Police report" in t for t in texts)
-    assert next(d for d in result.documents if d.filename == "accident-report.md").doc_type == "incident_report"
+    assert next(d for d in result.readings if d.filename == "accident-report.md").doc_type == "incident_report"
 
 
 def test_e2e_content_includes_images_and_marks_binary():
@@ -144,6 +170,14 @@ def test_compare_report(tmp_path):
     b["claims"][1].update(actual="DENY", match=True, summary="denied")
     b["metrics"].update(accuracy=1.0, correct=2, total_cost_usd=0.2, components={"e2e": {"calls": 2, "latency_ms": 9000}})
     c = compare(a, b)
-    assert c["agreement"] == {"both_right": 1, "only_a_right": 0, "only_b_right": 1, "neither": 0, "same_decision": 1, "claims": 2}
+    assert c["agreement"] == {"claims": 2, "missing": 0, "all_right": 1, "none_right": 0, "same_decision": 1, "only_right": [0, 1]}
     md = markdown(c)
-    assert "| c2 | DENY | UNCERTAIN | DENY ✓ |" in md and "A: hmm" in md
+    assert "| c2 | DENY | UNCERTAIN | DENY ✓ |" in md and "- A: hmm" in md and "A: decomposed" in md
+
+    # three runs: one column each, Clef's run labelled by its strategy
+    d = json.loads(json.dumps(a)); d.update(name="d", title="D", strategy="clef")
+    d["claims"][0].update(actual="UNCERTAIN", actual_payout=None, match=False, summary="referred")
+    c3 = compare(a, b, d)
+    assert c3["agreement"]["all_right"] == 0 and c3["agreement"]["only_right"] == [0, 1, 0]
+    md3 = markdown(c3)
+    assert "C: clef" in md3 and "| c1 | APPROVE 100.00 | APPROVE 100.00 ✓ | APPROVE 100.00 ✓ | UNCERTAIN |" in md3

@@ -20,6 +20,7 @@ export function CheckRow({ check, determining, collapsed }: { check: CheckResult
         {!collapsed && (
           <>
             <div className="rationale">{rationale}</div>
+            {check.review && <div className="review-note"><strong>For a person to decide:</strong> {check.review}</div>}
             {check.quote && (
               <blockquote className="quote" title="show in document" onClick={() => showQuote(check.quote!, check.document_ids)}>
                 “{check.quote}”

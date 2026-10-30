@@ -1,0 +1,118 @@
+{
+  "documents": {
+    "booking.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "SkyLine Travel"
+    },
+    "police-report.md": {
+      "doc_type": "police_report",
+      "issuer": "Policie CR"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Total paid: EUR 480.00",
+        "value": 480.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking.md",
+        "line": 8,
+        "quote": "Passengers: 2",
+        "value": 2,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking.md",
+        "line": 10,
+        "quote": "Booked and paid on 2025-03-01",
+        "value": "2025-03-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking.md",
+        "line": 10,
+        "quote": "Booked and paid on 2025-03-01",
+        "value": {
+          "start": "2025-03-01",
+          "end": "2025-06-16"
+        },
+        "confidence": 0.8
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Jan and Eva Novak. On 9 June 2025 our taxi to the airport was hit by another car and we missed our flight to Split. We took a later flight the next day. Police report and booking attached.",
+        "value": "Jan Novak",
+        "confidence": 0.9
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "police-report.md",
+        "line": 4,
+        "quote": "Date of incident: 2025-06-09",
+        "value": "2025-06-09",
+        "confidence": 0.97
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Jan and Eva Novak. On 9 June 2025 our taxi to the airport was hit by another car and we missed our flight to Split. We took a later flight the next day. Police report and booking attached.",
+        "value": 2,
+        "confidence": 0.9
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "no",
+      "rationale": "The trip was not cancelled: they missed the departure and flew the next day.",
+      "confidence": 0.9,
+      "document": "description",
+      "line": 1,
+      "quote": "Jan and Eva Novak. On 9 June 2025 our taxi to the airport was hit by another car and we missed our flight to Split. We took a later flight the next day. Police report and booking attached."
+    },
+    "cancellation_proof_fits": {
+      "answer": "unknown",
+      "rationale": "Not evaluated: the cancellation coverage did not match.",
+      "confidence": 0.9
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "yes",
+      "rationale": "A traffic collision on the way to the airport made them miss the flight.",
+      "confidence": 0.9,
+      "document": "police-report.md",
+      "line": 5,
+      "quote": "Incident: road traffic collision, taxi carrying two passengers to Vaclav Havel Airport"
+    }
+  }
+}

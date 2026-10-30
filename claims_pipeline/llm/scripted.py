@@ -12,6 +12,7 @@ name (observations) and check id (judgments):
                                    "confidence": 0.95}]},
       "judgments": {"prior_knowledge": {"answer": "no", "document": "...", "line": 2,
                                         "quote": "...", "rationale": "...", "confidence": 0.9}},
+      (any document, fact observation or judgment may also carry "review": "why a person must look")
       "explanation": "optional narrative"
     }
 
@@ -24,9 +25,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from claims_pipeline.domain import Document
+from claims_pipeline.domain import Reading
 
-from .base import BackendError
 from .types import (
     DocumentReading,
     DocumentReadRequest,
@@ -42,8 +42,9 @@ DESCRIPTION_ID = "description"
 METADATA_ID = "metadata"
 
 
-class OracleMissing(BackendError):
-    pass
+class OracleMissing(LookupError):
+    """A mock claim's oracle lacks an answer.  An authoring error, not a model failure, so it is
+    not a BackendError: components do not turn it into UNKNOWN, and the claim fails loudly."""
 
 
 class ScriptedBackend:
@@ -60,7 +61,7 @@ class ScriptedBackend:
 
     # -- helpers -----------------------------------------------------------
     @staticmethod
-    def _id_by_filename(documents: list[Document]) -> dict[str, str]:
+    def _id_by_filename(documents: list[Reading]) -> dict[str, str]:
         ids = {d.filename: d.id for d in documents}
         ids.setdefault("description", DESCRIPTION_ID)
         ids.setdefault("metadata", METADATA_ID)
@@ -78,7 +79,7 @@ class ScriptedBackend:
 
     def extract_facts(self, req: ExtractRequest) -> list[ExtractedObservation]:
         self.last_usage = Usage(model="scripted")
-        ids = self._id_by_filename(req.documents)
+        ids = self._id_by_filename(req.readings)
         wanted = {f.name for f in req.facts}
         out: list[ExtractedObservation] = []
         for name, observations in self.oracle.get("facts", {}).items():
@@ -90,7 +91,7 @@ class ScriptedBackend:
                     raise OracleMissing(f"fact {name!r} cites unknown document {filename!r}")
                 out.append(ExtractedObservation(
                     fact=name, document_id=ids[filename], line=o.get("line"), quote=o.get("quote", ""),
-                    value=o.get("value"), confidence=o.get("confidence", 1.0),
+                    value=o.get("value"), confidence=o.get("confidence", 1.0), review=o.get("review"),
                 ))
         return out
 
@@ -101,14 +102,14 @@ class ScriptedBackend:
             if self.strict:
                 raise OracleMissing(f"oracle has no 'judgments' entry for check {req.check_id!r}")
             return Judgment(answer="unknown", rationale="no scripted answer", confidence=0.0)
-        ids = self._id_by_filename(req.documents)
+        ids = self._id_by_filename(req.readings)
         filename = entry.get("document")
         if filename is not None and filename not in ids:
             raise OracleMissing(f"judgment {req.check_id!r} cites unknown document {filename!r}")
         return Judgment(
             answer=entry["answer"], quote=entry.get("quote", ""),
             document_id=ids.get(filename) if filename else None, line=entry.get("line"),
-            rationale=entry.get("rationale", ""), confidence=entry.get("confidence", 1.0),
+            rationale=entry.get("rationale", ""), confidence=entry.get("confidence", 1.0), review=entry.get("review"),
         )
 
     def explain(self, req: ExplainRequest) -> str | None:

@@ -1,0 +1,128 @@
+{
+  "documents": {
+    "booking.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "SkyLine Travel"
+    },
+    "certificat medical.webp": {
+      "doc_type": "medical_report",
+      "issuer": "CHU de Nantes",
+      "language": "fr",
+      "lines": [
+        "CHU de Nantes - Service des urgences",
+        "CERTIFICAT MEDICAL",
+        "Je soussigne certifie avoir examine M. Louis MARTIN",
+        "le 03/06/2025. Diagnostic : fracture du poignet droit.",
+        "Etat de sante incompatible avec un voyage.",
+        "Dr P. Lemaire - RPPS 10003345678",
+        "Cachet et signature"
+      ]
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking.md",
+        "line": 8,
+        "quote": "Total paid: EUR 312.00",
+        "value": 312.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking.md",
+        "line": 7,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Booked and paid on 2025-04-02",
+        "value": "2025-04-02",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Booked and paid on 2025-04-02",
+        "value": {
+          "start": "2025-04-02",
+          "end": "2025-06-09"
+        },
+        "confidence": 0.8
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Louis Martin. Hospitalised on 3 June 2025 with a broken wrist, I had to cancel my trip to Porto on 5 June. Photo of the certificate attached.",
+        "value": "Louis Martin",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "certificat medical.webp",
+        "line": 4,
+        "quote": "le 03/06/2025. Diagnostic : fracture du poignet droit.",
+        "value": "2025-06-03",
+        "confidence": 0.9
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Louis Martin. Hospitalised on 3 June 2025 with a broken wrist, I had to cancel my trip to Porto on 5 June. Photo of the certificate attached.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "A medical emergency prevented the trip.",
+      "confidence": 0.9,
+      "document": "certificat medical.webp",
+      "line": 4,
+      "quote": "le 03/06/2025. Diagnostic : fracture du poignet droit."
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "The certificate fits the claimant, the reason and the date.",
+      "confidence": 0.9,
+      "document": "certificat medical.webp",
+      "line": 3,
+      "quote": "Je soussigne certifie avoir examine M. Louis MARTIN"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

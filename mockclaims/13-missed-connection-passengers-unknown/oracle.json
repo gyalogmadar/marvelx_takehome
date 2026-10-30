@@ -64,15 +64,9 @@
         "document": "description",
         "line": 1,
         "quote": "Family Rossi (Marco, Giulia and our two children). On the way to Milan Centrale on 3 March 2025 our taxi was hit by a van; Giulia and I were taken to the emergency room and the four of us missed the train to Zurich. Accident report from the police and booking attached. Only the two of us were injured; the children were fine.",
-        "value": 2,
-        "confidence": 0.85
-      },
-      {
-        "document": "accident-report.md",
-        "line": 5,
-        "quote": "Incident: road traffic collision, taxi struck by a van on Viale Lunigiana; two passengers injured",
-        "value": 2,
-        "confidence": 0.9
+        "value": 4,
+        "confidence": 0.6,
+        "review": "Four travellers missed the train but only two were injured; 'affected' could be 4 or 2."
       }
     ]
   },

@@ -4,18 +4,18 @@ from .types import (
     CoverageResult,
     CoverageStatus,
     Decision,
-    Document,
     DocumentKind,
     Fact,
     ModelCall,
     Observation,
     Outcome,
+    Reading,
     Trust,
     Verdict,
 )
 
 __all__ = [
     "CheckResult", "ClaimResult", "CoverageResult", "CoverageStatus", "Decision",
-    "Document", "DocumentKind", "Fact", "ModelCall", "Observation", "Outcome",
+    "DocumentKind", "Fact", "ModelCall", "Observation", "Outcome", "Reading",
     "Trust", "Verdict",
 ]

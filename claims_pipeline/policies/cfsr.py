@@ -6,7 +6,7 @@ clause there.  Anything only this policy needs stays in this file.
 from pathlib import Path
 
 from claims_pipeline.components import (
-    Coverage, Date, Int, Money, Period, Policy, Text,
+    Coverage, Date, Int, Money, Name, Period, Policy,
     agrees_across_documents, all_of, any_of, days_between_at_most, formula, judged, within_period,
 )
 
@@ -17,11 +17,16 @@ cfsr = Policy(
     title="Cancellation For Specific Reason",
     text=TEXT,
     facts=[
-        Text("claimant_name", "full name of the person claiming"),
+        Name("claimant_name", "full name of the person claiming"),
         Date("incident_date", "the date the covered event happened: illness onset or admission, theft, accident, or the court date on a summons"),
         Date("purchase_date", "the date the policy (or the booking it came with) was bought"),
-        Period("policy_period", "the policy start and end dates; if only trip dates are given, use them"),
-        Date("claim_submitted", "the date the claim was submitted"),
+        # A cancellation policy covers from purchase until the trip is over: an illness the day
+        # before departure is inside the period, not outside it.
+        Period("policy_period", "the dates the cover runs. If a policy period is written, use it. Otherwise the "
+                                "cover starts on the purchase (booking) date and ends on the last day of the trip "
+                                "(return flight, check-out, or the travel date of a one-way trip)"),
+        Date("claim_submitted", "the date the claim was submitted; a \"Current date is\" line at the top of a "
+                                "document is our system's submission stamp"),
         Money("booking_value", "the total amount paid for the booking, in EUR"),
         Int("passengers", "number of passengers on the booking"),
         Int("affected", "number of people affected by the incident (default 1 if clearly a single traveller)"),
@@ -76,8 +81,13 @@ cfsr = Policy(
         within_period("incident_date", "policy_period"),
         days_between_at_most("policy_period.end", "claim_submitted", 30,
                              id="late_reporting", description="claim submitted within 30 days of the policy ending"),
+    ],
+    # Not grounds for denial in the wording: a suspicious document refers the claim to a human.
+    red_flags=[
         judged("suspicious_documents",
-               "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
+               "Do any of the documents show signs of being altered or fabricated, or contradict each other on a "
+               "material point (who, when, what happened, how much)? Differences in how a name is written "
+               "(capitals, word order, a middle or second family name, accents) are not contradictions.",
                expect="no"),
     ],
 )

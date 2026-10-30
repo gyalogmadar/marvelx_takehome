@@ -1,0 +1,28 @@
+{
+  "judge_question_options": {
+    "yes": "the claim description, documents or facts show that the answer is yes",
+    "no": "the claim description, documents or facts show that the answer is no",
+    "unknown": "the information is missing, or genuinely ambiguous under the policy wording"
+  },
+  "doc_type_question": "What kind of document is this?",
+  "altered_question": "Does the document show signs of being altered?",
+  "altered_options": {
+    "yes": "the document shows signs of alteration: retyped or overwritten figures, mismatched fonts or weights, pasted text",
+    "no": "the document shows no sign of alteration",
+    "unknown": "it cannot be told from the document"
+  },
+  "fact_question": "{label}: {hint}. The value read from the claim is {value}. Is it right?",
+  "fact_options": {
+    "yes": "the claim description and documents support this value",
+    "no": "they point to a different value",
+    "unknown": "they do not settle it"
+  },
+  "outcome_question": "Decide this insurance claim under the policy.",
+  "outcome_options": {
+    "APPROVE": "the claim clearly falls under a covered section, the required proof is present and no exclusion applies",
+    "DENY": "an exclusion applies, the reason is not covered, or required proof is missing",
+    "UNCERTAIN": "the documents are insufficient, contradictory or ambiguous under the wording; a human should decide"
+  },
+  "coverage_question": "Which section of the policy does the claim fall under?",
+  "no_coverage_option": "no section of the policy covers what happened"
+}

@@ -1,0 +1,127 @@
+{
+  "documents": {
+    "internal flight data.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "SkyLine Travel"
+    },
+    "certificate.md": {
+      "doc_type": "medical_report",
+      "issuer": "Asklepios Klinik Altona"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "internal flight data.md",
+        "line": 9,
+        "quote": "Total paid: EUR 275.00",
+        "value": 275.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "internal flight data.md",
+        "line": 8,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "internal flight data.md",
+        "line": 10,
+        "quote": "Booked and paid on 2025-03-01",
+        "value": "2025-03-01",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "internal flight data.md",
+        "line": 10,
+        "quote": "Booked and paid on 2025-03-01",
+        "value": {
+          "start": "2025-03-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.8
+      }
+    ],
+    "claim_submitted": [
+      {
+        "document": "internal flight data.md",
+        "line": 1,
+        "quote": "**Current date is: 2025-04-21**",
+        "value": "2025-04-21",
+        "confidence": 0.9
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Hannah Vogel. I was admitted to hospital with a severe kidney stone on 6 April 2025 and could not fly to Vienna on 7 April.",
+        "value": "Hannah Vogel",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "certificate.md",
+        "line": 4,
+        "quote": "Admitted on 2025-04-06",
+        "value": "2025-04-06",
+        "confidence": 0.97
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Hannah Vogel. I was admitted to hospital with a severe kidney stone on 6 April 2025 and could not fly to Vienna on 7 April.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "A medical emergency prevented the trip.",
+      "confidence": 0.9,
+      "document": "certificate.md",
+      "line": 5,
+      "quote": "Diagnosis: renal colic, kidney stone"
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "The certificate fits the claimant, the reason and the date.",
+      "confidence": 0.9,
+      "document": "certificate.md",
+      "line": 3,
+      "quote": "Patient: Hannah Vogel"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

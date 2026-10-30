@@ -4,7 +4,7 @@
   "strategy": "decomposed",
   "description": "I'm Luca Ferri. My bag with my passport was stolen on the metro on 2 March 2025, so I could not board my flight to Dublin on 4 March and had to cancel. I did not report it to the police because I had no time. I wrote down what happened, see attached. Booking attached.",
   "submitted_at": "2025-03-10T00:00:00Z",
-  "processed_at": "2026-10-28T19:08:18.006047Z",
+  "processed_at": "2026-10-28T20:23:17.094060Z",
   "documents": [
     {
       "id": "description",
@@ -60,7 +60,7 @@
       "trust": "trusted",
       "trust_reasons": [],
       "media_type": null,
-      "summary": "A booking confirmation for a trip from Milan to Dublin departing on 2025-03-04, booked by Luca Ferri for a total of EUR 310.00, including CFSR cover from 2025-02-01 to 2025-04-10."
+      "summary": "A booking confirmation for a Milan to Dublin trip departing 2025-03-04, with one passenger, total paid EUR 310.00, booked and paid on 2025-02-01, and CFSR cover from 2025-02-01 to 2025-04-10."
     },
     {
       "id": "d2-my-statement",
@@ -79,7 +79,7 @@
       "trust": "trusted",
       "trust_reasons": [],
       "media_type": null,
-      "summary": "A personal statement by Luca Ferri describing the theft of his backpack, containing a passport, wallet, and headphones, from the M1 metro on 2 March 2025."
+      "summary": "A short personal statement by Luca Ferri describing that his backpack was taken from him on the M1 metro on 2 March 2025, and that it contained his passport, wallet and headphones."
     }
   ],
   "facts": [
@@ -92,7 +92,7 @@
         {
           "document_id": "description",
           "line": 1,
-          "quote": "I'm Luca Ferri.",
+          "quote": "I'm Luca Ferri. My bag with my passport was stolen on the metro on 2 March 2025, so I could not board my flight to Dublin on 4 March and had to cancel. I did not report it to the police because I had no time. I wrote down what happened, see attached. Booking attached.",
           "value": "Luca Ferri",
           "confidence": 1.0
         },
@@ -122,7 +122,7 @@
         {
           "document_id": "description",
           "line": 1,
-          "quote": "My bag with my passport was stolen on the metro on 2 March 2025",
+          "quote": "I'm Luca Ferri. My bag with my passport was stolen on the metro on 2 March 2025, so I could not board my flight to Dublin on 4 March and had to cancel. I did not report it to the police because I had no time. I wrote down what happened, see attached. Booking attached.",
           "value": "2025-03-02",
           "confidence": 1.0
         },
@@ -194,7 +194,7 @@
           "document_id": "d1-booking-confirmation",
           "line": 7,
           "quote": "Total paid: EUR 310.00",
-          "value": "310.00",
+          "value": "EUR 310.00",
           "confidence": 1.0
         }
       ],
@@ -219,10 +219,18 @@
     {
       "name": "affected",
       "type": "int",
-      "value": null,
-      "confidence": 0.0,
-      "observations": [],
-      "note": "no usable observation"
+      "value": 1,
+      "confidence": 0.8,
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": ">1",
+          "confidence": 0.8
+        }
+      ],
+      "note": null
     }
   ],
   "exclusions": [
@@ -231,13 +239,13 @@
       "kind": "judged",
       "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
       "verdict": "pass",
-      "rationale": "answer: no. The claimant purchased the policy on 2025-02-01, and the incident (theft of the bag) occurred on 2025-03-02. Since the incident happened after the purchase date, the claimant could not have known about the specific incident before purchasing the policy.",
+      "rationale": "answer: no. The incident is dated 2 March 2025, which is after the 1 February 2025 purchase date, and no document states that the claimant knew of the incident or its reason before purchase.",
       "facts_used": [
         "incident_date",
         "purchase_date"
       ],
       "document_ids": [],
-      "quote": "Booked and paid on 2025-02-01",
+      "quote": "On 2 March 2025 on the M1 metro my backpack was taken while I was standing.",
       "confidence": 0.95
     },
     {
@@ -280,10 +288,10 @@
       "kind": "judged",
       "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
       "verdict": "pass",
-      "rationale": "answer: no. The documents are internally consistent regarding the claimant's identity, the incident date (2 March 2025), the flight date (4 March 2025), and the booking details. There are no contradictions between the claim description, the statement, and the booking confirmation.",
+      "rationale": "answer: no. The claim states the flight was on 4 March, and the booking confirmation shows the same departure date; the provided documents do not contradict each other on this key fact, and no alteration or fabrication is indicated.",
       "facts_used": [],
       "document_ids": [],
-      "quote": "On 2 March 2025 on the M1 metro my backpack was taken while I was standing.",
+      "quote": "Departure: 2025-03-04",
       "confidence": 0.95
     }
   ],
@@ -296,11 +304,11 @@
         "kind": "judged",
         "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
         "verdict": "pass",
-        "rationale": "answer: yes. The claimant states that their bag containing their passport was stolen, which falls under the category of a 'theft or criminal incident' listed as a covered reason for trip cancellation in the policy.",
+        "rationale": "answer: yes. The claimant states that the trip was cancelled because his bag and passport were stolen, which is a theft/criminal incident. The missing police report affects documentation, not whether the stated reason falls within the listed categories.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "My bag with my passport was stolen on the metro on 2 March 2025, so I could not board my flight to Dublin on 4 March and had to cancel.",
-        "confidence": 0.95
+        "quote": "I'm Luca Ferri. My bag with my passport was stolen on the metro on 2 March 2025, so I could not board my flight to Dublin on 4 March and had to cancel.",
+        "confidence": 1.0
       },
       "proofs": {
         "id": "proofs:cancellation",
@@ -320,14 +328,14 @@
           "id": "cancellation_proof_fits",
           "kind": "judged",
           "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
-          "verdict": "fail",
-          "rationale": "answer: no. The policy requires a police report for theft claims ('Theft or criminal incident (must be supported by a police report)'). The claimant explicitly states, 'I did not report it to the police because I had no time,' and the attached document is a personal statement, not a police report. Therefore, the supporting document does not meet the policy requirement to confirm the reason.",
+          "verdict": "pass",
+          "rationale": "answer: yes. The statement confirms the theft of the backpack on the stated incident date and is written by Luca Ferri.",
           "facts_used": [
             "incident_date",
             "claimant_name"
           ],
           "document_ids": [],
-          "quote": "I did not report it to the police because I had no time.",
+          "quote": "On 2 March 2025 on the M1 metro my backpack was taken while I was standing.",
           "confidence": 0.95
         },
         {
@@ -359,12 +367,12 @@
         "id": "effects_lost",
         "kind": "judged",
         "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
-        "verdict": "pass",
-        "rationale": "answer: yes. The claimant explicitly states that their bag was stolen, which constitutes personal belongings being stolen during the trip.",
+        "verdict": "unknown",
+        "rationale": "answer: unknown. The quote confirms the bag was stolen, but it does not state that the theft occurred during the trip; therefore the required fact is not established.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "My bag with my passport was stolen on the metro on 2 March 2025",
-        "confidence": 1.0
+        "quote": "I'm Luca Ferri. My bag with my passport was stolen on the metro on 2 March 2025, so I could not board my flight to Dublin on 4 March and had to cancel. I did not report it to the police because I had no time. I wrote down what happened, see attached. Booking attached.",
+        "confidence": 0.85
       },
       "proofs": {
         "id": "proofs:personal_effects",
@@ -378,10 +386,10 @@
         "confidence": 1.0
       },
       "checks": [],
-      "status": "ineligible",
+      "status": "unresolved",
       "payout": null,
       "payout_formula": "100 * affected",
-      "payout_note": "cannot compute payout, missing: affected"
+      "payout_note": "not computed: coverage match is unresolved"
     },
     {
       "name": "missed_connection",
@@ -390,12 +398,12 @@
         "id": "missed_departure",
         "kind": "judged",
         "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
-        "verdict": "fail",
-        "rationale": "answer: no. The claimant states that they \"had to cancel\" the trip because their passport was stolen, which is a trip cancellation, not a missed departure or connection. Furthermore, the policy requires a police report for theft, which the claimant explicitly states was not provided (\"I did not report it to the police\"), meaning the cause is not a *covered* cause under the policy terms for this specific section.",
+        "verdict": "unknown",
+        "rationale": "answer: unknown. The claim states the claimant could not board because his passport was stolen, but the policy requires a theft or criminal incident to be supported by a police report. No police report is provided, so the documents do not establish that the missed departure was due to a covered cause.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "I did not report it to the police because I had no time.",
-        "confidence": 0.95
+        "quote": "I'm Luca Ferri. My bag with my passport was stolen on the metro on 2 March 2025, so I could not board my flight to Dublin on 4 March and had to cancel. I did not report it to the police because I had no time. I wrote down what happened, see attached. Booking attached.",
+        "confidence": 0.9
       },
       "proofs": {
         "id": "proofs:missed_connection",
@@ -411,10 +419,10 @@
         "confidence": 1.0
       },
       "checks": [],
-      "status": "not_applicable",
+      "status": "unresolved",
       "payout": null,
       "payout_formula": "0.5 * booking_value / passengers * affected",
-      "payout_note": null
+      "payout_note": "not computed: coverage match is unresolved"
     }
   ],
   "decision": {
@@ -423,25 +431,31 @@
     "summary": "Referred for review. Incident date falls inside policy period: cannot evaluate, unknown: policy period.",
     "determining": [
       "within_period:incident_date",
-      "late_reporting"
+      "late_reporting",
+      "effects_lost",
+      "missed_departure"
     ],
     "coverages_applied": [],
     "payout": null,
     "currency": "EUR",
     "unknowns": [
       "incident date falls inside policy period: cannot evaluate, unknown: policy period",
-      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end"
+      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end",
+      "Were the claimant's personal belongings lost, stolen or damaged during the trip? The quote confirms the bag was stolen, but it does not state that the theft occurred during the trip; therefore the required fact is not established.",
+      "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route? The claim states the claimant could not board because his passport was stolen, but the policy requires a theft or criminal incident to be supported by a police report. No police report is provided, so the documents do not establish that the missed departure was due to a covered cause."
     ],
-    "explanation": "Your claim has been referred for further review because we cannot currently verify if the incident occurred within your policy period or if the claim was submitted within the required 30-day window. While your booking confirmation and personal statement are consistent, the policy requires a police report to support a claim for theft or criminal incident, which you have not provided. You stated that you did not report the theft to the police, so we are missing the mandatory documentation needed to validate the covered reason. Please provide the specific start and end dates of your policy coverage to allow us to proceed with the evaluation."
+    "explanation": "Luca, I have referred your claim for review because the documents do not allow me to confirm that the incident occurred within the policy period or that the claim was submitted within 30 days of the policy ending. Your written statement says your bag and passport were stolen on 2 March 2025, and the booking confirmation shows your flight to Dublin was on 4 March, but the documents do not establish that the theft happened during the trip. For the missed departure, the policy requires a theft or criminal incident to be supported by a police report, and no police report has been provided. I also need the policy document showing the policy period and end date before I can assess the timing exclusions. Please provide the missing policy period details and a police report or other required proof of the theft and its timing."
   },
   "calls": [
     {
       "component": "read_document",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 484,
-      "output_tokens": 116,
-      "cache_read_tokens": 346,
-      "latency_ms": 1068,
+      "call_id": "d76e2a407da643cc93d7799c9ac250f2",
+      "input_tokens": 520,
+      "output_tokens": 322,
+      "cache_read_tokens": 384,
+      "reasoning_tokens": 0,
+      "latency_ms": 86981,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -449,10 +463,12 @@
     {
       "component": "read_document",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 421,
-      "output_tokens": 81,
-      "cache_read_tokens": 346,
-      "latency_ms": 749,
+      "call_id": "216fa8558ec743a7bbdf51a080697863",
+      "input_tokens": 457,
+      "output_tokens": 547,
+      "cache_read_tokens": 384,
+      "reasoning_tokens": 0,
+      "latency_ms": 7115,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -460,10 +476,12 @@
     {
       "component": "extract_facts",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1251,
-      "output_tokens": 816,
-      "cache_read_tokens": 777,
-      "latency_ms": 4989,
+      "call_id": "fea6b6fab7c14f58b7a4258a2a768249",
+      "input_tokens": 1287,
+      "output_tokens": 8014,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 58052,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -471,10 +489,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1235,
-      "output_tokens": 126,
-      "cache_read_tokens": 598,
-      "latency_ms": 1298,
+      "call_id": "d00f2af661f747cebf9ac7dcf1cb143f",
+      "input_tokens": 1280,
+      "output_tokens": 3544,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 37325,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -482,10 +502,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1234,
-      "output_tokens": 122,
-      "cache_read_tokens": 598,
-      "latency_ms": 1277,
+      "call_id": "f3a42c5cf348466cba59d08d640ebc99",
+      "input_tokens": 1279,
+      "output_tokens": 2763,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 25870,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -493,10 +515,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1243,
-      "output_tokens": 118,
-      "cache_read_tokens": 598,
-      "latency_ms": 1258,
+      "call_id": "1f444e7cd4cb48c69cc0421e558e379a",
+      "input_tokens": 1288,
+      "output_tokens": 715,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 8526,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -504,10 +528,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1240,
-      "output_tokens": 130,
-      "cache_read_tokens": 598,
-      "latency_ms": 1402,
+      "call_id": "9f9253fbd81c4ecea80440fe273aa7ec",
+      "input_tokens": 1285,
+      "output_tokens": 5227,
+      "cache_read_tokens": 636,
+      "reasoning_tokens": 0,
+      "latency_ms": 42785,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -515,10 +541,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1231,
-      "output_tokens": 81,
-      "cache_read_tokens": 598,
-      "latency_ms": 1015,
+      "call_id": "4b931b4b214e46a0afa2060bfd1cff13",
+      "input_tokens": 1276,
+      "output_tokens": 6646,
+      "cache_read_tokens": 636,
+      "reasoning_tokens": 0,
+      "latency_ms": 78936,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -526,10 +554,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1240,
-      "output_tokens": 133,
-      "cache_read_tokens": 598,
-      "latency_ms": 1439,
+      "call_id": "cfb2afd515854111a7667692b5b5b47b",
+      "input_tokens": 1285,
+      "output_tokens": 5102,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 49652,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -537,10 +567,12 @@
     {
       "component": "explain",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1355,
-      "output_tokens": 126,
-      "cache_read_tokens": 594,
-      "latency_ms": 1471,
+      "call_id": "d39d01f2abd64d1aabe72dc71fc334bd",
+      "input_tokens": 1412,
+      "output_tokens": 1461,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 43230,
       "cost_usd": 0.0,
       "ok": true,
       "error": null

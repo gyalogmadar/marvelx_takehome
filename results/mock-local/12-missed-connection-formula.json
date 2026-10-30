@@ -4,7 +4,7 @@
   "strategy": "decomposed",
   "description": "Family Rossi (Marco, Giulia and our two children). On the way to Milan Centrale on 3 March 2025 our taxi was hit by a van; Giulia and I were taken to the emergency room and the four of us missed the train to Zurich. Accident report from the police and booking attached. Only the two of us were injured; the children were fine.",
   "submitted_at": "2025-03-06T00:00:00Z",
-  "processed_at": "2026-10-28T19:11:22.026847Z",
+  "processed_at": "2026-10-28T21:05:05.579657Z",
   "documents": [
     {
       "id": "description",
@@ -57,7 +57,7 @@
       "trust": "trusted",
       "trust_reasons": [],
       "media_type": null,
-      "summary": "A police report from the Polizia Locale di Milano dated 2025-03-03, filed by Marco Rossi, documenting a road traffic collision on Viale Lunigiana where a taxi was struck by a van, resulting in two injured passengers."
+      "summary": "Police report from Polizia Locale di Milano dated 2025-03-03 describing a road traffic collision in which a taxi was struck by a van on Viale Lunigiana and two passengers were injured."
     },
     {
       "id": "d2-booking-confirmation",
@@ -81,7 +81,7 @@
       "trust": "trusted",
       "trust_reasons": [],
       "media_type": null,
-      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from Milan to Zurich on 2025-03-03 for 4 passengers, totaling EUR 800.00, with CFSR cover from 2025-02-01 to 2025-04-10."
+      "summary": "A booking confirmation for a trip from Milan to Zurich on 2025-03-03, with 4 passengers, total paid EUR 800.00, booked and paid on 2025-02-01, and CFSR cover period from 2025-02-01 to 2025-04-10."
     }
   ],
   "facts": [
@@ -89,28 +89,21 @@
       "name": "claimant_name",
       "type": "text",
       "value": "Marco Rossi",
-      "confidence": 1.0,
+      "confidence": 0.95,
       "observations": [
-        {
-          "document_id": "description",
-          "line": 1,
-          "quote": "Family Rossi (Marco, Giulia and our two children).",
-          "value": "Marco Rossi",
-          "confidence": 0.95
-        },
         {
           "document_id": "d1-accident-report",
           "line": 3,
           "quote": "Reporting person: Marco Rossi",
           "value": "Marco Rossi",
-          "confidence": 1.0
+          "confidence": 0.95
         },
         {
           "document_id": "d2-booking-confirmation",
           "line": 3,
           "quote": "Lead passenger: Marco Rossi",
           "value": "Marco Rossi",
-          "confidence": 1.0
+          "confidence": 0.9
         }
       ],
       "note": null
@@ -124,9 +117,9 @@
         {
           "document_id": "description",
           "line": 1,
-          "quote": "On the way to Milan Centrale on 3 March 2025 our taxi was hit by a van",
+          "quote": "Family Rossi (Marco, Giulia and our two children). On the way to Milan Centrale on 3 March 2025 our taxi was hit by a van; Giulia and I were taken to the emergency room and the four of us missed the train to Zurich. Accident report from the police and booking attached. Only the two of us were injured; the children were fine.",
           "value": "2025-03-03",
-          "confidence": 1.0
+          "confidence": 0.95
         },
         {
           "document_id": "d1-accident-report",
@@ -196,7 +189,7 @@
           "document_id": "d2-booking-confirmation",
           "line": 7,
           "quote": "Total paid: EUR 800.00",
-          "value": "800.00",
+          "value": "800.00 EUR",
           "confidence": 1.0
         }
       ],
@@ -209,10 +202,17 @@
       "confidence": 1.0,
       "observations": [
         {
+          "document_id": "description",
+          "line": 1,
+          "quote": "Family Rossi (Marco, Giulia and our two children). On the way to Milan Centrale on 3 March 2025 our taxi was hit by a van; Giulia and I were taken to the emergency room and the four of us missed the train to Zurich. Accident report from the police and booking attached. Only the two of us were injured; the children were fine.",
+          "value": ">= 4",
+          "confidence": 0.95
+        },
+        {
           "document_id": "d2-booking-confirmation",
           "line": 6,
           "quote": "Passengers: 4",
-          "value": ">4",
+          "value": ">= 4",
           "confidence": 1.0
         }
       ],
@@ -227,8 +227,8 @@
         {
           "document_id": "description",
           "line": 1,
-          "quote": "the four of us missed the train to Zurich",
-          "value": ">4",
+          "quote": "Family Rossi (Marco, Giulia and our two children). On the way to Milan Centrale on 3 March 2025 our taxi was hit by a van; Giulia and I were taken to the emergency room and the four of us missed the train to Zurich. Accident report from the police and booking attached. Only the two of us were injured; the children were fine.",
+          "value": ">= 4",
           "confidence": 0.9
         }
       ],
@@ -241,13 +241,13 @@
       "kind": "judged",
       "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
       "verdict": "pass",
-      "rationale": "answer: no. The policy was purchased on 2025-02-01, and the incident occurred on 2025-03-03. Since the incident happened after the purchase date, the claimant could not have had prior knowledge of this specific incident before purchasing the policy.",
+      "rationale": "answer: no. The policy was purchased on 2025-02-01, before the incident date, and the documents do not state any prior knowledge of the incident or its reason.",
       "facts_used": [
         "incident_date",
         "purchase_date"
       ],
       "document_ids": [],
-      "quote": "Booked and paid on 2025-02-01",
+      "quote": "Date of incident: 2025-03-03",
       "confidence": 0.95
     },
     {
@@ -290,11 +290,11 @@
       "kind": "judged",
       "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
       "verdict": "pass",
-      "rationale": "answer: no. The documents are consistent with each other and the claim description. The police report (d1-accident-report) confirms the incident date (2025-03-03), location (Viale Lunigiana, near Milan Centrale), and that two passengers were injured, matching the description. The booking confirmation (d2-booking-confirmation) confirms the route (Milan - Zurich), date (2025-03-03), number of passengers (4), and total paid (EUR 800.00), all of which align with the claim details. There are no contradictions or signs of fabrication.",
+      "rationale": "answer: no. The police report’s incident description matches the claim description’s core facts: a taxi was struck by a van and two people were injured, with no contradictory detail in the quoted line.",
       "facts_used": [],
       "document_ids": [],
       "quote": "Incident: road traffic collision, taxi struck by a van on Viale Lunigiana; two passengers injured",
-      "confidence": 0.95
+      "confidence": 0.9
     }
   ],
   "coverages": [
@@ -305,12 +305,12 @@
         "id": "cancellation_reason",
         "kind": "judged",
         "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
-        "verdict": "fail",
-        "rationale": "answer: no. The claim describes a missed departure due to a traffic accident, not a cancellation or rescheduling of the trip itself. The policy defines 'Trip Cancellation or Rescheduling' as a specific covered event requiring the trip to be cancelled or rescheduled for a covered reason (jury duty, medical emergency, theft, etc.). The documents state the family 'missed the train to Zurich' due to a 'road traffic collision', which falls under the 'Missed Departure or Missed Connection' section, not the 'Trip Cancellation or Rescheduling' section. Therefore, the trip was not cancelled or rescheduled for the reasons listed in the question.",
+        "verdict": "unknown",
+        "rationale": "answer: unknown. The documents state that the claimants were taken to the emergency room and missed the train, but they do not state that the trip was cancelled or rescheduled, nor do they provide a medical report; therefore it is unknown whether the trip was cancelled or rescheduled for a covered reason.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "the four of us missed the train to Zurich",
-        "confidence": 0.95
+        "quote": "Giulia and I were taken to the emergency room and the four of us missed the train to Zurich.",
+        "confidence": 0.9
       },
       "proofs": {
         "id": "proofs:cancellation",
@@ -327,10 +327,10 @@
         "confidence": 1.0
       },
       "checks": [],
-      "status": "not_applicable",
+      "status": "unresolved",
       "payout": null,
       "payout_formula": "booking_value",
-      "payout_note": null
+      "payout_note": "not computed: coverage match is unresolved"
     },
     {
       "name": "personal_effects",
@@ -339,11 +339,11 @@
         "id": "effects_lost",
         "kind": "judged",
         "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
-        "verdict": "fail",
-        "rationale": "answer: no. The claim description and police report state that the claimant missed the train due to a traffic accident and that two passengers were injured, but there is no mention of personal belongings being lost, stolen, or damaged. The police report specifically notes 'two passengers injured' and the claim description states 'Only the two of us were injured; the children were fine,' with no reference to property damage or loss.",
+        "verdict": "unknown",
+        "rationale": "answer: unknown. The documents describe only the collision and injuries; they do not state that personal belongings were lost, stolen, or damaged.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "Only the two of us were injured; the children were fine.",
+        "quote": "Incident: road traffic collision, taxi struck by a van on Viale Lunigiana; two passengers injured",
         "confidence": 0.95
       },
       "proofs": {
@@ -360,10 +360,10 @@
         "confidence": 1.0
       },
       "checks": [],
-      "status": "not_applicable",
+      "status": "unresolved",
       "payout": null,
       "payout_formula": "100 * affected",
-      "payout_note": null
+      "payout_note": "not computed: coverage match is unresolved"
     },
     {
       "name": "missed_connection",
@@ -373,11 +373,11 @@
         "kind": "judged",
         "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
         "verdict": "pass",
-        "rationale": "answer: yes. The claim description states that the family missed the train because their taxi was hit by a van, which is an external covered cause (traffic accident). The police report confirms a 'road traffic collision, taxi struck by a van'.",
+        "rationale": "answer: yes. The claim description states that the family’s taxi was hit by a van and that the four of them missed the train to Zurich, which matches a missed scheduled departure caused by an external traffic accident en route.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "On the way to Milan Centrale on 3 March 2025 our taxi was hit by a van; Giulia and I were taken to the emergency room and the four of us missed the train to Zurich.",
-        "confidence": 1.0
+        "quote": "Family Rossi (Marco, Giulia and our two children). On the way to Milan Centrale on 3 March 2025 our taxi was hit by a van; Giulia and I were taken to the emergency room and the four of us missed the train to Zurich. Accident report from the police and booking attached. Only the two of us were injured; the children were fine.",
+        "confidence": 0.95
       },
       "proofs": {
         "id": "proofs:missed_connection",
@@ -402,11 +402,13 @@
   ],
   "decision": {
     "outcome": "UNCERTAIN",
-    "confidence": 0.95,
+    "confidence": 0.9,
     "summary": "Referred for review. The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
     "determining": [
       "within_period:incident_date",
-      "late_reporting"
+      "late_reporting",
+      "cancellation_reason",
+      "effects_lost"
     ],
     "coverages_applied": [
       "missed_connection"
@@ -416,18 +418,22 @@
     "unknowns": [
       "The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
       "incident date falls inside policy period: cannot evaluate, unknown: policy period",
-      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end"
+      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end",
+      "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency? The documents state that the claimants were taken to the emergency room and missed the train, but they do not state that the trip was cancelled or rescheduled, nor do they provide a medical report; therefore it is unknown whether the trip was cancelled or rescheduled for a covered reason.",
+      "Were the claimant's personal belongings lost, stolen or damaged during the trip? The documents describe only the collision and injuries; they do not state that personal belongings were lost, stolen, or damaged."
     ],
-    "explanation": "Your claim for a missed departure due to a traffic accident has been referred for further review because we cannot yet confirm the policy period. We have verified that the incident occurred on 3 March 2025 and that the police report and booking confirmation are consistent with your description. However, we do not have the specific start and end dates of your insurance coverage to determine if the incident fell within the policy period. We also need to confirm that your claim was submitted within 30 days of the policy ending. Please provide your policy document or certificate stating the exact coverage dates so we can finalize the decision."
+    "explanation": "We have reviewed your claim description, the police accident report, and the booking confirmation. The missed departure is supported by those documents, but we cannot confirm whether the incident date falls within the policy period or whether the claim was submitted within 30 days of the policy ending, because the policy period and policy end date are not stated. We also cannot confirm trip cancellation or rescheduling coverage because the documents do not state that the trip was cancelled or rescheduled and no medical report is provided. Personal effects coverage is also unresolved because the documents do not state that personal belongings were lost, stolen, or damaged. Your claim is therefore referred for review to resolve these open points."
   },
   "calls": [
     {
       "component": "read_document",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 451,
-      "output_tokens": 97,
-      "cache_read_tokens": 346,
-      "latency_ms": 946,
+      "call_id": "f58f29a2905c48faad7169cb4b8aed2b",
+      "input_tokens": 487,
+      "output_tokens": 364,
+      "cache_read_tokens": 384,
+      "reasoning_tokens": 0,
+      "latency_ms": 18564,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -435,10 +441,12 @@
     {
       "component": "read_document",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 483,
-      "output_tokens": 117,
-      "cache_read_tokens": 346,
-      "latency_ms": 920,
+      "call_id": "541c46880fc94711859273d02e01880d",
+      "input_tokens": 519,
+      "output_tokens": 292,
+      "cache_read_tokens": 384,
+      "reasoning_tokens": 0,
+      "latency_ms": 2459,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -446,10 +454,12 @@
     {
       "component": "extract_facts",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1297,
-      "output_tokens": 877,
-      "cache_read_tokens": 777,
-      "latency_ms": 5386,
+      "call_id": "902c030cbdc7437caf0d0a85449e9fdb",
+      "input_tokens": 1333,
+      "output_tokens": 13253,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 105578,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -457,10 +467,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1289,
-      "output_tokens": 119,
-      "cache_read_tokens": 598,
-      "latency_ms": 8413,
+      "call_id": "004dc26224664ca99fda173e5c2fc02a",
+      "input_tokens": 1325,
+      "output_tokens": 9013,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 106165,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -468,10 +480,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1288,
-      "output_tokens": 190,
-      "cache_read_tokens": 598,
-      "latency_ms": 1669,
+      "call_id": "b7d50e1f740743d38a2ff480664ec446",
+      "input_tokens": 1324,
+      "output_tokens": 3537,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 40063,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -479,10 +493,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1297,
-      "output_tokens": 176,
-      "cache_read_tokens": 598,
-      "latency_ms": 1627,
+      "call_id": "fd7a26e6948d4598b71436e4a74fa17d",
+      "input_tokens": 1333,
+      "output_tokens": 4692,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 44016,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -490,10 +506,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1285,
-      "output_tokens": 129,
-      "cache_read_tokens": 598,
-      "latency_ms": 1362,
+      "call_id": "667a79c9cfda46989a7faea3167f1071",
+      "input_tokens": 1321,
+      "output_tokens": 672,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 33631,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -501,10 +519,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1294,
-      "output_tokens": 124,
-      "cache_read_tokens": 598,
-      "latency_ms": 1212,
+      "call_id": "0a4533c726b549beafcfadae8d5c7b1c",
+      "input_tokens": 1330,
+      "output_tokens": 2570,
+      "cache_read_tokens": 636,
+      "reasoning_tokens": 0,
+      "latency_ms": 22589,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -512,10 +532,12 @@
     {
       "component": "explain",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1455,
-      "output_tokens": 132,
-      "cache_read_tokens": 594,
-      "latency_ms": 1517,
+      "call_id": "3e8f2b2879a14799847787438152fb21",
+      "input_tokens": 1364,
+      "output_tokens": 869,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 42975,
       "cost_usd": 0.0,
       "ok": true,
       "error": null

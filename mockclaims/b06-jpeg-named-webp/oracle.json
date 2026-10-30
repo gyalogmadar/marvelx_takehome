@@ -1,0 +1,128 @@
+{
+  "documents": {
+    "booking.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "SkyLine Travel"
+    },
+    "Spanish_medical_9.webp": {
+      "doc_type": "medical_report",
+      "issuer": "Hospital Clinico Universitario de Valencia",
+      "language": "es",
+      "lines": [
+        "Hospital Clinico Universitario de Valencia",
+        "CERTIFICADO MEDICO",
+        "Paciente: Lucia Gomez",
+        "Fecha de atencion: 18/05/2025",
+        "Diagnostico: apendicitis aguda",
+        "Reposo absoluto. No apto para viajar.",
+        "Dra. L. Castillo - Reg. 44120"
+      ]
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking.md",
+        "line": 8,
+        "quote": "Total paid: EUR 145.00",
+        "value": 145.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking.md",
+        "line": 7,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Booked and paid on 2025-04-20",
+        "value": "2025-04-20",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Booked and paid on 2025-04-20",
+        "value": {
+          "start": "2025-04-20",
+          "end": "2025-05-21"
+        },
+        "confidence": 0.8
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Lucia Gomez. Me atendieron de urgencia el 18 de mayo de 2025 por una apendicitis y no pude viajar a Madrid el 19 de mayo.",
+        "value": "Lucia Gomez",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "Spanish_medical_9.webp",
+        "line": 4,
+        "quote": "Fecha de atencion: 18/05/2025",
+        "value": "2025-05-18",
+        "confidence": 0.9
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Lucia Gomez. Me atendieron de urgencia el 18 de mayo de 2025 por una apendicitis y no pude viajar a Madrid el 19 de mayo.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "A medical emergency prevented the trip.",
+      "confidence": 0.9,
+      "document": "Spanish_medical_9.webp",
+      "line": 5,
+      "quote": "Diagnostico: apendicitis aguda"
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "The certificate fits the claimant, the reason and the date.",
+      "confidence": 0.9,
+      "document": "Spanish_medical_9.webp",
+      "line": 3,
+      "quote": "Paciente: Lucia Gomez"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

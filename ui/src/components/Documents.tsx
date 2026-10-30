@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react'
-import type { Document } from '../types'
+import { fmt } from '../api'
+import type { Reading } from '../types'
 import { TrustBadge } from './Badges'
 import { useEvidence } from './EvidenceContext'
 
-const ICON: Record<Document['kind'], string> = { description: '✎', metadata: '⚙', markdown: '▤', text: '▤', image: '▨' }
+const ICON: Record<Reading['kind'], string> = { description: '✎', metadata: '⚙', markdown: '▤', text: '▤', image: '▨' }
 
 export function DocumentList() {
   const { documents, selectedDoc, selectDoc } = useEvidence()
@@ -62,6 +63,15 @@ export function DocumentViewer() {
             )
           })}
         </div>
+        {doc.review && (
+          <div className="review-note" style={{ marginTop: 10 }}><strong>The reader flagged this document:</strong> {doc.review}</div>
+        )}
+        {doc.scores && Object.keys(doc.scores).length > 0 && (
+          <div className="trustlist muted small" style={{ marginTop: 10 }}>
+            <strong>Independent scorer</strong>
+            <ul>{Object.entries(doc.scores).map(([q, p]) => <li key={q}>{q === 'doc_type' ? 'type' : q}: {fmt.probs(p)}</li>)}</ul>
+          </div>
+        )}
         {doc.alteration_signs.length > 0 && (
           <div className="alter">
             <strong>Alteration signs noticed</strong>

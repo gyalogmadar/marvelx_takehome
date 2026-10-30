@@ -1,13 +1,13 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react'
 import type { ClaimSource } from '../api'
 import { documentUrl } from '../api'
-import type { Document, Fact, Observation } from '../types'
+import type { Reading, Fact, Observation } from '../types'
 
 /** Shared state for the evidence chain: which document is open and which lines are lit. */
 export interface Highlight { docId: string; lines: number[] }
 
 interface EvidenceState {
-  documents: Document[]
+  documents: Reading[]
   facts: Record<string, Fact>
   selectedDoc: string | null
   highlight: Highlight | null
@@ -17,13 +17,13 @@ interface EvidenceState {
   showFact: (name: string) => void
   clearHighlight: () => void
   docUrl: (docId: string) => string
-  docById: (id: string) => Document | undefined
+  docById: (id: string) => Reading | undefined
 }
 
 const Ctx = createContext<EvidenceState | null>(null)
 
 export function EvidenceProvider({ source, documents, facts, children }:
-  { source: ClaimSource; documents: Document[]; facts: Fact[]; children: ReactNode }) {
+  { source: ClaimSource; documents: Reading[]; facts: Fact[]; children: ReactNode }) {
   const factMap = useMemo(() => Object.fromEntries(facts.map((f) => [f.name, f])), [facts])
   const firstFile = documents.find((d) => d.kind !== 'description' && d.kind !== 'metadata') ?? documents[0]
   const [selectedDoc, setSelectedDoc] = useState<string | null>(firstFile?.id ?? null)
@@ -42,7 +42,7 @@ export function EvidenceProvider({ source, documents, facts, children }:
   }, [documents])
 
   const showQuote = useCallback((quote: string, docIds: string[]) => {
-    const candidates = docIds.length ? docIds.map(docById).filter(Boolean) as Document[] : documents
+    const candidates = docIds.length ? docIds.map(docById).filter(Boolean) as Reading[] : documents
     for (const doc of candidates) {
       const lines = doc.lines.map((l, i) => (l.includes(quote) || quote.includes(l) ? i + 1 : 0)).filter(Boolean)
       if (lines.length) {

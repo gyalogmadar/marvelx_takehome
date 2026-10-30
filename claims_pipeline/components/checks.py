@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import TYPE_CHECKING, Protocol
 
-from claims_pipeline.domain import CheckResult, Document, Trust, Verdict
+from claims_pipeline.domain import CheckResult, Reading, Trust, Verdict
 
 from .facts import Facts
 
@@ -27,7 +27,7 @@ if TYPE_CHECKING:  # pragma: no cover
 @dataclass
 class CheckContext:
     facts: Facts
-    documents: list[Document]
+    readings: list[Reading]
     backend: "ModelBackend"
     policy_text: str
     description: str
@@ -182,14 +182,14 @@ class DocumentPresent:
         self.description = self.description or "a " + " or ".join(self.types) + " is present"
 
     def run(self, ctx: CheckContext) -> CheckResult:
-        hits = [d for d in ctx.documents if d.doc_type in self.types and d.trust != Trust.UNTRUSTED]
+        hits = [d for d in ctx.readings if d.doc_type in self.types and d.trust != Trust.UNTRUSTED]
         if hits:
             return CheckResult(
                 id=self.id, kind="mechanical", description=self.description, verdict=Verdict.PASS,
                 rationale="present: " + ", ".join(f"{d.filename} ({d.doc_type})" for d in hits),
-                document_ids=[d.id for d in hits], confidence=1.0,
+                document_ids=[d.id for d in hits], confidence=max(d.type_probability() for d in hits),
             )
-        unreadable = [d for d in ctx.documents if d.doc_type == "unreadable"]
+        unreadable = [d for d in ctx.readings if d.doc_type == "unreadable"]
         if unreadable:
             return CheckResult(
                 id=self.id, kind="mechanical", description=self.description, verdict=Verdict.UNKNOWN,
@@ -218,13 +218,22 @@ class Judged:
         self.description = self.description or self.question
 
     def run(self, ctx: CheckContext) -> CheckResult:
-        from claims_pipeline.llm.types import JudgeRequest  # local import keeps components free of llm at import time
+        # local imports keep components free of llm at import time
+        from claims_pipeline.llm.base import BackendError, call_id_of
+        from claims_pipeline.llm.types import JudgeRequest
 
-        judgment = ctx.backend.judge(JudgeRequest(
-            check_id=self.id, question=self.question, expect=self.expect,
-            description=ctx.description, documents=ctx.documents,
-            facts=ctx.facts.as_list(), policy_text=ctx.policy_text,
-        ))
+        try:
+            judgment = ctx.backend.judge(JudgeRequest(
+                check_id=self.id, question=self.question, expect=self.expect,
+                description=ctx.description, readings=ctx.readings,
+                facts=ctx.facts.as_list(), policy_text=ctx.policy_text,
+            ))
+        except BackendError as exc:
+            return CheckResult(
+                id=self.id, kind="judged", description=self.description, verdict=Verdict.UNKNOWN,
+                rationale=f"not answered, the model call failed: {exc}",
+                facts_used=list(self.facts_used), confidence=0.0, call_id=call_id_of(exc),
+            )
         if judgment.answer == "unknown":
             verdict = Verdict.UNKNOWN
         elif judgment.answer == self.expect:
@@ -236,7 +245,8 @@ class Judged:
             id=self.id, kind="judged", description=self.description, verdict=verdict,
             rationale=f"answer: {judgment.answer}. {judgment.rationale}".strip(),
             facts_used=list(self.facts_used), document_ids=doc_ids,
-            quote=judgment.quote or None, confidence=judgment.confidence,
+            quote=judgment.quote or None, quote_line=judgment.line if doc_ids else None,
+            confidence=judgment.confidence, call_id=call_id_of(ctx.backend), review=judgment.review,
         )
 
 

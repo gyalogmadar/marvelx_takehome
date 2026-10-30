@@ -9,6 +9,18 @@ from claims_pipeline.domain import ClaimResult
 OUTCOMES = ("APPROVE", "DENY", "UNCERTAIN")
 
 
+def score_row(row: dict, result: ClaimResult) -> dict:
+    """Fill a benchmark row from a result: right when the decision matches and, where a payout
+    is expected, the payout matches to the cent."""
+    row.update(actual=result.decision.outcome.value, actual_payout=result.decision.payout,
+               confidence=result.decision.confidence, summary=result.decision.summary,
+               failed_calls=sum(not c.ok for c in result.calls))
+    row["match"] = bool(row["expected"]) and row["expected"] == row["actual"] and (
+        row["expected_payout"] is None or (row["actual_payout"] is not None
+                                           and abs(row["actual_payout"] - row["expected_payout"]) < 0.01))
+    return row
+
+
 def metrics(rows: list[dict], results: dict[str, ClaimResult]) -> dict:
     scored = [r for r in rows if r["expected"]]
     correct = [r for r in scored if r["match"]]
@@ -38,8 +50,14 @@ def metrics(rows: list[dict], results: dict[str, ClaimResult]) -> dict:
             c["cost_usd"] = round(c["cost_usd"] + call.cost_usd, 6)
             c["latency_ms"] += call.latency_ms
             c["errors"] += 0 if call.ok else 1
+    # the review signal: how often a component sent a claim to a person, and whether it should have gone
+    flagged = [r for r in rows if r["claim_id"] in results and results[r["claim_id"]].decision.reviews]
+    reviews = {"claims": len(flagged), "rate": round(len(flagged) / len(rows), 3) if rows else None,
+               "expected_uncertain": sum(r["expected"] == "UNCERTAIN" for r in flagged),
+               "expected_other": sum(r["expected"] not in (None, "UNCERTAIN") for r in flagged)}
     return {
         "claims": len(rows),
+        "reviews": reviews,
         "scored": len(scored),
         "correct": len(correct),
         "accuracy": round(len(correct) / len(scored), 4) if scored else None,
@@ -57,7 +75,9 @@ def markdown(rows: list[dict], results: dict[str, ClaimResult], m: dict, title: 
     acc = f"{m['accuracy']:.1%}" if m["accuracy"] is not None else "n/a"
     out += [f"**Decisions:** {m['correct']} / {m['scored']} correct ({acc}).  "
             f"**Payouts:** {m['payout']['exact']} / {m['payout']['scored']} exact.  "
-            f"**Model cost:** ${m['total_cost_usd']:.4f}.", ""]
+            f"**Model cost:** ${m['total_cost_usd']:.4f}.  "
+            f"**Sent to a person by a review flag:** {m['reviews']['claims']} "
+            f"({m['reviews']['expected_uncertain']} expected a referral, {m['reviews']['expected_other']} did not).", ""]
     out += ["## Confusion matrix (rows: expected, columns: actual)", "",
             "| expected \\ actual | " + " | ".join(OUTCOMES) + " |", "|---|" + "---|" * len(OUTCOMES)]
     for e in OUTCOMES:

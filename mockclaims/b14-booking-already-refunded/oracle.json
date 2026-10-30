@@ -1,0 +1,119 @@
+{
+  "documents": {
+    "booking-confirmation.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "EuroTrips Travel GmbH",
+      "review": "The booking says the trip was cancelled and refunded in full (EUR 520.00) on 2025-04-03."
+    },
+    "doctor-note.md": {
+      "doc_type": "medical_report",
+      "issuer": "Klinikum rechts der Isar"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 7,
+        "quote": "Total paid: EUR 520.00",
+        "value": 520.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 6,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 8,
+        "quote": "Booked and paid on 2025-02-20",
+        "value": "2025-02-20",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-confirmation.md",
+        "line": 9,
+        "quote": "CFSR cover period: 2025-02-01 to 2025-04-10",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-04-10"
+        },
+        "confidence": 0.95
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Lena Fischer. I broke my ankle on 2 April 2025 and could not travel to Lisbon on 5 April. Booking and doctor's note attached.",
+        "value": "Lena Fischer",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "doctor-note.md",
+        "line": 4,
+        "quote": "Admitted on 2025-04-02",
+        "value": "2025-04-02",
+        "confidence": 0.97
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Lena Fischer. I broke my ankle on 2 April 2025 and could not travel to Lisbon on 5 April. Booking and doctor's note attached.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "A medical emergency prevented the trip.",
+      "confidence": 0.9,
+      "document": "doctor-note.md",
+      "line": 5,
+      "quote": "Diagnosis: fractured right ankle"
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "The certificate fits the claimant, the reason and the date.",
+      "confidence": 0.9,
+      "document": "doctor-note.md",
+      "line": 3,
+      "quote": "Patient: Lena Fischer"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

@@ -29,6 +29,8 @@ export function FactsTable({ facts }: { facts: Fact[] }) {
                     <td className={isKnown ? '' : 'faint'}>
                       <div className="row"><span className="val">{isKnown ? fmt.value(f.value) : 'unknown'}</span>{isKnown && <Confidence value={f.confidence} showLabel={false} />}</div>
                       {f.note && <div className="small muted">{f.note}</div>}
+                      {f.review && <div className="review-note small">{f.review}</div>}
+                      {f.scores && <div className="small muted">scorer: {fmt.probs(f.scores)}</div>}
                       {src && <div className="small faint">{src.kind === 'description' ? 'claim description' : src.filename}{best.line ? `, line ${best.line}` : ''}{f.observations.length > 1 ? ` +${f.observations.length - 1}` : ''}</div>}
                     </td>
                   </tr>

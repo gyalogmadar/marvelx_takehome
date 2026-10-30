@@ -9,6 +9,7 @@ into one Fact, keeping every observation for the evidence chain.
 from __future__ import annotations
 
 import re
+import unicodedata
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import date, datetime
@@ -77,8 +78,9 @@ class FactSpec:
             others = ", ".join(self.display(representatives[i]) for i in groups if i != best)
             note = f"observations disagree: {self.display(value)} vs {others}"
             confidence = round(confidence * 0.6, 3)
+        reviews = list(dict.fromkeys(o.review for o in all_obs if o.review))
         return Fact(name=self.name, type=self.type, value=self.serialize(value),
-                    confidence=confidence, observations=all_obs, note=note)
+                    confidence=confidence, observations=all_obs, note=note, review="; ".join(reviews) or None)
 
     def __repr__(self) -> str:  # pragma: no cover - readability only
         return f"{type(self).__name__}({self.name!r})"
@@ -86,6 +88,27 @@ class FactSpec:
 
 class Text(FactSpec):
     type = "text"
+
+
+class Name(Text):
+    """A person's name.  Two readings agree when they are the same person as written on
+    different documents: case, accents, punctuation, word order and an added middle or
+    second family name do not make a disagreement ("Amy NDIAYE" = "Ndiaye, Amy";
+    "Cristina Carhuayo Freire" = "Cristina Vanessa Carhuayo Freire")."""
+
+    type = "name"
+
+    @staticmethod
+    def tokens(value: str) -> set[str]:
+        plain = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode().casefold()
+        return {t for t in re.split(r"[^a-z]+", plain) if t}
+
+    def equal(self, a: str, b: str) -> bool:
+        ta, tb = self.tokens(a), self.tokens(b)
+        if not ta or not tb:
+            return a.strip().casefold() == b.strip().casefold()
+        small, large = sorted((ta, tb), key=len)
+        return small <= large and (len(small) >= 2 or small == large)
 
 
 class Int(FactSpec):

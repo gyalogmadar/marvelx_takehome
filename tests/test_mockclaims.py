@@ -23,18 +23,18 @@ def test_mock_claim(claim_dir: Path):
         assert result.decision.payout == pytest.approx(loaded.expected["payout"])
 
     # the tree is internally consistent: every reference resolves
-    doc_ids = {d.id for d in result.documents}
+    doc_ids = {d.id for d in result.readings}
     fact_names = {f.name for f in result.facts}
-    for r in result.exclusions + [x for c in result.coverages for x in (c.match, c.proofs, *c.checks)]:
+    for r in result.exclusions + result.red_flags + [x for c in result.coverages for x in (c.match, c.proofs, *c.checks)]:
         assert set(r.document_ids) <= doc_ids, r.id
         assert set(r.facts_used) <= fact_names, r.id
     for f in result.facts:
         for o in f.observations:
             assert o.document_id in doc_ids
-            doc = result.document(o.document_id)
+            doc = result.reading(o.document_id)
             if o.line is not None:
                 assert doc.quote(o.line) == o.quote, (f.name, o)
-    all_check_ids = {r.id for r in result.exclusions} | {x.id for c in result.coverages for x in (c.match, c.proofs, *c.checks)}
+    all_check_ids = {r.id for r in result.exclusions + result.red_flags} | {x.id for c in result.coverages for x in (c.match, c.proofs, *c.checks)}
     assert set(result.decision.determining) <= all_check_ids
     assert evidence_outline(result)
     assert all(call.ok for call in result.calls)

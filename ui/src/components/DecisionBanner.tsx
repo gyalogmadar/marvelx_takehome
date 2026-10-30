@@ -33,6 +33,15 @@ export function DecisionBanner({ decision, expected, expectedPayout, note }:
         </div>
         <p className="summary">{decision.summary}</p>
         {note && <p className="muted small" style={{ marginTop: 6 }}>Test case: {note}</p>}
+        {(decision.reviews ?? []).length > 0 && (
+          <div className="reviews">
+            <strong>A person must look at this</strong>
+            <ul>{decision.reviews!.map((r, i) => {
+              const [who, what] = r.split(': ', 2)
+              return <li key={i}><span className="pill">{who}</span> {what ?? r}</li>
+            })}</ul>
+          </div>
+        )}
         {decision.unknowns.length > 0 && (
           <div className="unknowns">
             <strong>What would resolve this</strong>

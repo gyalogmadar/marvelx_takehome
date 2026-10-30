@@ -6,20 +6,22 @@ it pays (a formula).  Evaluating it yields a CoverageResult with a status:
 
     eligible        matched, proofs present, every check passed, payout known
     not_applicable  the match question answered no
-    ineligible      matched but a proof is missing or a check failed
+    ineligible      it cannot pay: matched but a proof is missing or a check failed,
+                    or its required proof is missing whether it matches or not
     unresolved      something needed is unknown (including the payout inputs)
 
-The match question gates the rest: when it is unknown we cannot say the
-coverage applies, so we cannot call its proofs insufficient either.  The
-coverage is left unresolved for a human, and the remaining checks are not
-run.
+The match question gates the rest: when it is unknown, the remaining checks are
+not run.  If the coverage's required proof is missing anyway, it cannot pay
+whichever way the question would go, so it is ineligible rather than left open:
+an unanswerable question about a section that could never pay must not hold up
+a decision.  Otherwise it is unresolved, for a human.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Union
 
-from claims_pipeline.domain import CheckResult, CoverageResult, Document, Trust, Verdict
+from claims_pipeline.domain import CheckResult, CoverageResult, Reading, Trust, Verdict
 
 from .checks import Check, CheckContext
 from .quantum import Formula
@@ -43,7 +45,7 @@ class ProofRule:
             out |= i.doc_types() if isinstance(i, ProofRule) else {i}
         return out
 
-    def evaluate(self, documents: list[Document]) -> tuple[Verdict, list[str], list[str]]:
+    def evaluate(self, documents: list[Reading]) -> tuple[Verdict, list[str], list[str]]:
         """Return (verdict, matched document ids, notes)."""
         verdicts: list[Verdict] = []
         matched: list[str] = []
@@ -92,19 +94,22 @@ class Coverage:
 
     def evaluate(self, ctx: CheckContext) -> CoverageResult:
         match = self.matches.run(ctx)
-        verdict, ids, notes = self.proofs.evaluate(ctx.documents)
+        verdict, ids, notes = self.proofs.evaluate(ctx.readings)
         proofs = CheckResult(
             id=f"proofs:{self.name}", kind="proof", description="required proof: " + self.proofs.describe(),
             verdict=verdict, rationale="; ".join(notes) or "no documents", document_ids=ids,
-            confidence=1.0 if verdict != Verdict.UNKNOWN else 0.0,
+            confidence=0.0 if verdict == Verdict.UNKNOWN else
+            min((d.type_probability() for d in ctx.readings if d.id in ids and verdict == Verdict.PASS), default=1.0),
         )
         if match.verdict == Verdict.FAIL:
             return CoverageResult(name=self.name, title=self.title, match=match, proofs=proofs,
                                   status="not_applicable", payout_formula=self.payout.expr if self.payout else None)
         if match.verdict == Verdict.UNKNOWN:
+            cannot_pay = proofs.verdict == Verdict.FAIL
             return CoverageResult(name=self.name, title=self.title, match=match, proofs=proofs,
-                                  status="unresolved", payout_formula=self.payout.expr if self.payout else None,
-                                  payout_note="not computed: coverage match is unresolved")
+                                  status="ineligible" if cannot_pay else "unresolved",
+                                  payout_formula=self.payout.expr if self.payout else None,
+                                  payout_note=None if cannot_pay else "not computed: coverage match is unresolved")
 
         checks = [c.run(ctx) for c in self.checks]
         results = [match, proofs, *checks]

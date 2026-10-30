@@ -4,7 +4,7 @@
   "strategy": "decomposed",
   "description": "Jonas Berg. I had surgery on 5 March 2025 and could not travel to Barcelona on 8 March. Attaching the surgery letter and booking.",
   "submitted_at": "2025-03-12T00:00:00Z",
-  "processed_at": "2026-10-28T19:10:29.216992Z",
+  "processed_at": "2026-10-28T20:46:57.405739Z",
   "documents": [
     {
       "id": "description",
@@ -60,7 +60,7 @@
       "trust": "trusted",
       "trust_reasons": [],
       "media_type": null,
-      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from Stockholm to Barcelona departing on 2025-03-08, with a total payment of EUR 710.00 and a CFSR cover period from 2025-02-01 to 2025-04-10."
+      "summary": "A booking confirmation for a trip from Stockholm to Barcelona departing 2025-03-08, with one passenger, total paid EUR 710.00, and CFSR cover period from 2025-02-01 to 2025-04-10."
     },
     {
       "id": "d2-surgery-letter",
@@ -80,7 +80,7 @@
       "trust": "trusted",
       "trust_reasons": [],
       "media_type": null,
-      "summary": "A letter from Karolinska University Hospital dated 2025-01-20 informing patient Jonas Berg that his elective knee arthroscopy is scheduled for 2025-03-05 and that he should expect two weeks of restricted mobility post-procedure."
+      "summary": "Hospital letter from Karolinska University Hospital dated 2025-01-20 for patient Jonas Berg, stating that an elective knee arthroscopy is scheduled for 2025-03-05 and that two weeks of restricted mobility are expected after the procedure."
     }
   ],
   "facts": [
@@ -132,7 +132,7 @@
           "line": 4,
           "quote": "Your elective knee arthroscopy is scheduled for 2025-03-05.",
           "value": "2025-03-05",
-          "confidence": 1.0
+          "confidence": 0.9
         }
       ],
       "note": null
@@ -195,7 +195,7 @@
           "document_id": "d1-booking-confirmation",
           "line": 7,
           "quote": "Total paid: EUR 710.00",
-          "value": "710.00",
+          "value": "EUR 710.00",
           "confidence": 1.0
         }
       ],
@@ -204,26 +204,34 @@
     {
       "name": "passengers",
       "type": "int",
-      "value": 1,
-      "confidence": 1.0,
+      "value": null,
+      "confidence": 0.0,
       "observations": [
         {
           "document_id": "d1-booking-confirmation",
           "line": 6,
           "quote": "Passengers: 1",
-          "value": ">1",
+          "value": "Yes",
           "confidence": 1.0
         }
       ],
-      "note": null
+      "note": "observations could not be parsed"
     },
     {
       "name": "affected",
       "type": "int",
       "value": null,
       "confidence": 0.0,
-      "observations": [],
-      "note": "no usable observation"
+      "observations": [
+        {
+          "document_id": "d1-booking-confirmation",
+          "line": 6,
+          "quote": "Passengers: 1",
+          "value": "Yes",
+          "confidence": 0.8
+        }
+      ],
+      "note": "observations could not be parsed"
     }
   ],
   "exclusions": [
@@ -232,14 +240,14 @@
       "kind": "judged",
       "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
       "verdict": "fail",
-      "rationale": "answer: yes. The surgery letter, dated 2025-01-20, states that the elective knee arthroscopy was 'scheduled for 2025-03-05'. Since the policy was purchased on 2025-02-01, the claimant had prior knowledge of the scheduled medical procedure (the reason for the cancellation) before purchasing the policy.",
+      "rationale": "answer: yes. The surgery letter is dated 2025-01-20, before the 2025-02-01 purchase date, and it states the surgery was already scheduled, so the claimant knew of the reason before purchasing the policy.",
       "facts_used": [
         "incident_date",
         "purchase_date"
       ],
       "document_ids": [],
       "quote": "Your elective knee arthroscopy is scheduled for 2025-03-05.",
-      "confidence": 1.0
+      "confidence": 0.95
     },
     {
       "id": "within_period:incident_date",
@@ -280,11 +288,11 @@
       "id": "suspicious_documents",
       "kind": "judged",
       "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
-      "verdict": "fail",
-      "rationale": "answer: yes. The claim description states the surgery occurred on 5 March 2025, but the surgery letter is dated 20 January 2025 and describes the surgery as 'scheduled' for that date. A letter dated two months prior to the event cannot confirm that the surgery actually took place, creating a direct inconsistency between the documents regarding the status of the medical procedure.",
+      "verdict": "pass",
+      "rationale": "answer: no. The medical letter’s scheduled surgery date matches the claim’s stated surgery date, and the other documents do not contradict the claimant’s name, travel date, or surgery date.",
       "facts_used": [],
       "document_ids": [],
-      "quote": "Letter dated 2025-01-20 ... Your elective knee arthroscopy is scheduled for 2025-03-05.",
+      "quote": "Your elective knee arthroscopy is scheduled for 2025-03-05.",
       "confidence": 0.95
     }
   ],
@@ -296,11 +304,11 @@
         "id": "cancellation_reason",
         "kind": "judged",
         "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
-        "verdict": "pass",
-        "rationale": "answer: yes. The claimant states they had surgery and could not travel, and the attached medical report confirms the surgery was scheduled, which falls under the covered reason of a medical emergency.",
+        "verdict": "unknown",
+        "rationale": "answer: unknown. The quoted line shows the surgery was elective and scheduled, and the documents do not state that it was a medical emergency or another specified personal emergency.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "I had surgery on 5 March 2025 and could not travel to Barcelona on 8 March.",
+        "quote": "Your elective knee arthroscopy is scheduled for 2025-03-05.",
         "confidence": 0.95
       },
       "proofs": {
@@ -317,42 +325,11 @@
         "quote": null,
         "confidence": 1.0
       },
-      "checks": [
-        {
-          "id": "cancellation_proof_fits",
-          "kind": "judged",
-          "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
-          "verdict": "fail",
-          "rationale": "answer: no. The supporting document (surgery letter) is dated 2025-01-20 and states the surgery is 'scheduled for 2025-03-05'. It does not confirm that the surgery actually took place on that date, nor does it explicitly state that the claimant was unable to travel on 2025-03-08 due to the procedure. It only predicts 'restricted mobility' for two weeks after the procedure. Therefore, it does not definitively confirm the incident (the cancellation due to the surgery having occurred) as a fact, only as a scheduled event.",
-          "facts_used": [
-            "incident_date",
-            "claimant_name"
-          ],
-          "document_ids": [],
-          "quote": "Your elective knee arthroscopy is scheduled for 2025-03-05.",
-          "confidence": 0.95
-        },
-        {
-          "id": "agrees:incident_date",
-          "kind": "mechanical",
-          "description": "incident date is consistent across documents",
-          "verdict": "pass",
-          "rationale": "incident date = 2025-03-05 from 2 sources, no disagreement",
-          "facts_used": [
-            "incident_date"
-          ],
-          "document_ids": [
-            "d2-surgery-letter",
-            "description"
-          ],
-          "quote": null,
-          "confidence": 1.0
-        }
-      ],
-      "status": "ineligible",
+      "checks": [],
+      "status": "unresolved",
       "payout": null,
       "payout_formula": "booking_value",
-      "payout_note": null
+      "payout_note": "not computed: coverage match is unresolved"
     },
     {
       "name": "personal_effects",
@@ -361,12 +338,12 @@
         "id": "effects_lost",
         "kind": "judged",
         "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
-        "verdict": "fail",
-        "rationale": "answer: no. The claim description states the claimant 'could not travel to Barcelona on 8 March' due to surgery, which falls under trip cancellation, not personal effects. There is no mention of lost, stolen, or damaged belongings.",
+        "verdict": "unknown",
+        "rationale": "answer: unknown. The documents state only that the claimant had surgery and could not travel; they do not state that personal belongings were lost, stolen, or damaged.",
         "facts_used": [],
         "document_ids": [],
         "quote": "Jonas Berg. I had surgery on 5 March 2025 and could not travel to Barcelona on 8 March. Attaching the surgery letter and booking.",
-        "confidence": 0.95
+        "confidence": 1.0
       },
       "proofs": {
         "id": "proofs:personal_effects",
@@ -380,10 +357,10 @@
         "confidence": 1.0
       },
       "checks": [],
-      "status": "not_applicable",
+      "status": "unresolved",
       "payout": null,
       "payout_formula": "100 * affected",
-      "payout_note": null
+      "payout_note": "not computed: coverage match is unresolved"
     },
     {
       "name": "missed_connection",
@@ -393,10 +370,10 @@
         "kind": "judged",
         "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
         "verdict": "fail",
-        "rationale": "answer: no. The claimant states, 'I had surgery on 5 March 2025 and could not travel to Barcelona on 8 March.' The surgery letter confirms the procedure was 'scheduled for 2025-03-05.' This indicates the cause of missing the departure was a scheduled medical procedure (surgery), not an external covered cause like a traffic accident en route. While surgery is a covered reason for cancellation, the specific question asks if it was missed due to an external cause *such as a traffic accident*, which is not supported by the documents.",
+        "rationale": "answer: no. The quoted line identifies the cause as an elective scheduled surgery, not an external covered cause such as a traffic accident en route.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "I had surgery on 5 March 2025 and could not travel to Barcelona on 8 March.",
+        "quote": "Your elective knee arthroscopy is scheduled for 2025-03-05.",
         "confidence": 0.95
       },
       "proofs": {
@@ -422,26 +399,27 @@
   ],
   "decision": {
     "outcome": "DENY",
-    "confidence": 1.0,
-    "summary": "Denied. The surgery letter, dated 2025-01-20, states that the elective knee arthroscopy was 'scheduled for 2025-03-05'. Since the policy was purchased on 2025-02-01, the claimant had prior knowledge of the scheduled medical procedure (the reason for the cancellation) before purchasing the policy. The claim description states the surgery occurred on 5 March 2025, but the surgery letter is dated 20 January 2025 and describes the surgery as 'scheduled' for that date. A letter dated two months prior to the event cannot confirm that the surgery actually took place, creating a direct inconsistency between the documents regarding the status of the medical procedure.",
+    "confidence": 0.95,
+    "summary": "Denied. The surgery letter is dated 2025-01-20, before the 2025-02-01 purchase date, and it states the surgery was already scheduled, so the claimant knew of the reason before purchasing the policy.",
     "determining": [
-      "prior_knowledge",
-      "suspicious_documents"
+      "prior_knowledge"
     ],
     "coverages_applied": [],
     "payout": null,
     "currency": "EUR",
     "unknowns": [],
-    "explanation": "Your claim for trip cancellation has been denied because the surgery letter dated 20 January 2025 indicates the procedure was 'scheduled for 2025-03-05', meaning you had prior knowledge of the reason for cancellation before purchasing the policy on 1 February 2025. Additionally, the documentation is inconsistent because the letter predates the event and does not confirm that the surgery actually took place, only that it was planned. As a result, the required proof that the medical incident occurred as stated in your claim description is missing."
+    "explanation": "Dear Jonas, we have reviewed your surgery letter and booking confirmation. The surgery letter is dated 2025-01-20, before the policy purchase date of 2025-02-01. It states that the surgery was already scheduled, so you knew of the reason for not travelling before buying the policy. Because of that prior knowledge, the claim is denied. The booking confirmation shows the trip you could not take, but it does not remove the prior-knowledge exclusion."
   },
   "calls": [
     {
       "component": "read_document",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 483,
-      "output_tokens": 119,
-      "cache_read_tokens": 346,
-      "latency_ms": 1090,
+      "call_id": "dba134ecd05441cab09783a47e247f9b",
+      "input_tokens": 519,
+      "output_tokens": 310,
+      "cache_read_tokens": 384,
+      "reasoning_tokens": 0,
+      "latency_ms": 12365,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -449,10 +427,12 @@
     {
       "component": "read_document",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 433,
-      "output_tokens": 104,
-      "cache_read_tokens": 346,
-      "latency_ms": 833,
+      "call_id": "ca7e26d8d2ef4c8fb008aa466c1bd285",
+      "input_tokens": 469,
+      "output_tokens": 378,
+      "cache_read_tokens": 384,
+      "reasoning_tokens": 0,
+      "latency_ms": 2890,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -460,10 +440,12 @@
     {
       "component": "extract_facts",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1194,
-      "output_tokens": 871,
-      "cache_read_tokens": 777,
-      "latency_ms": 5362,
+      "call_id": "d89643fc43844ab7a148d5062224d680",
+      "input_tokens": 1230,
+      "output_tokens": 7638,
+      "cache_read_tokens": 9,
+      "reasoning_tokens": 0,
+      "latency_ms": 57134,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -471,10 +453,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1177,
-      "output_tokens": 143,
-      "cache_read_tokens": 598,
-      "latency_ms": 1366,
+      "call_id": "8e4fba2211084a77815b1bdc63ce6485",
+      "input_tokens": 1204,
+      "output_tokens": 2346,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 69858,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -482,10 +466,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1176,
-      "output_tokens": 148,
-      "cache_read_tokens": 620,
-      "latency_ms": 1476,
+      "call_id": "f18498766c91403789fe67556a24aed9",
+      "input_tokens": 1203,
+      "output_tokens": 2290,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 30351,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -493,10 +479,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1185,
-      "output_tokens": 93,
-      "cache_read_tokens": 598,
-      "latency_ms": 1022,
+      "call_id": "9f58ebb6ec854c4f80d7ee4f061c6348",
+      "input_tokens": 1212,
+      "output_tokens": 5369,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 52390,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -504,10 +492,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1182,
-      "output_tokens": 186,
-      "cache_read_tokens": 626,
-      "latency_ms": 1771,
+      "call_id": "dd1c4f4467764dd89943f7df1dcd11c8",
+      "input_tokens": 1200,
+      "output_tokens": 517,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 7129,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -515,21 +505,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1173,
-      "output_tokens": 116,
-      "cache_read_tokens": 617,
-      "latency_ms": 1218,
-      "cost_usd": 0.0,
-      "ok": true,
-      "error": null
-    },
-    {
-      "component": "judge",
-      "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1182,
-      "output_tokens": 176,
-      "cache_read_tokens": 598,
-      "latency_ms": 1684,
+      "call_id": "b9abe63420af4442bb0cd681ecbd6273",
+      "input_tokens": 1209,
+      "output_tokens": 9179,
+      "cache_read_tokens": 636,
+      "reasoning_tokens": 0,
+      "latency_ms": 105307,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -537,10 +518,12 @@
     {
       "component": "explain",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1566,
-      "output_tokens": 126,
+      "call_id": "e3de6519338d4b71a07054b5f618860c",
+      "input_tokens": 1141,
+      "output_tokens": 1093,
       "cache_read_tokens": 0,
-      "latency_ms": 1673,
+      "reasoning_tokens": 0,
+      "latency_ms": 19219,
       "cost_usd": 0.0,
       "ok": true,
       "error": null

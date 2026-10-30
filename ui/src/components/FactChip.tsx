@@ -8,7 +8,7 @@ export function FactChip({ name }: { name: string }) {
   const known = fact.value !== null && fact.value !== undefined
   const conf = fact.confidence
   const sources = fact.observations.map((o) => `${o.document_id}${o.line ? ` line ${o.line}` : ''}: “${o.quote}”`).join('\n')
-  const title = known ? `${fmt.label(name)} = ${fmt.value(fact.value)} (confidence ${Math.round(conf * 100)}%)\n${sources}${fact.note ? `\n${fact.note}` : ''}` : `${fmt.label(name)} is unknown`
+  const title = known ? `${fmt.label(name)} = ${fmt.value(fact.value)} (confidence ${Math.round(conf * 100)}%)${fact.scores ? `\nindependent scorer: ${fmt.probs(fact.scores)}` : ''}\n${sources}${fact.note ? `\n${fact.note}` : ''}` : `${fmt.label(name)} is unknown`
   return (
     <button type="button" className={`chip ${known ? '' : 'unknown'}`} title={title}
       onMouseEnter={() => known && showFact(name)} onClick={() => known && showFact(name)}>

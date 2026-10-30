@@ -92,6 +92,7 @@
       "answer": "unknown",
       "rationale": "Weather is neither listed as a covered reason nor excluded; 'other specified personal emergencies' does not clearly include it.",
       "confidence": 0.5,
+      "review": "Whether a storm that cancels the flight is an 'other specified personal emergency' is for an adjuster.",
       "document": "airline-notice.md",
       "line": 3,
       "quote": "Flight EW 9410 Frankfurt - Dublin on 2025-03-07 has been cancelled due to severe weather (storm Hanna)."

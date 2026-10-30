@@ -15,15 +15,19 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 def narrate(result: ClaimResult, backend: "ModelBackend") -> str | None:
+    from claims_pipeline.llm.base import BackendError
     from claims_pipeline.llm.types import ExplainRequest
 
-    return backend.explain(ExplainRequest(result=result))
+    try:
+        return backend.explain(ExplainRequest(result=result))
+    except BackendError:
+        return None  # the call is traced as failed; the decision summary stands
 
 
 def evidence_outline(result: ClaimResult) -> list[str]:
     """Indented text rendering of the evidence tree, used by reports and tests."""
     lines = [f"{result.decision.outcome.value} ({result.decision.confidence:.2f}): {result.decision.summary}"]
-    by_doc = {d.id: d for d in result.documents}
+    by_doc = {d.id: d for d in result.readings}
     facts = {f.name: f for f in result.facts}
 
     def check_lines(r, indent: str) -> None:
@@ -45,6 +49,10 @@ def evidence_outline(result: ClaimResult) -> list[str]:
     lines.append("  exclusions")
     for e in result.exclusions:
         check_lines(e, "    ")
+    if result.red_flags:
+        lines.append("  red flags")
+        for r in result.red_flags:
+            check_lines(r, "    ")
     for c in result.coverages:
         lines.append(f"  coverage {c.name}: {c.status}" + (f", payout {c.payout}" if c.payout is not None else ""))
         check_lines(c.match, "    ")

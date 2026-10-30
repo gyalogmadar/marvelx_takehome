@@ -1,0 +1,5 @@
+{
+  "policy": "cfsr",
+  "submitted_at": "2025-06-09",
+  "note": "The certificate is a real WebP photo: a local server must receive it converted, or the reader sees no image."
+}

@@ -4,7 +4,7 @@
   "strategy": "decomposed",
   "description": "Omar and Leila Haddad. On 9 March 2025 at Lyon Part-Dieu station both our suitcases were stolen while we waited for the train to Marseille. We continued the trip. Police report attached. We claim for our lost belongings.",
   "submitted_at": "2025-03-15T00:00:00Z",
-  "processed_at": "2026-10-28T19:10:58.727982Z",
+  "processed_at": "2026-10-28T20:58:17.431271Z",
   "documents": [
     {
       "id": "description",
@@ -57,12 +57,10 @@
         "CFSR cover period: 2025-02-01 to 2025-04-10"
       ],
       "alteration_signs": [],
-      "trust": "questionable",
-      "trust_reasons": [
-        "claimant_name disagrees with another document"
-      ],
+      "trust": "trusted",
+      "trust_reasons": [],
       "media_type": null,
-      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from Lyon to Marseille on 2025-03-09 for two passengers, totaling EUR 98.00, with CFSR cover from 2025-02-01 to 2025-04-10."
+      "summary": "A booking confirmation for a Lyon to Marseille trip departing 2025-03-09, with 2 passengers, total paid EUR 98.00, booked and paid on 2025-02-01, and CFSR cover period from 2025-02-01 to 2025-04-10."
     },
     {
       "id": "d2-police-report",
@@ -85,27 +83,34 @@
         "claimant_name disagrees with another document"
       ],
       "media_type": null,
-      "summary": "A police report from the Commissariat de Police Lyon 3e documenting the theft of two suitcases from the platform at Lyon Part-Dieu on 2025-03-09, reported by Omar Haddad and Leila Haddad."
+      "summary": "Police report PV-2025-03-0914 from Commissariat de Police Lyon 3e, dated 2025-03-09, reporting the theft of two suitcases from the platform at Lyon Part-Dieu."
     }
   ],
   "facts": [
     {
       "name": "claimant_name",
       "type": "text",
-      "value": "Omar Haddad, Leila Haddad",
-      "confidence": 0.57,
+      "value": "Omar Haddad",
+      "confidence": 0.588,
       "observations": [
         {
           "document_id": "description",
           "line": 1,
-          "quote": "Omar and Leila Haddad.",
-          "value": "Omar Haddad, Leila Haddad",
-          "confidence": 0.95
+          "quote": "Omar and Leila Haddad. On 9 March 2025 at Lyon Part-Dieu station both our suitcases were stolen while we waited for the train to Marseille. We continued the trip. Police report attached. We claim for our lost belongings.",
+          "value": "Omar Haddad",
+          "confidence": 0.98
         },
         {
-          "document_id": "d1-booking-confirmation",
+          "document_id": "description",
+          "line": 1,
+          "quote": "Omar and Leila Haddad. On 9 March 2025 at Lyon Part-Dieu station both our suitcases were stolen while we waited for the train to Marseille. We continued the trip. Police report attached. We claim for our lost belongings.",
+          "value": "Leila Haddad",
+          "confidence": 0.98
+        },
+        {
+          "document_id": "d2-police-report",
           "line": 3,
-          "quote": "Lead passenger: Omar Haddad",
+          "quote": "Reporting person: Omar Haddad and Leila Haddad",
           "value": "Omar Haddad",
           "confidence": 0.9
         },
@@ -113,11 +118,11 @@
           "document_id": "d2-police-report",
           "line": 3,
           "quote": "Reporting person: Omar Haddad and Leila Haddad",
-          "value": "Omar Haddad, Leila Haddad",
-          "confidence": 0.95
+          "value": "Leila Haddad",
+          "confidence": 0.9
         }
       ],
-      "note": "observations disagree: Omar Haddad, Leila Haddad vs Omar Haddad"
+      "note": "observations disagree: Omar Haddad vs Leila Haddad"
     },
     {
       "name": "incident_date",
@@ -128,9 +133,9 @@
         {
           "document_id": "description",
           "line": 1,
-          "quote": "On 9 March 2025 at Lyon Part-Dieu station both our suitcases were stolen",
+          "quote": "Omar and Leila Haddad. On 9 March 2025 at Lyon Part-Dieu station both our suitcases were stolen while we waited for the train to Marseille. We continued the trip. Police report attached. We claim for our lost belongings.",
           "value": "2025-03-09",
-          "confidence": 0.95
+          "confidence": 0.98
         },
         {
           "document_id": "d2-police-report",
@@ -200,7 +205,7 @@
           "document_id": "d1-booking-confirmation",
           "line": 7,
           "quote": "Total paid: EUR 98.00",
-          "value": "98.00",
+          "value": "EUR 98.00",
           "confidence": 1.0
         }
       ],
@@ -216,7 +221,7 @@
           "document_id": "d1-booking-confirmation",
           "line": 6,
           "quote": "Passengers: 2",
-          "value": ">=2",
+          "value": ">2",
           "confidence": 1.0
         }
       ],
@@ -226,21 +231,14 @@
       "name": "affected",
       "type": "int",
       "value": 2,
-      "confidence": 0.9,
+      "confidence": 0.8,
       "observations": [
         {
           "document_id": "description",
           "line": 1,
-          "quote": "both our suitcases were stolen",
-          "value": ">=2",
-          "confidence": 0.9
-        },
-        {
-          "document_id": "d2-police-report",
-          "line": 5,
-          "quote": "Incident: theft of two suitcases from the platform at Lyon Part-Dieu",
-          "value": ">=2",
-          "confidence": 0.9
+          "quote": "Omar and Leila Haddad. On 9 March 2025 at Lyon Part-Dieu station both our suitcases were stolen while we waited for the train to Marseille. We continued the trip. Police report attached. We claim for our lost belongings.",
+          "value": ">2",
+          "confidence": 0.8
         }
       ],
       "note": null
@@ -252,13 +250,13 @@
       "kind": "judged",
       "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
       "verdict": "unknown",
-      "rationale": "answer: unknown. The documents state the policy was purchased on 2025-02-01 and the incident occurred on 2025-03-09. However, there is no information in the provided documents indicating whether the claimants had prior knowledge of the specific incident or the reason for it before the purchase date. The policy excludes claims based on 'Prior knowledge of the incident or reason before purchase,' but the documents do not provide evidence to confirm or deny if this condition was met.",
+      "rationale": "answer: unknown. The documents establish the purchase date, but none state that the claimant knew of the 9 March 2025 suitcase theft or its reason before that date; therefore prior knowledge is not established.",
       "facts_used": [
         "incident_date",
         "purchase_date"
       ],
       "document_ids": [],
-      "quote": "Prior knowledge of the incident or reason before purchase",
+      "quote": "Booked and paid on 2025-02-01",
       "confidence": 0.95
     },
     {
@@ -300,12 +298,12 @@
       "id": "suspicious_documents",
       "kind": "judged",
       "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
-      "verdict": "pass",
-      "rationale": "answer: no. The documents are consistent regarding the incident details (date, location, items stolen) and the claimant's identity (Omar Haddad is listed as the lead passenger in the booking and as a reporting person in the police report). The 'trust notes' flag a discrepancy in the claimant name, but this is likely due to the claim description listing both spouses while the booking only lists the lead passenger, which is not a sign of fabrication or alteration of the documents themselves.",
+      "verdict": "fail",
+      "rationale": "answer: yes. The police report is flagged with a trust note that the claimant name disagrees with another document, which is a sign of inconsistency between the documents.",
       "facts_used": [],
       "document_ids": [],
-      "quote": "Lead passenger: Omar Haddad",
-      "confidence": 0.95
+      "quote": "trust notes: claimant_name disagrees with another document",
+      "confidence": 0.85
     }
   ],
   "coverages": [
@@ -317,18 +315,18 @@
         "kind": "judged",
         "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
         "verdict": "fail",
-        "rationale": "answer: no. The claim description explicitly states that the claimants 'continued the trip' after the theft, meaning the trip was not cancelled or rescheduled. The claim is specifically for 'lost belongings' (personal effects), not for trip cancellation.",
+        "rationale": "answer: no. The claim states that the Haddads continued their trip after the suitcases were stolen, so the trip was not cancelled or rescheduled.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "We continued the trip.",
-        "confidence": 0.95
+        "quote": "Omar and Leila Haddad. On 9 March 2025 at Lyon Part-Dieu station both our suitcases were stolen while we waited for the train to Marseille. We continued the trip. Police report attached. We claim for our lost belongings.",
+        "confidence": 1.0
       },
       "proofs": {
         "id": "proofs:cancellation",
         "kind": "proof",
         "description": "required proof: (medical_report or police_report or jury_summons) and booking_confirmation",
         "verdict": "pass",
-        "rationale": "medical_report: missing; police_report: police-report.md (questionable); jury_summons: missing; booking_confirmation: booking-confirmation.md (questionable)",
+        "rationale": "medical_report: missing; police_report: police-report.md (questionable); jury_summons: missing; booking_confirmation: booking-confirmation.md",
         "facts_used": [],
         "document_ids": [
           "d1-booking-confirmation",
@@ -351,11 +349,11 @@
         "kind": "judged",
         "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
         "verdict": "pass",
-        "rationale": "answer: yes. The claim description explicitly states that the suitcases were stolen, and the police report confirms the incident was a 'theft of two suitcases'.",
+        "rationale": "answer: yes. The claim description states that both suitcases were stolen while the claimants waited for the train to Marseille and that they continued the trip, which places the loss during the trip. The police report corroborates the theft of two suitcases at Lyon Part-Dieu on the incident date.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "Incident: theft of two suitcases from the platform at Lyon Part-Dieu",
-        "confidence": 1.0
+        "quote": "Omar and Leila Haddad. On 9 March 2025 at Lyon Part-Dieu station both our suitcases were stolen while we waited for the train to Marseille. We continued the trip. Police report attached. We claim for our lost belongings.",
+        "confidence": 0.95
       },
       "proofs": {
         "id": "proofs:personal_effects",
@@ -384,7 +382,7 @@
         "kind": "judged",
         "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
         "verdict": "fail",
-        "rationale": "answer: no. The claimant explicitly states that they \"continued the trip\" after the theft, meaning they did not miss the departure or connection. The claim is for lost belongings, not a missed departure.",
+        "rationale": "answer: no. The claim states the Haddads continued the trip after the theft, so it does not state that they missed a scheduled departure or connection.",
         "facts_used": [],
         "document_ids": [],
         "quote": "We continued the trip.",
@@ -395,7 +393,7 @@
         "kind": "proof",
         "description": "required proof: (incident_report or police_report or medical_report) and booking_confirmation",
         "verdict": "pass",
-        "rationale": "incident_report: missing; police_report: police-report.md (questionable); medical_report: missing; booking_confirmation: booking-confirmation.md (questionable)",
+        "rationale": "incident_report: missing; police_report: police-report.md (questionable); medical_report: missing; booking_confirmation: booking-confirmation.md",
         "facts_used": [],
         "document_ids": [
           "d1-booking-confirmation",
@@ -412,35 +410,28 @@
     }
   ],
   "decision": {
-    "outcome": "UNCERTAIN",
-    "confidence": 0.95,
-    "summary": "Referred for review. The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+    "outcome": "DENY",
+    "confidence": 0.85,
+    "summary": "Denied. The police report is flagged with a trust note that the claimant name disagrees with another document, which is a sign of inconsistency between the documents.",
     "determining": [
-      "prior_knowledge",
-      "within_period:incident_date",
-      "late_reporting"
+      "suspicious_documents"
     ],
-    "coverages_applied": [
-      "personal_effects"
-    ],
+    "coverages_applied": [],
     "payout": null,
     "currency": "EUR",
-    "unknowns": [
-      "The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
-      "Did the claimant know about the incident, or the reason for it, before purchasing the policy? The documents state the policy was purchased on 2025-02-01 and the incident occurred on 2025-03-09. However, there is no information in the provided documents indicating whether the claimants had prior knowledge of the specific incident or the reason for it before the purchase date. The policy excludes claims based on 'Prior knowledge of the incident or reason before purchase,' but the documents do not provide evidence to confirm or deny if this condition was met.",
-      "incident date falls inside policy period: cannot evaluate, unknown: policy period",
-      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end"
-    ],
-    "explanation": "Your claim for lost personal effects has been referred for further review because we cannot yet confirm that the incident occurred within your policy period. The provided documents do not specify the start or end dates of your coverage, which prevents us from verifying if the incident on 9 March 2025 falls within the valid period or if your claim was submitted within the required 30-day window. Additionally, we lack information to determine whether you had prior knowledge of the theft or its cause before purchasing the policy on 1 February 2025, a condition that would exclude coverage. Please provide your full policy schedule detailing the coverage dates and any evidence regarding your knowledge of the incident prior to purchase so we can finalize this decision."
+    "unknowns": [],
+    "explanation": "We have reviewed your claim for the two suitcases stolen at Lyon Part-Dieu station on 9 March 2025. The police report you provided is the key document for the personal effects cover. The police report and the other document in your claim appear inconsistent, because the police report is flagged with a trust note that \"the claimant name disagrees with another document\". That inconsistency means the police report does not give us sufficient proof of the theft. For that reason, we are unable to approve the claim."
   },
   "calls": [
     {
       "component": "read_document",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 484,
-      "output_tokens": 115,
-      "cache_read_tokens": 346,
-      "latency_ms": 1090,
+      "call_id": "b98bf191dde54c6ea65848d23d496dfb",
+      "input_tokens": 520,
+      "output_tokens": 345,
+      "cache_read_tokens": 384,
+      "reasoning_tokens": 0,
+      "latency_ms": 34117,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -448,10 +439,12 @@
     {
       "component": "read_document",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 458,
-      "output_tokens": 99,
-      "cache_read_tokens": 346,
-      "latency_ms": 849,
+      "call_id": "1a481a95726e43b1bfbd5911ec7df166",
+      "input_tokens": 494,
+      "output_tokens": 569,
+      "cache_read_tokens": 384,
+      "reasoning_tokens": 0,
+      "latency_ms": 13047,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -459,10 +452,12 @@
     {
       "component": "extract_facts",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1261,
-      "output_tokens": 978,
-      "cache_read_tokens": 777,
-      "latency_ms": 5973,
+      "call_id": "d1af853a50d24b1a8f7c59a436295700",
+      "input_tokens": 1297,
+      "output_tokens": 10460,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 76779,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -470,10 +465,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1303,
-      "output_tokens": 148,
-      "cache_read_tokens": 598,
-      "latency_ms": 1467,
+      "call_id": "7d462e4703ca40b18952decef7203860",
+      "input_tokens": 1316,
+      "output_tokens": 2237,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 23447,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -481,10 +478,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1302,
-      "output_tokens": 140,
-      "cache_read_tokens": 598,
-      "latency_ms": 1492,
+      "call_id": "3550be2a950544499b2e1fd807506a4f",
+      "input_tokens": 1315,
+      "output_tokens": 8943,
+      "cache_read_tokens": 636,
+      "reasoning_tokens": 0,
+      "latency_ms": 112306,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -492,10 +491,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1311,
-      "output_tokens": 92,
-      "cache_read_tokens": 598,
-      "latency_ms": 1210,
+      "call_id": "e32ade0e9ac1482fb898c1dd539fb2c6",
+      "input_tokens": 1324,
+      "output_tokens": 1092,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 17886,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -503,10 +504,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1299,
-      "output_tokens": 87,
-      "cache_read_tokens": 598,
-      "latency_ms": 1077,
+      "call_id": "89ccabb989c641748d6e5eeb45204000",
+      "input_tokens": 1312,
+      "output_tokens": 1484,
+      "cache_read_tokens": 636,
+      "reasoning_tokens": 0,
+      "latency_ms": 16276,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -514,10 +517,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1308,
-      "output_tokens": 84,
-      "cache_read_tokens": 598,
-      "latency_ms": 1082,
+      "call_id": "91feadbb1d16437ba1daefe2f814faaa",
+      "input_tokens": 1321,
+      "output_tokens": 3972,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 35274,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -525,10 +530,12 @@
     {
       "component": "explain",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1438,
-      "output_tokens": 156,
-      "cache_read_tokens": 594,
-      "latency_ms": 1756,
+      "call_id": "7ccd68ab9b66497589ed21fb8bda552f",
+      "input_tokens": 1164,
+      "output_tokens": 2442,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 35066,
       "cost_usd": 0.0,
       "ok": true,
       "error": null

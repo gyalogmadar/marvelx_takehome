@@ -1,6 +1,6 @@
 from claims_pipeline.components import agrees_across_documents, days_between_at_most, document_present, within_period, before
 from claims_pipeline.components.checks import judged
-from claims_pipeline.domain import Document, Trust, Verdict
+from claims_pipeline.domain import Reading, Trust, Verdict
 from claims_pipeline.llm.types import Judgment
 
 from .conftest import make_ctx, make_facts, obs
@@ -42,11 +42,11 @@ def test_agreement_check():
 
 
 def test_document_present_ignores_untrusted_and_flags_unreadable():
-    docs = [Document(id="a", filename="r.md", kind="markdown", doc_type="police_report")]
+    docs = [Reading(id="a", filename="r.md", kind="markdown", doc_type="police_report")]
     assert document_present("police_report").run(make_ctx(make_facts(), docs)).verdict == Verdict.PASS
     docs[0].trust = Trust.UNTRUSTED
     assert document_present("police_report").run(make_ctx(make_facts(), docs)).verdict == Verdict.FAIL
-    docs.append(Document(id="b", filename="x.pdf", kind="text", doc_type="unreadable"))
+    docs.append(Reading(id="b", filename="x.pdf", kind="text", doc_type="unreadable"))
     assert document_present("police_report").run(make_ctx(make_facts(), docs)).verdict == Verdict.UNKNOWN
 
 
@@ -64,7 +64,7 @@ class FakeBackend:
 
 
 def test_judged_maps_answers_onto_verdicts():
-    docs = [Document(id="a", filename="r.md", kind="markdown", doc_type="police_report", lines=["q"])]
+    docs = [Reading(id="a", filename="r.md", kind="markdown", doc_type="police_report", lines=["q"])]
     chk = judged("prior_knowledge", "Did they know?", expect="no", facts=("incident_date",))
     assert chk.run(make_ctx(make_facts(), docs, FakeBackend("no"))).verdict == Verdict.PASS
     r = chk.run(make_ctx(make_facts(), docs, FakeBackend("yes")))

@@ -4,7 +4,7 @@
   "strategy": "decomposed",
   "description": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.\nBooking confirmation and medical certificate attached.",
   "submitted_at": "2025-03-01T00:00:00Z",
-  "processed_at": "2026-10-28T19:06:42.718446Z",
+  "processed_at": "2026-10-28T20:01:27.587790Z",
   "documents": [
     {
       "id": "description",
@@ -61,7 +61,7 @@
       "trust": "trusted",
       "trust_reasons": [],
       "media_type": null,
-      "summary": "A booking confirmation from EuroTrips Travel GmbH for a trip from Warsaw to Rome departing on 2025-03-14, paid in full for EUR 640.00, with CFSR cover from 2025-02-01 to 2025-04-10."
+      "summary": "A booking confirmation for a Warsaw to Rome trip departing 2025-03-14, with one passenger, total paid EUR 640.00, booked and paid on 2025-02-01, and CFSR cover period from 2025-02-01 to 2025-04-10."
     },
     {
       "id": "d2-medical-certificate",
@@ -83,7 +83,7 @@
       "trust": "trusted",
       "trust_reasons": [],
       "media_type": null,
-      "summary": "A medical certificate from Zakopane District Hospital stating that patient Tomasz Nowak was admitted on 2025-01-28 with a tibia fracture requiring an 8-week cast and is not fit to travel."
+      "summary": "A medical certificate from Zakopane District Hospital for patient Tomasz Nowak, admitted on 2025-01-28, with a diagnosis of tibia fracture and an 8-week cast. It states the patient is not fit to travel and is signed by Dr. H. Lindqvist, registration 55012."
     }
   ],
   "facts": [
@@ -96,7 +96,7 @@
         {
           "document_id": "description",
           "line": 1,
-          "quote": "I am Tomasz Nowak.",
+          "quote": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
           "value": "Tomasz Nowak",
           "confidence": 1.0
         },
@@ -105,14 +105,14 @@
           "line": 3,
           "quote": "Lead passenger: Tomasz Nowak",
           "value": "Tomasz Nowak",
-          "confidence": 1.0
+          "confidence": 0.95
         },
         {
           "document_id": "d2-medical-certificate",
           "line": 3,
           "quote": "Patient: Tomasz Nowak",
           "value": "Tomasz Nowak",
-          "confidence": 1.0
+          "confidence": 0.95
         }
       ],
       "note": null
@@ -126,7 +126,7 @@
         {
           "document_id": "description",
           "line": 1,
-          "quote": "I broke my leg skiing on 28 January 2025",
+          "quote": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
           "value": "2025-01-28",
           "confidence": 1.0
         },
@@ -198,7 +198,7 @@
           "document_id": "d1-booking-confirmation",
           "line": 7,
           "quote": "Total paid: EUR 640.00",
-          "value": "640.00",
+          "value": "EUR 640.00",
           "confidence": 1.0
         }
       ],
@@ -242,15 +242,15 @@
       "id": "prior_knowledge",
       "kind": "judged",
       "description": "Did the claimant know about the incident, or the reason for it, before purchasing the policy?",
-      "verdict": "pass",
-      "rationale": "answer: no. The incident (leg fracture) occurred on 2025-01-28, which is prior to the policy purchase date of 2025-02-01. Therefore, the claimant knew about the incident before purchasing the policy.",
+      "verdict": "fail",
+      "rationale": "answer: yes. The claimant states the incident occurred on 28 January 2025, which is before the policy purchase date of 1 February 2025, so the claimant knew of the incident/reason before purchase.",
       "facts_used": [
         "incident_date",
         "purchase_date"
       ],
       "document_ids": [],
-      "quote": "Booked and paid on 2025-02-01",
-      "confidence": 1.0
+      "quote": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
+      "confidence": 0.95
     },
     {
       "id": "within_period:incident_date",
@@ -292,7 +292,7 @@
       "kind": "judged",
       "description": "Do any of the documents show signs of being altered, fabricated, or inconsistent with each other?",
       "verdict": "pass",
-      "rationale": "answer: no. The documents are internally consistent and align with the claim description. The incident date (2025-01-28) in the medical certificate matches the claim description. The booking date (2025-02-01) in the booking confirmation matches the policy start date and the claim description's timeline (incident before purchase). The passenger name, route, and dates are consistent across all documents. There are no contradictions or signs of fabrication.",
+      "rationale": "answer: no. The medical certificate’s admission date matches the claimed incident date, and the other documents do not conflict with it on the key facts.",
       "facts_used": [],
       "document_ids": [],
       "quote": "Admitted on 2025-01-28",
@@ -308,10 +308,10 @@
         "kind": "judged",
         "description": "Was the trip cancelled or rescheduled because of jury duty, a medical emergency, a theft or criminal incident, or another specified personal emergency?",
         "verdict": "pass",
-        "rationale": "answer: yes. The claimant states, 'I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.' This constitutes a medical emergency supported by the attached medical certificate, which is a covered reason under the policy.",
+        "rationale": "answer: yes. The claim states the trip was cancelled because of a broken leg and a doctor's prohibition on flying, which is a medical emergency/personal emergency.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
+        "quote": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
         "confidence": 1.0
       },
       "proofs": {
@@ -334,14 +334,14 @@
           "kind": "judged",
           "description": "Does the supporting document confirm the stated reason, name the claimant (or a travelling companion), and cover the incident date?",
           "verdict": "pass",
-          "rationale": "answer: yes. The medical certificate explicitly names the claimant as 'Patient: Tomasz Nowak' and confirms the incident date with 'Admitted on 2025-01-28', which aligns with the stated reason of a leg injury preventing travel.",
+          "rationale": "answer: yes. The medical certificate names Tomasz Nowak, states admission on 2025-01-28, and the quoted diagnosis confirms the stated leg injury/medical reason.",
           "facts_used": [
             "incident_date",
             "claimant_name"
           ],
           "document_ids": [],
-          "quote": "Patient: Tomasz Nowak\nAdmitted on 2025-01-28",
-          "confidence": 1.0
+          "quote": "Diagnosis: tibia fracture, cast for 8 weeks",
+          "confidence": 0.95
         },
         {
           "id": "agrees:incident_date",
@@ -372,12 +372,12 @@
         "id": "effects_lost",
         "kind": "judged",
         "description": "Were the claimant's personal belongings lost, stolen or damaged during the trip?",
-        "verdict": "fail",
-        "rationale": "answer: no. The claim description states the claimant 'broke my leg skiing... so I cancelled my March trip to Rome.' There is no mention of personal belongings being lost, stolen, or damaged. The claim is for trip cancellation due to a medical emergency, not for personal effects.",
+        "verdict": "unknown",
+        "rationale": "answer: unknown. The documents describe a medical injury and trip cancellation, but do not state that the claimant's personal belongings were lost, stolen, or damaged.",
         "facts_used": [],
         "document_ids": [],
         "quote": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
-        "confidence": 0.95
+        "confidence": 1.0
       },
       "proofs": {
         "id": "proofs:personal_effects",
@@ -391,10 +391,10 @@
         "confidence": 1.0
       },
       "checks": [],
-      "status": "not_applicable",
+      "status": "unresolved",
       "payout": null,
       "payout_formula": "100 * affected",
-      "payout_note": null
+      "payout_note": "not computed: coverage match is unresolved"
     },
     {
       "name": "missed_connection",
@@ -404,10 +404,10 @@
         "kind": "judged",
         "description": "Did the claimant miss a scheduled departure or connection because of an external covered cause, such as a traffic accident en route?",
         "verdict": "fail",
-        "rationale": "answer: no. The claimant cancelled the trip due to a medical emergency (broken leg), not because they missed a scheduled departure or connection due to an external cause like a traffic accident. The policy distinguishes between 'Trip Cancellation' (Section 1) and 'Missed Departure' (Section 3). The claimant's situation falls under Section 1, not Section 3.",
+        "rationale": "answer: no. The claimant states that he cancelled the trip because of a medical condition, not that he missed a scheduled departure or connection due to an external en-route cause such as a traffic accident.",
         "facts_used": [],
         "document_ids": [],
-        "quote": "I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
+        "quote": "I am Tomasz Nowak. I broke my leg skiing on 28 January 2025 and my doctor forbids me to fly, so I cancelled my March trip to Rome.",
         "confidence": 0.95
       },
       "proofs": {
@@ -432,33 +432,28 @@
     }
   ],
   "decision": {
-    "outcome": "UNCERTAIN",
+    "outcome": "DENY",
     "confidence": 0.95,
-    "summary": "Referred for review. The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
+    "summary": "Denied. The claimant states the incident occurred on 28 January 2025, which is before the policy purchase date of 1 February 2025, so the claimant knew of the incident/reason before purchase.",
     "determining": [
-      "within_period:incident_date",
-      "late_reporting"
+      "prior_knowledge"
     ],
-    "coverages_applied": [
-      "cancellation"
-    ],
+    "coverages_applied": [],
     "payout": null,
     "currency": "EUR",
-    "unknowns": [
-      "The claim is otherwise eligible; the open exclusion(s) decide the outcome.",
-      "incident date falls inside policy period: cannot evaluate, unknown: policy period",
-      "claim submitted within 30 days of the policy ending: cannot evaluate, unknown: policy period end"
-    ],
-    "explanation": "Dear Tomasz Nowak, your claim for trip cancellation due to a medical emergency has been referred for further review. While your medical certificate and booking confirmation confirm the incident and the covered reason, we cannot yet verify if the claim falls within the policy period or the 30-day reporting window. Specifically, the policy start and end dates are missing from the provided documents, making it impossible to evaluate the 'within period' and 'late reporting' exclusions. Please provide a copy of your policy schedule or certificate of insurance that clearly states the coverage dates. Once we have this information, we can finalize the decision on your claim."
+    "unknowns": [],
+    "explanation": "We have reviewed your claim, the booking confirmation, and the medical certificate. The medical certificate records your admission on 28 January 2025, and your claim states that you broke your leg on that date. The policy was purchased on 1 February 2025, so the reason for cancellation was known before the policy purchase date. The policy does not cover claims where the incident or reason was known before purchase. For that reason, we must deny the claim."
   },
   "calls": [
     {
       "component": "read_document",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 485,
-      "output_tokens": 117,
-      "cache_read_tokens": 346,
-      "latency_ms": 1128,
+      "call_id": "633dff9118c4481198b56f9b7afa88df",
+      "input_tokens": 521,
+      "output_tokens": 389,
+      "cache_read_tokens": 384,
+      "reasoning_tokens": 0,
+      "latency_ms": 14047,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -466,10 +461,12 @@
     {
       "component": "read_document",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 445,
-      "output_tokens": 92,
-      "cache_read_tokens": 346,
-      "latency_ms": 60474,
+      "call_id": "8c9b539e50f9450e9f5f48c26f80e445",
+      "input_tokens": 481,
+      "output_tokens": 272,
+      "cache_read_tokens": 9,
+      "reasoning_tokens": 0,
+      "latency_ms": 2584,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -477,10 +474,12 @@
     {
       "component": "extract_facts",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1240,
-      "output_tokens": 876,
-      "cache_read_tokens": 777,
-      "latency_ms": 16607,
+      "call_id": "57ff89728c62481fb5a8d3e8899d55c0",
+      "input_tokens": 1276,
+      "output_tokens": 7965,
+      "cache_read_tokens": 9,
+      "reasoning_tokens": 0,
+      "latency_ms": 110263,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -488,10 +487,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1234,
-      "output_tokens": 112,
-      "cache_read_tokens": 598,
-      "latency_ms": 1251,
+      "call_id": "ce7a59916d3c498794fa8237c1e925b3",
+      "input_tokens": 1270,
+      "output_tokens": 3236,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 36870,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -499,10 +500,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1233,
-      "output_tokens": 145,
-      "cache_read_tokens": 598,
-      "latency_ms": 7515,
+      "call_id": "809ee68cbfa94d309fdb94be75b1470c",
+      "input_tokens": 1269,
+      "output_tokens": 4223,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 41207,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -510,10 +513,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1242,
-      "output_tokens": 128,
-      "cache_read_tokens": 598,
-      "latency_ms": 1249,
+      "call_id": "c74bb99f4efe4efa8fc6015993373574",
+      "input_tokens": 1278,
+      "output_tokens": 2951,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 26146,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -521,10 +526,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1239,
-      "output_tokens": 115,
-      "cache_read_tokens": 598,
-      "latency_ms": 1246,
+      "call_id": "0968abb8b63d4f55a00c0fe76c65375e",
+      "input_tokens": 1275,
+      "output_tokens": 3758,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 33521,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -532,10 +539,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1230,
-      "output_tokens": 131,
-      "cache_read_tokens": 598,
-      "latency_ms": 33419,
+      "call_id": "48057775a0f542a4a9b6dea888193bca",
+      "input_tokens": 1266,
+      "output_tokens": 554,
+      "cache_read_tokens": 0,
+      "reasoning_tokens": 0,
+      "latency_ms": 6649,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -543,10 +552,12 @@
     {
       "component": "judge",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1239,
-      "output_tokens": 146,
-      "cache_read_tokens": 598,
-      "latency_ms": 11730,
+      "call_id": "089c6a46171848da90bf4a0384a5585c",
+      "input_tokens": 1275,
+      "output_tokens": 1470,
+      "cache_read_tokens": 636,
+      "reasoning_tokens": 0,
+      "latency_ms": 13125,
       "cost_usd": 0.0,
       "ok": true,
       "error": null
@@ -554,10 +565,12 @@
     {
       "component": "explain",
       "model": "qwen3.8-27b-hauhau-aggressive",
-      "input_tokens": 1418,
-      "output_tokens": 136,
+      "call_id": "c92299de9cd1455681b157c32880f5ee",
+      "input_tokens": 1234,
+      "output_tokens": 505,
       "cache_read_tokens": 0,
-      "latency_ms": 1755,
+      "reasoning_tokens": 0,
+      "latency_ms": 6096,
       "cost_usd": 0.0,
       "ok": true,
       "error": null

@@ -2,19 +2,41 @@
 
     any exclusion FAILS                         -> DENY
     every coverage not applicable               -> DENY   (not a covered reason)
-    an eligible coverage and no open exclusion  -> APPROVE (sum of eligible payouts)
-    only ineligible coverages, nothing open     -> DENY   (proof or condition failed)
+    an eligible coverage and nothing open       -> APPROVE (sum of eligible payouts)
+    nothing can pay, nothing unresolved         -> DENY   (proof or condition failed)
     otherwise                                   -> UNCERTAIN, with what would resolve it
+
+An open exclusion only matters while something could pay: exclusions take cover
+away, so when no coverage can pay the claim is denied whatever they would say.
+
+Red flags are checks the policy wording does not make grounds for denial, such
+as documents that look altered.  A red flag that FAILS refers the claim to a
+human: it blocks an approval, but a denial the rules reach anyway stands.  An
+open red flag blocks an approval like an open exclusion does.
 
 Fail beats unknown beats pass, except that a coverage whose match question is
 unknown stays unresolved (see coverage.py).  Code decides; the model only reads.
+
+Review signals.  Every model component can say a person must look at something,
+apart from its answer (``review`` on a reading, an observation, a judged check).
+Code carries them up and decides what they do:
+
+    a reading flagged (something unexpected     -> UNCERTAIN, always: the rules cannot
+      in a claimant's document)                    weigh what they were not written for
+    a flag on what the decision rests on        -> UNCERTAIN, naming who flagged what
+    a flag anywhere else                        -> shown, the decision stands
+
+What a decision rests on: an approval, on every exclusion and red flag and on each
+applied coverage's checks and payout facts; a denial, on its determining checks
+(and the match question of a coverage that could not pay); each check, on the facts
+it used.  The referral says what the rules alone would have decided.
 """
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
 
-from claims_pipeline.domain import CheckResult, CoverageResult, Decision, Outcome, Verdict
+from claims_pipeline.domain import CheckResult, CoverageResult, Decision, Outcome, Reading, Verdict
 
 from .checks import Check, CheckContext
 from .coverage import Coverage
@@ -30,16 +52,66 @@ class Policy:
     doc_types: dict[str, str]
     coverages: list[Coverage]
     exclusions: list[Check] = field(default_factory=list)
+    red_flags: list[Check] = field(default_factory=list)
     currency: str = "EUR"
 
-    def evaluate(self, ctx: CheckContext) -> tuple[list[CheckResult], list[CoverageResult]]:
+    def evaluate(self, ctx: CheckContext) -> tuple[list[CheckResult], list[CheckResult], list[CoverageResult]]:
         exclusions = [c.run(ctx) for c in self.exclusions]
+        red_flags = [c.run(ctx) for c in self.red_flags]
         coverages = [c.evaluate(ctx) for c in self.coverages]
-        return exclusions, coverages
+        return exclusions, red_flags, coverages
 
-    def decide(self, exclusions: list[CheckResult], coverages: list[CoverageResult], facts: Facts) -> Decision:
+    def decide(self, exclusions: list[CheckResult], coverages: list[CoverageResult], facts: Facts,
+               red_flags: list[CheckResult] = (), readings: list[Reading] = ()) -> Decision:
+        ruled = self._rule(exclusions, coverages, facts, list(red_flags))
+        return self._review(ruled, exclusions, coverages, facts, list(red_flags), list(readings))
+
+    def _review(self, ruled: Decision, exclusions: list[CheckResult], coverages: list[CoverageResult], facts: Facts,
+                red_flags: list[CheckResult], readings: list[Reading]) -> Decision:
+        """Send the decision to a person when a component asked for one where it matters."""
+        checks = exclusions + red_flags + [x for c in coverages for x in (c.match, c.proofs, *c.checks)]
+
+        def of_check(c: CheckResult) -> list[str]:
+            out = [f"judge · {c.id}: {c.review}"] if c.review else []
+            for name in c.facts_used:
+                fact = facts.get(name)
+                if fact is not None and fact.review:
+                    out.append(f"extract_facts · {name}: {fact.review}")
+            return out
+
+        always = [f"read_document · {r.filename}: {r.review}" for r in readings if r.review]
+        if ruled.outcome == Outcome.APPROVE:
+            applied = [c for c in coverages if c.name in ruled.coverages_applied]
+            basis = exclusions + red_flags + [x for c in applied for x in (c.match, c.proofs, *c.checks)]
+            payout_facts = {n for c in self.coverages if c.name in ruled.coverages_applied and c.payout
+                            for n in c.payout.names()}
+        elif ruled.outcome == Outcome.DENY:
+            basis = [c for c in checks if c.id in ruled.determining]
+            basis += [c.match for c in coverages if c.status == "ineligible" and c.match.verdict == Verdict.UNKNOWN]
+            payout_facts = set()
+        else:  # going to a person anyway: tell them everything that was flagged
+            basis, payout_facts = checks, {f.name for f in facts.as_list() if f.review}
+        flags = always + [f for c in basis for f in of_check(c)]
+        flags += [f"extract_facts · {n}: {facts.get(n).review}" for n in sorted(payout_facts)
+                  if facts.get(n) is not None and facts.get(n).review]
+        flags = list(dict.fromkeys(flags))
+        if not flags:
+            return ruled
+        if ruled.outcome == Outcome.UNCERTAIN:
+            return ruled.model_copy(update={"reviews": flags})
+        would = ruled.outcome.value.lower() + (f" {ruled.payout:,.2f} {ruled.currency}" if ruled.payout is not None else "")
+        return Decision(
+            outcome=Outcome.UNCERTAIN, confidence=ruled.confidence,
+            summary=f"Referred for review: {_sentence(flags[0].split(': ', 1)[1])} Without this the rules would {would}.",
+            determining=ruled.determining, coverages_applied=ruled.coverages_applied, currency=self.currency,
+            unknowns=[f"The rules alone would {would}: {ruled.summary}"], reviews=flags,
+        )
+
+    def _rule(self, exclusions: list[CheckResult], coverages: list[CoverageResult], facts: Facts,
+              red_flags: list[CheckResult]) -> Decision:
         failed = [e for e in exclusions if e.verdict == Verdict.FAIL]
-        open_exclusions = [e for e in exclusions if e.verdict == Verdict.UNKNOWN]
+        flagged = [r for r in red_flags if r.verdict == Verdict.FAIL]
+        open_exclusions = [e for e in exclusions + red_flags if e.verdict == Verdict.UNKNOWN]
         eligible = [c for c in coverages if c.status == "eligible"]
         ineligible = [c for c in coverages if c.status == "ineligible"]
         unresolved = [c for c in coverages if c.status == "unresolved"]
@@ -60,7 +132,7 @@ class Policy:
                         + " ".join(_sentence(c.match.rationale) for c in not_applicable),
                 determining=[c.match.id for c in not_applicable],
             )
-        if eligible and not open_exclusions:
+        if eligible and not open_exclusions and not flagged:
             involved = exclusions + [r for c in eligible for r in (c.match, c.proofs, *c.checks)]
             payout = round(sum(c.payout or 0.0 for c in eligible), 2)
             names = ", ".join(c.title for c in eligible)
@@ -73,7 +145,7 @@ class Policy:
                 payout=payout,
                 currency=self.currency,
             )
-        if ineligible and not unresolved and not open_exclusions and not eligible:
+        if ineligible and not unresolved and not eligible:
             failing = [r for c in ineligible for r in (c.match, c.proofs, *c.checks) if r.verdict == Verdict.FAIL]
             return Decision(
                 outcome=Outcome.DENY,
@@ -82,7 +154,17 @@ class Policy:
                 determining=[r.id for r in failing],
             )
 
-        # UNCERTAIN: collect everything that is open
+        # UNCERTAIN: collect everything that is open, red flags first
+        if flagged:
+            return Decision(
+                outcome=Outcome.UNCERTAIN,
+                confidence=min(r.confidence for r in flagged),
+                summary="Referred for review. " + " ".join(_sentence(r.rationale) for r in flagged),
+                determining=[r.id for r in flagged],
+                coverages_applied=[c.name for c in eligible],
+                unknowns=[f"Red flag: {_open_item(r)}" for r in flagged] + [_open_item(r) for r in open_exclusions],
+                currency=self.currency,
+            )
         unknown_checks = open_exclusions + [
             r for c in unresolved for r in (c.match, c.proofs, *c.checks) if r.verdict == Verdict.UNKNOWN
         ]
@@ -91,7 +173,7 @@ class Policy:
                      and all(r.verdict != Verdict.UNKNOWN for r in (c.match, c.proofs, *c.checks))]
         if eligible and open_exclusions:
             unknowns.insert(0, "The claim is otherwise eligible; the open exclusion(s) decide the outcome.")
-        settled = [r for r in exclusions + [x for c in coverages for x in (c.match, c.proofs, *c.checks)]
+        settled = [r for r in exclusions + red_flags + [x for c in coverages for x in (c.match, c.proofs, *c.checks)]
                    if r.verdict != Verdict.UNKNOWN]
         return Decision(
             outcome=Outcome.UNCERTAIN,
@@ -122,6 +204,7 @@ class Policy:
                 for c in self.coverages
             ],
             "exclusions": [{"id": e.id, "description": e.description} for e in self.exclusions],
+            "red_flags": [{"id": r.id, "description": r.description} for r in self.red_flags],
         }
 
 

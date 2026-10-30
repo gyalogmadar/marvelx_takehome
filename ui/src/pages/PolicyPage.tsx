@@ -50,6 +50,14 @@ export default function PolicyPage() {
                 <table><tbody>{policy.exclusions.map((e) => <tr key={e.id}><td>{e.description}</td><td className="num"><span className="pill">{e.id}</span></td></tr>)}</tbody></table>
               </div>
             </section>
+            {(policy.red_flags?.length ?? 0) > 0 && (
+            <section className="panel">
+              <header className="panel-head"><h2>Red flags</h2><span className="muted small">a failing flag refers the claim to a human</span></header>
+              <div className="panel-body tight">
+                <table><tbody>{policy.red_flags!.map((r) => <tr key={r.id}><td>{r.description}</td><td className="num"><span className="pill">{r.id}</span></td></tr>)}</tbody></table>
+              </div>
+            </section>
+            )}
             <section className="panel">
               <header className="panel-head"><h2>Facts the extractor looks for</h2></header>
               <div className="panel-body tight">

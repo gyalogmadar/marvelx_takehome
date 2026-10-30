@@ -1,0 +1,133 @@
+{
+  "documents": {
+    "booking.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "SkyLine Travel"
+    },
+    "certificat.md": {
+      "doc_type": "medical_report",
+      "issuer": "Hopital Bichat",
+      "language": "en"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking.md",
+        "line": 8,
+        "quote": "Total paid: EUR 624.00",
+        "value": 624.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking.md",
+        "line": 7,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Booked and paid on 2025-01-05",
+        "value": "2025-01-05",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Booked and paid on 2025-01-05",
+        "value": {
+          "start": "2025-01-05",
+          "end": "2025-04-26"
+        },
+        "confidence": 0.8
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Evelyne Kacou Meitiale",
+        "value": "Evelyne Kacou Meitiale",
+        "confidence": 0.99
+      },
+      {
+        "document": "booking.md",
+        "line": 3,
+        "quote": "Lead passenger: KACOU MEITIALE Evelyne",
+        "value": "KACOU MEITIALE Evelyne",
+        "confidence": 0.95
+      },
+      {
+        "document": "certificat.md",
+        "line": 3,
+        "quote": "Patient: Mme KACOU Evelyne",
+        "value": "Mme KACOU Evelyne",
+        "confidence": 0.9
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "certificat.md",
+        "line": 4,
+        "quote": "Admitted on 2025-04-09",
+        "value": "2025-04-09",
+        "confidence": 0.97
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Evelyne Kacou Meitiale",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "A medical emergency prevented the trip.",
+      "confidence": 0.9,
+      "document": "certificat.md",
+      "line": 5,
+      "quote": "Diagnosis: acces palustre"
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "The certificate fits the claimant, the reason and the date.",
+      "confidence": 0.9,
+      "document": "certificat.md",
+      "line": 3,
+      "quote": "Patient: Mme KACOU Evelyne"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

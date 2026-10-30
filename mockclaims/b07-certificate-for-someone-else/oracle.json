@@ -1,0 +1,131 @@
+{
+  "documents": {
+    "booking.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "SkyLine Travel"
+    },
+    "certificado.webp": {
+      "doc_type": "medical_report",
+      "issuer": "Hospital Metropolitano",
+      "language": "es",
+      "lines": [
+        "Hospital Metropolitano, Quito",
+        "CERTIFICADO MEDICO",
+        "Paciente: Yacaro Tuano",
+        "Fecha de atencion: 19/09/2025",
+        "Diagnostico: gastroenteritis aguda",
+        "Reposo absoluto. No apto para viajar.",
+        "Dra. L. Castillo - Reg. 44120"
+      ]
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking.md",
+        "line": 8,
+        "quote": "Total paid: EUR 45.00",
+        "value": 45.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking.md",
+        "line": 7,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Booked and paid on 2025-09-14",
+        "value": "2025-09-14",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Booked and paid on 2025-09-14",
+        "value": {
+          "start": "2025-09-14",
+          "end": "2025-09-23"
+        },
+        "confidence": 0.8
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Marcos Junes. I missed my trip to Guayaquil on 20 September 2025 because of a medical emergency. The medical certificate is attached.",
+        "value": "Marcos Junes",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "certificado.webp",
+        "line": 4,
+        "quote": "Fecha de atencion: 19/09/2025",
+        "value": "2025-09-19",
+        "confidence": 0.9
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Marcos Junes. I missed my trip to Guayaquil on 20 September 2025 because of a medical emergency. The medical certificate is attached.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "yes",
+      "rationale": "The certificate names a different person from the claimant and the booking.",
+      "confidence": 0.9,
+      "document": "certificado.webp",
+      "line": 3,
+      "quote": "Paciente: Yacaro Tuano"
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "A medical emergency is claimed.",
+      "confidence": 0.9,
+      "document": "description",
+      "line": 1,
+      "quote": "Marcos Junes. I missed my trip to Guayaquil on 20 September 2025 because of a medical emergency. The medical certificate is attached."
+    },
+    "cancellation_proof_fits": {
+      "answer": "no",
+      "rationale": "The certificate is for Yacaro Tuano, who is neither the claimant nor a traveller on the booking.",
+      "confidence": 0.9,
+      "document": "certificado.webp",
+      "line": 3,
+      "quote": "Paciente: Yacaro Tuano"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

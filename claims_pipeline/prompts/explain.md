@@ -1,0 +1,1 @@
+Write the explanation a claims handler would send with this decision. The decision has already been made by the rules below and must not be changed or second-guessed. Three to six plain sentences, addressed to the claimant, naming the documents that mattered. For a referral, say what is missing. No headings, no lists.

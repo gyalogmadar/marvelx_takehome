@@ -55,7 +55,7 @@ export default function ClaimsList() {
                 {shown.map((c) => (
                   <tr key={c.claim_id} className="clickable" onClick={() => navigate(`/claims/${c.claim_id}`)}>
                     <td className="mono">{c.claim_id}<div className="small faint">{c.files.length} file{c.files.length === 1 ? '' : 's'}</div></td>
-                    <td>{c.policy}{c.strategy === 'e2e' && <div className="small faint">end-to-end</div>}</td>
+                    <td>{c.policy}{c.strategy === 'e2e' && <div className="small faint">end-to-end</div>}{c.strategy === 'clef' && <div className="small faint">Clef end-to-end</div>}</td>
                     <td>{c.status === 'done' ? <OutcomeBadge outcome={c.decision} /> : <StatusBadge status={c.status} />}</td>
                     <td><Confidence value={c.confidence} /></td>
                     <td className="num">{fmt.money(c.payout, c.currency ?? 'EUR')}</td>

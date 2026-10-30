@@ -1,0 +1,5 @@
+{
+  "policy": "cfsr",
+  "submitted_at": "2025-06-15",
+  "note": "A missed departure, not a cancellation: only the formula applies, 0.5 x 480 / 2 x 2 = 240. A model that also matches cancellation doubles the payout."
+}

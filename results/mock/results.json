@@ -4,7 +4,7 @@
   "backend": "scripted",
   "strategy": "decomposed",
   "claims_root": "/home/gyalogmadar/Fecske/jobsearch/MarvelX takehome/claims-pipeline/mockclaims",
-  "run_at": "2026-10-28T18:39:00.633447+00:00",
+  "run_at": "2026-10-28T19:50:16.129219+00:00",
   "metrics": {
     "claims": 22,
     "scored": 22,

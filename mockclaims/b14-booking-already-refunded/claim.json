@@ -1,0 +1,5 @@
+{
+  "policy": "cfsr",
+  "submitted_at": "2025-04-09",
+  "note": "Everything the rules check is in order, but the booking confirmation also says the agency already refunded the trip in full. No rule looks for that; the reader must flag it so a person sees it."
+}

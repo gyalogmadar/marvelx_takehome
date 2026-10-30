@@ -49,3 +49,17 @@ def test_typed_access_to_period_parts_and_sources():
     assert facts.typed("incident_date") is None
     assert facts.source("policy_period") == "doc-one.md"
     assert facts.display("incident_date") == "incident date (unknown)"
+
+
+def test_names_agree_across_case_order_accents_and_middle_names():
+    from claims_pipeline.components import Name
+
+    n = Name("claimant_name")
+    for a, b in [("Amy Ndiaye", "Amy NDIAYE"), ("Evelyne Kacou Meitiale", "Kacou Meitiale Evelyne"),
+                 ("Cristina Carhuayo Freire", "Cristina Vanessa Carhuayo Freire"), ("José Pérez", "JOSE PEREZ"),
+                 ("Ndiaye, Amy", "Amy Ndiaye")]:
+        assert n.equal(a, b), (a, b)
+    for a, b in [("Marcos Junes", "Yacaro Tuano"), ("Amy Ndiaye", "Amy Diallo"), ("Amy", "Amy Ndiaye")]:
+        assert not n.equal(a, b), (a, b)
+    fact = n.consolidate([obs("description", "Amy Ndiaye"), obs("d1", "AMY NDIAYE")])
+    assert fact.note is None and fact.confidence == 0.9

@@ -6,7 +6,7 @@ else: an excess, a cap, a 48-hour reporting window, no trip concept.
 from pathlib import Path
 
 from claims_pipeline.components import (
-    Coverage, Date, Money, Period, Policy, Text, all_of, days_between_at_most, formula, judged, within_period,
+    Coverage, Date, Money, Name, Period, Policy, all_of, days_between_at_most, formula, judged, within_period,
 )
 
 TEXT = (Path(__file__).parent / "texts" / "gadget.md").read_text()
@@ -16,7 +16,7 @@ gadget = Policy(
     title="Gadget Cover (demo)",
     text=TEXT,
     facts=[
-        Text("claimant_name", "full name of the policyholder"),
+        Name("claimant_name", "full name of the policyholder"),
         Date("incident_date", "the date the device was stolen or damaged"),
         Period("policy_period", "the policy start and end dates"),
         Date("claim_submitted", "the date the claim was submitted"),

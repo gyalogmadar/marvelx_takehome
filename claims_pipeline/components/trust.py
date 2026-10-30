@@ -6,12 +6,12 @@ the document itself, and facts whose observations disagree across documents.
 """
 from __future__ import annotations
 
-from claims_pipeline.domain import Document, Trust
+from claims_pipeline.domain import Reading, Trust
 
 from .facts import Facts
 
 
-def assess_trust(documents: list[Document], facts: Facts) -> None:
+def assess_trust(documents: list[Reading], facts: Facts) -> None:
     by_id = {d.id: d for d in documents}
     for doc in documents:
         if doc.kind in ("description", "metadata"):

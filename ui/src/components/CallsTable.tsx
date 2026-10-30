@@ -1,6 +1,6 @@
 import type { ModelCall } from '../types'
 
-export function CallsTable({ calls }: { calls: ModelCall[] }) {
+export function CallsTable({ calls, logHref }: { calls: ModelCall[]; logHref?: string }) {
   if (!calls.length) return null
   const byComponent = new Map<string, { calls: number; input: number; cache: number; output: number; cost: number; ms: number; errors: number; models: Set<string> }>()
   for (const c of calls) {
@@ -12,7 +12,9 @@ export function CallsTable({ calls }: { calls: ModelCall[] }) {
   const total = [...byComponent.values()].reduce((s, r) => s + r.cost, 0)
   return (
     <section className="panel">
-      <header className="panel-head"><h2>Model calls</h2><span className="muted small right">total ${total.toFixed(4)}</span></header>
+      <header className="panel-head"><h2>Model calls</h2>
+        {logHref && <a className="btn sm" href={logHref} target="_blank" rel="noreferrer" title="every request and response in full, with reasoning">full log</a>}
+        <span className="muted small right">total ${total.toFixed(4)}</span></header>
       <div className="panel-body tight">
         <table>
           <thead><tr><th>component</th><th>model</th><th className="num">calls</th><th className="num">input</th><th className="num">cached</th><th className="num">output</th><th className="num">cost</th><th className="num">ms</th></tr></thead>

@@ -140,6 +140,10 @@ tbody tr.clickable:hover td { background: var(--panel-2); }
 .unknowns { margin: 12px 0 0; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--uncertain-soft); color: var(--text); }
 .unknowns ul { margin: 6px 0 0 18px; padding: 0; }
 .unknowns li { margin: 3px 0; }
+.reviews { margin: 12px 0 0; padding: 12px 14px; border-radius: var(--radius-sm); background: var(--uncertain-soft); color: var(--text); border-left: 3px solid var(--uncertain, currentColor); }
+.reviews ul { margin: 6px 0 0 0; padding: 0; list-style: none; }
+.reviews li { margin: 5px 0; }
+.review-note { margin-top: 6px; padding: 6px 10px; border-radius: var(--radius-sm); background: var(--uncertain-soft); }
 .determ { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .determ a { font-family: var(--mono); font-size: 11.5px; padding: 2px 7px; border-radius: 6px; background: var(--panel-2); border: 1px solid var(--line); color: var(--muted); }
 

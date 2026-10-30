@@ -49,7 +49,7 @@ def test_parse_sends_schema_and_returns_typed_output():
     b = seen["body"]
     assert seen["url"].endswith("/v1/chat/completions") and seen["auth"] == "Bearer tok"
     assert b["model"] == "qwen-test" and b["temperature"] == 0.0
-    assert b["messages"][0] == {"role": "system", "content": "SYSTEM"}
+    assert b["messages"][0]["content"].startswith("SYSTEM\n\n# Reply format")
     assert b["messages"][1]["content"] == [{"type": "text", "text": "Q?"}]
     assert b["response_format"]["type"] == "json_schema"
     assert b["response_format"]["json_schema"]["name"] == "JudgmentOut"
@@ -111,3 +111,32 @@ def test_factory_and_pipeline_through_the_openai_client():
     assert {c.model for c in result.calls} == {"qwen-test"} and all(c.ok for c in result.calls)
     assert backend.name == "openai"
     assert isinstance(make_decomposed_backend(SETTINGS), AnthropicBackend)
+
+
+def test_images_reach_a_local_server_as_png_or_jpeg_whatever_their_extension():
+    import base64, io
+    from PIL import Image
+    from claims_pipeline.llm.anthropic_backend import image_block
+    from claims_pipeline.llm.images import sniff
+
+    def encoded(fmt):
+        buf = io.BytesIO(); Image.new("RGB", (8, 8), "white").save(buf, format=fmt); return buf.getvalue()
+
+    webp, jpeg = encoded("WEBP"), encoded("JPEG")
+    assert (sniff(webp), sniff(jpeg)) == ("image/webp", "image/jpeg")
+    # a real WebP is converted to PNG; a JPEG named .webp is sent as the JPEG it is
+    url = to_openai_content([image_block(webp, "image/webp")])[0]["image_url"]["url"]
+    assert url.startswith("data:image/png;base64,") and sniff(base64.b64decode(url.split(",", 1)[1])) == "image/png"
+    block = image_block(jpeg, "image/webp")
+    assert block["source"]["media_type"] == "image/jpeg"
+    assert to_openai_content([block])[0]["image_url"]["url"].startswith("data:image/jpeg;base64,")
+
+
+def test_judges_are_not_shown_our_trust_conclusions():
+    from claims_pipeline.domain import Reading, Trust
+    from claims_pipeline.llm.anthropic_backend import render_readings
+
+    doc = Reading(id="d1", filename="cert.md", kind="markdown", lines=["x"], trust=Trust.QUESTIONABLE,
+                   trust_reasons=["claimant_name disagrees with another document"], alteration_signs=["overwritten date"])
+    text = render_readings([doc])
+    assert "disagrees" not in text and "trust" not in text and "overwritten date" in text

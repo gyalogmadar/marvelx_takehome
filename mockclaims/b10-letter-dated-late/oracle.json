@@ -1,0 +1,127 @@
+{
+  "documents": {
+    "booking.md": {
+      "doc_type": "booking_confirmation",
+      "issuer": "SkyLine Travel"
+    },
+    "certificate.md": {
+      "doc_type": "medical_report",
+      "issuer": "CHU de Nantes"
+    }
+  },
+  "facts": {
+    "booking_value": [
+      {
+        "document": "booking.md",
+        "line": 8,
+        "quote": "Total paid: EUR 520.00",
+        "value": 520.0,
+        "confidence": 0.98
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking.md",
+        "line": 7,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.97
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Booked and paid on 2025-02-15",
+        "value": "2025-02-15",
+        "confidence": 0.95
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking.md",
+        "line": 9,
+        "quote": "Booked and paid on 2025-02-15",
+        "value": {
+          "start": "2025-02-15",
+          "end": "2025-04-12"
+        },
+        "confidence": 0.8
+      }
+    ],
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 2,
+        "quote": "Claire Petit. I was admitted to hospital with appendicitis on 2 April 2025 and could not take my flight to Rome on 4 April (return 12 April). Please refund the trip.",
+        "value": "Claire Petit",
+        "confidence": 0.99
+      }
+    ],
+    "claim_submitted": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Nantes, 30 May 2025",
+        "value": "2025-05-30",
+        "confidence": 0.85
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "certificate.md",
+        "line": 4,
+        "quote": "Admitted on 2025-04-02",
+        "value": "2025-04-02",
+        "confidence": 0.97
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 2,
+        "quote": "Claire Petit. I was admitted to hospital with appendicitis on 2 April 2025 and could not take my flight to Rome on 4 April (return 12 April). Please refund the trip.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "no",
+      "rationale": "The documents are consistent with each other and show no alteration signs.",
+      "confidence": 0.9
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "A medical emergency prevented the trip.",
+      "confidence": 0.9,
+      "document": "certificate.md",
+      "line": 5,
+      "quote": "Diagnosis: acute appendicitis"
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "The certificate fits the claimant, the reason and the date.",
+      "confidence": 0.9,
+      "document": "certificate.md",
+      "line": 3,
+      "quote": "Patient: Claire Petit"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

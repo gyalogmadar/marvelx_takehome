@@ -1,0 +1,135 @@
+{
+  "documents": {
+    "hospital-letter.md": {
+      "doc_type": "medical_report",
+      "issuer": "Hospital de Santa Maria"
+    },
+    "booking-photo.png": {
+      "doc_type": "booking_confirmation",
+      "issuer": "SkyLine Travel",
+      "alteration_signs": [
+        "the first digit of the total amount is in a different weight from the rest of the line"
+      ],
+      "lines": [
+        "Booking confirmation SL-40588",
+        "SkyLine Travel",
+        "Lead passenger: Ines Costa",
+        "Route: Lisbon - Athens",
+        "Outbound: 2025-03-12",
+        "Return: 2025-03-19",
+        "Passengers: 1",
+        "Total paid: EUR 2,780.00",
+        "Booked and paid on 2025-02-01"
+      ]
+    }
+  },
+  "facts": {
+    "claimant_name": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Ines Costa. Appendix surgery on 10 March 2025, I cancelled my trip to Athens on 12 March. Attached: hospital letter and a photo of my booking.",
+        "value": "Ines Costa",
+        "confidence": 0.99
+      }
+    ],
+    "incident_date": [
+      {
+        "document": "hospital-letter.md",
+        "line": 4,
+        "quote": "Admitted on 2025-03-10",
+        "value": "2025-03-10",
+        "confidence": 0.97
+      }
+    ],
+    "booking_value": [
+      {
+        "document": "booking-photo.png",
+        "line": 8,
+        "quote": "Total paid: EUR 2,780.00",
+        "value": 2780.0,
+        "confidence": 0.7
+      }
+    ],
+    "passengers": [
+      {
+        "document": "booking-photo.png",
+        "line": 7,
+        "quote": "Passengers: 1",
+        "value": 1,
+        "confidence": 0.9
+      }
+    ],
+    "purchase_date": [
+      {
+        "document": "booking-photo.png",
+        "line": 9,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": "2025-02-01",
+        "confidence": 0.9
+      }
+    ],
+    "policy_period": [
+      {
+        "document": "booking-photo.png",
+        "line": 9,
+        "quote": "Booked and paid on 2025-02-01",
+        "value": {
+          "start": "2025-02-01",
+          "end": "2025-03-19"
+        },
+        "confidence": 0.8
+      }
+    ],
+    "affected": [
+      {
+        "document": "description",
+        "line": 1,
+        "quote": "Ines Costa. Appendix surgery on 10 March 2025, I cancelled my trip to Athens on 12 March. Attached: hospital letter and a photo of my booking.",
+        "value": 1,
+        "confidence": 0.8
+      }
+    ]
+  },
+  "judgments": {
+    "prior_knowledge": {
+      "answer": "no",
+      "rationale": "Nothing indicates the claimant knew of the incident before purchase.",
+      "confidence": 0.9
+    },
+    "suspicious_documents": {
+      "answer": "yes",
+      "rationale": "The first digit of the booking total looks retyped.",
+      "confidence": 0.9,
+      "document": "booking-photo.png",
+      "line": 8,
+      "quote": "Total paid: EUR 2,780.00"
+    },
+    "cancellation_reason": {
+      "answer": "yes",
+      "rationale": "A medical emergency prevented the trip.",
+      "confidence": 0.9,
+      "document": "hospital-letter.md",
+      "line": 5,
+      "quote": "Diagnosis: appendicitis"
+    },
+    "cancellation_proof_fits": {
+      "answer": "yes",
+      "rationale": "The certificate fits the claimant, the reason and the date.",
+      "confidence": 0.9,
+      "document": "hospital-letter.md",
+      "line": 3,
+      "quote": "Patient: Ines Costa"
+    },
+    "effects_lost": {
+      "answer": "no",
+      "rationale": "No personal belongings are reported lost, stolen or damaged.",
+      "confidence": 0.9
+    },
+    "missed_departure": {
+      "answer": "no",
+      "rationale": "No missed departure or connection is described.",
+      "confidence": 0.9
+    }
+  }
+}

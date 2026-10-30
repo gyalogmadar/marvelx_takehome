@@ -6,7 +6,7 @@ export type Trust = 'trusted' | 'questionable' | 'untrusted'
 export type DocumentKind = 'description' | 'metadata' | 'markdown' | 'text' | 'image'
 export type CoverageStatus = 'eligible' | 'not_applicable' | 'ineligible' | 'unresolved'
 
-export interface Document {
+export interface Reading {
   id: string
   filename: string
   kind: DocumentKind
@@ -19,6 +19,8 @@ export interface Document {
   trust_reasons: string[]
   media_type: string | null
   summary: string | null
+  scores?: Record<string, Record<string, number>>  // independent scorer: per question, a probability per answer
+  review?: string | null  // the reader: something unexpected in the document; always sends the claim to a person
 }
 
 export interface Observation {
@@ -36,6 +38,8 @@ export interface Fact {
   confidence: number
   observations: Observation[]
   note: string | null
+  scores?: Record<string, number> | null  // independent scorer: yes / no / unknown; confidence is its "yes"
+  review?: string | null  // carried up from the extractor: ambiguous or inferred
 }
 
 export interface CheckResult {
@@ -48,6 +52,7 @@ export interface CheckResult {
   document_ids: string[]
   quote: string | null
   confidence: number
+  review?: string | null  // the judge: the evidence is there, the wording does not settle it
 }
 
 export interface CoverageResult {
@@ -71,12 +76,15 @@ export interface Decision {
   payout: number | null
   currency: string
   unknowns: string[]
+  reviews?: string[]  // why a person must look at this claim, and which component said so
   explanation: string | null
 }
 
 export interface ModelCall {
   component: string
   model: string
+  call_id?: string | null
+  reasoning_tokens?: number
   input_tokens: number
   output_tokens: number
   cache_read_tokens: number
@@ -89,13 +97,14 @@ export interface ModelCall {
 export interface ClaimResult {
   claim_id: string
   policy: string
-  strategy?: 'decomposed' | 'e2e'
+  strategy?: 'decomposed' | 'e2e' | 'clef'
   description: string
   submitted_at: string | null
   processed_at: string
-  documents: Document[]
+  readings: Reading[]  // each document as it was read in this run
   facts: Fact[]
   exclusions: CheckResult[]
+  red_flags?: CheckResult[]
   coverages: CoverageResult[]
   decision: Decision
   calls: ModelCall[]
@@ -149,6 +158,7 @@ export interface PolicyDescription {
     payout: string | null
   }[]
   exclusions: { id: string; description: string }[]
+  red_flags?: { id: string; description: string }[]
   text?: string
 }
 
