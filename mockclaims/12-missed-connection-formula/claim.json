@@ -1,5 +1,5 @@
 {
   "policy": "cfsr",
   "submitted_at": "2025-03-06",
-  "note": "Missed connection formula: 50% x 800 / 4 passengers x affected. Four missed the train, two were injured: 'affected' reads either way (400 or 200), so the extractor flags it and a person decides."
+  "note": "Missed connection formula: 50% x 800 / 4 passengers x affected. Four missed the train, two were injured: 'affected' reads either way (400 or 200), so the extractor flags it; the rules pay on the value read (400) and the flag is shown."
 }

@@ -13,6 +13,7 @@ from claims_pipeline.e2e import process_claim_e2e
 from claims_pipeline.llm.chat_backend import ChatBackend
 from claims_pipeline.settings import Settings
 from claims_pipeline.llm.openai_client import OpenAIClient
+from claims_pipeline.llm.scripted import ScriptedBackend
 from claims_pipeline.pipeline import process_claim
 from claims_pipeline.policies import get_policy
 from claims_pipeline.store import models as m
@@ -175,3 +176,27 @@ def test_one_place_decides_what_a_strategy_runs_on():
         strategy(Settings(backend="scripted"), "e2e")                  # the single-call strategy needs a real model
     with pytest.raises(ValueError):
         strategy(Settings(), "guess")
+
+
+def test_a_benchmark_can_be_pruned_and_nothing_else_goes(tmp_path, monkeypatch):
+    from sqlalchemy import func, select
+
+    from claims_pipeline.store.prune import prune
+
+    root = tmp_path / "mini"
+    shutil.copytree(ROOT / "01-clean-medical-cancellation", root / "01-clean-medical-cancellation")
+    url = f"sqlite:///{tmp_path / 'prune.db'}"
+    monkeypatch.setenv("CLAIMS_DATABASE_URL", url)
+    bench.run(root, tmp_path / "out", None, "scripted", True, "t")
+    sessions = open_sessions(url)
+    loaded = load_claim_dir(ROOT / "10-voluntary-change")                  # a submitted claim, kept
+    record_run(sessions, loaded.input, get_policy("cfsr"), Settings(backend="scripted"), strategy="decomposed",
+               backend="scripted", process=lambda: process_claim(
+                   loaded.input, get_policy("cfsr"), ScriptedBackend.from_file(loaded.oracle_path)))
+    with sessions() as s, s.begin():
+        counts = prune(s, "mini")
+    assert counts["run"] == 1 and counts["claim"] == 1 and counts["benchmark"] == 1
+    with sessions() as s:
+        assert [c.name for c in s.scalars(select(m.Claim))] == ["10-voluntary-change"]
+        assert s.scalar(select(func.count()).select_from(m.Reading)) > 0       # the kept run is whole
+        assert s.query(m.Benchmark).count() == 0 and s.query(m.Batch).count() == 0

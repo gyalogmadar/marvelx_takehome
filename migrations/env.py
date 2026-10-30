@@ -8,7 +8,7 @@ from logging.config import fileConfig
 
 from alembic import context
 
-from claims_pipeline.llm.config import Settings
+from claims_pipeline.settings import Settings
 from claims_pipeline.store.models import Base, Timestamp
 from claims_pipeline.store.repository import connect
 

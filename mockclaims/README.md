@@ -11,5 +11,5 @@ written differently on each document, certificates as WebP photos or as JPEGs na
 certificate for someone else, one altered digit, a letter dated late with no submission date,
 an unstated prior condition, a missed departure that is not a cancellation, a submission date
 found only in the intake system's `Current date is` stamp, a booking that says it was already
-refunded (the reader must flag what no rule looks for). Most come in pairs
+refunded (the reader must flag what no rule looks for; the flag is shown, the decision stands). Most come in pairs
 that differ in one detail, so the strategies can be compared claim by claim.

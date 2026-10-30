@@ -17,19 +17,14 @@ open red flag blocks an approval like an open exclusion does.
 Fail beats unknown beats pass, except that a coverage whose match question is
 unknown stays unresolved (see coverage.py).  Code decides; the model only reads.
 
-Review signals.  Every model component can say a person must look at something,
+Review signals.  Every model component can say a person should look at something,
 apart from its answer (``review`` on a reading, an observation, a judged check).
-Code carries them up and decides what they do:
-
-    a reading flagged (something unexpected     -> UNCERTAIN, always: the rules cannot
-      in a claimant's document)                    weigh what they were not written for
-    a flag on what the decision rests on        -> UNCERTAIN, naming who flagged what
-    a flag anywhere else                        -> shown, the decision stands
-
-What a decision rests on: an approval, on every exclusion and red flag and on each
-applied coverage's checks and payout facts; a denial, on its determining checks
-(and the match question of a coverage that could not pay); each check, on the facts
-it used.  The referral says what the rules alone would have decided.
+Code carries them up and attaches them to the decision; they never change it.
+Shown: every reading flag, and the judge and extraction flags on what the decision
+rests on.  An approval rests on every exclusion and red flag and on each applied
+coverage's checks and payout facts; a denial, on its determining checks (and the
+match question of a coverage that could not pay); each check, on the facts it used.
+An UNCERTAIN decision shows every flag.
 """
 from __future__ import annotations
 
@@ -68,7 +63,7 @@ class Policy:
 
     def _review(self, ruled: Decision, exclusions: list[CheckResult], coverages: list[CoverageResult], facts: Facts,
                 red_flags: list[CheckResult], readings: list[Reading]) -> Decision:
-        """Send the decision to a person when a component asked for one where it matters."""
+        """Attach the flags that bear on the decision; the decision itself stands."""
         checks = exclusions + red_flags + [x for c in coverages for x in (c.match, c.proofs, *c.checks)]
 
         def of_check(c: CheckResult) -> list[str]:
@@ -95,17 +90,7 @@ class Policy:
         flags += [f"extract_facts · {n}: {facts.get(n).review}" for n in sorted(payout_facts)
                   if facts.get(n) is not None and facts.get(n).review]
         flags = list(dict.fromkeys(flags))
-        if not flags:
-            return ruled
-        if ruled.outcome == Outcome.UNCERTAIN:
-            return ruled.model_copy(update={"reviews": flags})
-        would = ruled.outcome.value.lower() + (f" {ruled.payout:,.2f} {ruled.currency}" if ruled.payout is not None else "")
-        return Decision(
-            outcome=Outcome.UNCERTAIN, confidence=ruled.confidence,
-            summary=f"Referred for review: {_sentence(flags[0].split(': ', 1)[1])} Without this the rules would {would}.",
-            determining=ruled.determining, coverages_applied=ruled.coverages_applied, currency=self.currency,
-            unknowns=[f"The rules alone would {would}: {ruled.summary}"], reviews=flags,
-        )
+        return ruled.model_copy(update={"reviews": flags}) if flags else ruled
 
     def _rule(self, exclusions: list[CheckResult], coverages: list[CoverageResult], facts: Facts,
               red_flags: list[CheckResult]) -> Decision:

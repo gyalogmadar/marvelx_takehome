@@ -53,7 +53,7 @@ def metrics(rows: list[dict], results: dict[str, ClaimResult]) -> dict:
                                                            call.cache_read_tokens), 6)
             c["latency_ms"] += call.latency_ms
             c["errors"] += 0 if call.ok else 1
-    # the review signal: how often a component sent a claim to a person, and whether it should have gone
+    # the review signal: how often a component flagged a claim, and whether it was expected to be referred
     flagged = [r for r in rows if r["claim_id"] in results and results[r["claim_id"]].decision.reviews]
     reviews = {"claims": len(flagged), "rate": round(len(flagged) / len(rows), 3) if rows else None,
                "expected_uncertain": sum(r["expected"] == "UNCERTAIN" for r in flagged),
@@ -79,7 +79,7 @@ def markdown(rows: list[dict], results: dict[str, ClaimResult], m: dict, title: 
     out += [f"**Decisions:** {m['correct']} / {m['scored']} correct ({acc}).  "
             f"**Payouts:** {m['payout']['exact']} / {m['payout']['scored']} exact.  "
             f"**Model cost:** ${m['total_cost_usd']:.4f}.  "
-            f"**Sent to a person by a review flag:** {m['reviews']['claims']} "
+            f"**Carrying a review flag:** {m['reviews']['claims']} "
             f"({m['reviews']['expected_uncertain']} expected a referral, {m['reviews']['expected_other']} did not).", ""]
     out += ["## Confusion matrix (rows: expected, columns: actual)", "",
             "| expected \\ actual | " + " | ".join(OUTCOMES) + " |", "|---|" + "---|" * len(OUTCOMES)]

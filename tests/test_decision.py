@@ -109,35 +109,33 @@ def test_an_open_red_flag_blocks_approval_and_a_passing_one_does_not():
     assert clean.outcome == Outcome.APPROVE and clean.payout == 100.0
 
 
-# -- review signals: a person looks when a component says so where it matters ---------------
+# -- review signals: shown where they bear on the decision, never changing it --------------
 def flagged(id, verdict, why, facts_used=()):
     return check(id, verdict, "judged").model_copy(update={"review": why, "facts_used": list(facts_used)})
 
 
-def test_a_flagged_reading_always_goes_to_a_person_even_from_a_clean_denial():
+def test_a_flagged_reading_is_always_shown_and_the_denial_stands():
     letter = Reading(id="d1", filename="booking.md", kind="markdown", review="the trip was already refunded")
     d = POLICY.decide([check("late", Verdict.FAIL)], [coverage("c", "eligible", 100.0)], make_facts(), readings=[letter])
-    assert d.outcome == Outcome.UNCERTAIN and d.payout is None
+    assert d.outcome == Outcome.DENY and d.payout is None
     assert d.reviews == ["read_document · booking.md: the trip was already refunded"]
-    assert "Without this the rules would deny" in d.summary and d.unknowns[0].startswith("The rules alone would deny")
 
 
-def test_a_judge_flag_refers_only_when_the_decision_rests_on_it():
+def test_a_judge_flag_is_shown_only_when_the_decision_rests_on_it():
     deny_on_late = [check("late", Verdict.FAIL), flagged("prior", Verdict.PASS, "is a relapse 'known'?")]
     d = POLICY.decide(deny_on_late, [coverage("c", "eligible", 100.0)], make_facts())
     assert d.outcome == Outcome.DENY and d.reviews == []                       # the denial rests on 'late' alone
     approve = [check("late", Verdict.PASS), flagged("prior", Verdict.PASS, "is a relapse 'known'?")]
     d = POLICY.decide(approve, [coverage("c", "eligible", 100.0)], make_facts())
-    assert d.outcome == Outcome.UNCERTAIN and d.reviews == ["judge · prior: is a relapse 'known'?"]
-    assert "Without this the rules would approve 100.00 EUR" in d.summary
+    assert d.outcome == Outcome.APPROVE and d.payout == 100.0 and d.reviews == ["judge · prior: is a relapse 'known'?"]
 
 
-def test_a_flagged_fact_refers_the_checks_that_used_it():
+def test_a_flagged_fact_is_shown_on_the_checks_that_used_it():
     facts = make_facts(affected=[Observation(document_id="d1", line=1, quote="q", value=4, confidence=0.6,
                                              review="4 missed the train, 2 were injured")])
     approve = [check("late", Verdict.PASS).model_copy(update={"facts_used": ["affected"]})]
     d = POLICY.decide(approve, [coverage("c", "eligible", 100.0)], facts)
-    assert d.outcome == Outcome.UNCERTAIN and d.reviews == ["extract_facts · affected: 4 missed the train, 2 were injured"]
+    assert d.outcome == Outcome.APPROVE and d.reviews == ["extract_facts · affected: 4 missed the train, 2 were injured"]
 
 
 def test_an_uncertain_decision_lists_every_flag_for_the_person_who_gets_it():

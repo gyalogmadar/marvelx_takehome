@@ -27,13 +27,30 @@ its own workflow got 17 of 35, 21 once the decision-logic fixes were replayed ov
 The separation of concerns is brittle. The boundary between "the policy" and "the machinery" holds in
 the code, but it does not hold by itself: while iterating against failing cases, the coding agent
 repeatedly tried to hard-code rules for individual edge cases into the policy files. The current answer
-is the review signal (every model component can say "a person must look at this"), so cases the policy
-wording does not settle go to a human instead of into a new rule. Where that line belongs is a product
+is the review signal (every model component can say "a person should look at this"), so cases the policy
+wording does not settle are flagged instead of written into a new rule. The flags are shown, not acted on:
+letting them refer the claim sent almost every claim to UNCERTAIN. Where that line belongs is a product
 question, not a code question.
 
 Settling it needs more product knowledge: more than one real policy, and a closer look at how claim
 adjusters actually think and work (what they check first, what makes them refer, what they consider
 evidence). For a showcase it works.
+
+## Quick start
+
+```bash
+poetry install                                        # Python 3.11+, Poetry 2
+poetry run uvicorn claims_pipeline.api.app:app        # then open http://localhost:8000/ui/
+```
+
+The hand-in archive ships `data/pipeline.db` and the built UI (`ui/dist`), so this works with no model
+and no Node. Under *Benchmarks* are three recorded executions: the 36 mock claims answered from their
+oracle files (36/36), and the first blind runs of a local Qwen 27B over the 25 take-home claims,
+decomposed and end to end, from before the fixes described below. Every claim opens in the evidence
+view, down to the document lines and the full model calls. Without the archive's database, run the
+mock set to fill one: `poetry run python -m claims_pipeline.benchmark.run mockclaims --backend scripted`.
+
+`poetry run pytest` runs the tests offline. Pointing the pipeline at a real model is under *Setup*.
 
 ## Reading the code
 
@@ -258,10 +275,12 @@ from any judged check or observation to the `model_call` that produced it and it
 - Prompts are files (`claims_pipeline/prompts/`), stored by hash; each model call lists the versions it used.
   `tests/golden/prompts.json` pins every render, so a prompt change shows up as a reviewed diff
   (regenerate with `python -m tests.prompt_renders`).
-- A run can be replayed without a model from its recorded calls (`claims_pipeline/store/replay.py`): under
+- A run can be replayed without a model from its recorded calls (`claims_pipeline/replay.py`): under
   today's code that shows what a rule change does to past decisions.
 - The benchmark runner records each execution as a `batch` of runs (`--no-store` for files only).
-  Older `results/<run>/` folders import with `python -m claims_pipeline.store.importer results/*`.
+  Older `results/<run>/` folders import with `python -m claims_pipeline.benchmark.importer results/*`.
+- A whole benchmark can be dropped with `python -m claims_pipeline.store.prune <name> [--dry-run]` (its claims,
+  runs and calls; submitted claims are never touched), which also compacts the database.
 
 ## API
 
@@ -321,11 +340,11 @@ For each policy, in this order:
    the reader when a claimant's document holds something unexpected for its kind (a booking that says
    it was already refunded), the extractor when a value reads two ways or had to be inferred, the judge
    when the evidence is there but the wording does not settle the question. Code carries the flags up
-   the tree. A reader's flag always refers the claim; an extraction or judge flag refers it only when
-   the decision rests on what was flagged (an approval on everything that passed and its payout facts,
-   a denial on its determining checks). The referral names who flagged what and what the rules alone
-   would have decided. Edge cases the policy wording does not settle are left to these flags, not
-   written into the policy files.
+   the tree and attaches them to the decision, which stands: a reader's flag is always shown, an
+   extraction or judge flag only when the decision rests on what was flagged (an approval on everything
+   that passed and its payout facts, a denial on its determining checks). Letting the flags refer the
+   claim made almost every decision UNCERTAIN, so they inform the handler instead. Edge cases the policy
+   wording does not settle are left to these flags, not written into the policy files.
 
 ## Benchmark
 
